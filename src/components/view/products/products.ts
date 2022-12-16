@@ -10,7 +10,7 @@ export class Products {
         if (products.length > 0) {
             products.forEach((item: Product) => {
                 const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
-
+                (<HTMLElement>prodClone.querySelector('.card__brand')).textContent = item.brand;
                 (<HTMLElement>prodClone.querySelector('.card__title')).textContent = item.title;
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute(
                     'src',
