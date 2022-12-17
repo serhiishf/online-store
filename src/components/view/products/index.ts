@@ -1,1 +1,1 @@
-export { Products } from './products';
+export { drawProducts } from './products';
