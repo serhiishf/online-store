@@ -9,20 +9,40 @@
 
     <body>
         <header></header>
-        <main>
-            <ul class="products"></ul>
+        <main class="main">
+            <div class="main__thumb">
+                <ul class="products"></ul>
+            </div>
         </main>
         <footer></footer>
 
         <template id="product-item">
             <li class="products__item">
-                <div class="card">
-                    <h3 class="card__title"></h3>
-                    <img class="card__image" />
-                    <p class="card__desc"></p>
+                <a class="card" href="">
+                    <div class="card__header">
+                        <span class="card__brand"></span>
+                        <span class="card__title"></span>
+                    </div>
+
+                    <!-- TODO: slider for images -->
+                    <div class="card__img-thumb">
+                        <img class="card__image" />
+                    </div>
+
+                    <div class="card__desc-thumb">
+                        <p class="card__desc"></p>
+                    </div>
                     <p class="card__stock"></p>
-                    <p class="card__price"></p>
-                </div>
+
+                    <div class="card__footer">
+                        <p class="card__price"></p>
+                        <button class="card__btn-cart" type="button">
+                            <svg class="card__icon-cart">
+                                <use />
+                            </svg>
+                        </button>
+                    </div>
+                </a>
             </li>
         </template>
     </body>

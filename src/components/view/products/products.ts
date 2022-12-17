@@ -10,8 +10,8 @@ export class Products {
         if (products.length > 0) {
             products.forEach((item: Product) => {
                 const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
-
                 (<HTMLElement>prodClone.querySelector('.card__title')).textContent = item.title;
+                (<HTMLElement>prodClone.querySelector('.card__brand')).textContent = item.brand;
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute(
                     'src',
                     item.images[0] || './assets/img/default-image.png'
@@ -20,7 +20,9 @@ export class Products {
                 (<HTMLElement>prodClone.querySelector('.card__desc')).textContent = item.description;
                 (<HTMLElement>prodClone.querySelector('.card__stock')).textContent = `In stock: ${item.stock}`;
                 (<HTMLElement>prodClone.querySelector('.card__price')).textContent = `${item.price} $`;
-
+                (<HTMLElement>(
+                    (<HTMLElement>prodClone.querySelector('.card__icon-cart')).firstElementChild
+                )).setAttribute('href', './assets/icons/sprite.svg#to-cart');
                 fragment.append(prodClone);
             });
 

@@ -1,0 +1,10 @@
+.body {
+    color: $text-main-color;
+    font-weight: 400;
+}
+
+.main {
+    &__thumb {
+        @extend %main-container;
+    }
+}

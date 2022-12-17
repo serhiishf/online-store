@@ -1,2 +1,4 @@
-@use "global";
-
+@import './base/index';
+@import './abstracts/index';
+@import './global';
+@import './components/index';
