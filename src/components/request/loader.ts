@@ -1,34 +1,51 @@
 import { Product } from '../../types/index';
-
-interface JsonProducts {
-    products: Product[];
-    total: number;
-    skip: number;
-    limit: number;
-}
+import { Callback, JsonProducts, UrlApi } from '../../types/Loader';
 
 export class Loader {
-    private rawArr: Product[] = [];
-    onStorageUpdated: (data: Product[]) => void;
-    url: string;
+    rawArr: Product[] = [];
+    onStorageUpdated: Callback<Product[]>;
+    urlApi: UrlApi;
+    flag = false;
 
-    constructor(url: string, callback: (data: Product[]) => void) {
+    constructor(url: UrlApi, callback: Callback<Product[]>) {
         this.onStorageUpdated = callback;
-        this.url = url;
+        this.urlApi = url;
     }
 
     async loadGoods() {
-       await fetch(`${this.url}`)
+        await fetch(`${this.urlApi.base}${this.urlApi.goods}`)
+            .then(this.errorHandler)
             .then((responce) => responce.json())
             .then((data: JsonProducts) => {
                 this.rawArr = data.products;
+                this.flag = true;
             });
     }
-    
+
     async callOnStrorageUpdated() {
-        console.log('async callOnStrorageUpdated method work');
         await this.loadGoods();
         this.onStorageUpdated(this.rawArr);
     }
 
+    errorHandler(res: Response) {
+        if (!res.ok) {
+            if (res.status === 401 || res.status === 404)
+                console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
+            throw Error(res.statusText);
+        }
+        return res;
+    }
+
+    get categories() {
+        this.checkFlag();
+        //TODO: finish this method
+        return [];
+    }
+
+    checkFlag() {
+        if (!this.flag) {
+            console.log('Data hasn`t yet been recieved from the server');
+            throw new Error('Data hasn`t yet been recieved from the server');
+        }
+    }
 }
