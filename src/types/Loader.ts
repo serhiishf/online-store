@@ -16,6 +16,13 @@ export interface UrlApi {
 }
 
 export enum FiltersType {
-  category = 'category',
-  brand = 'brand',
+    category = 'category',
+    brand = 'brand',
+    price = 'price',
+    stock = 'stock',
+}
+
+export type MaxMin = {
+  max: number;
+  min: number;
 }

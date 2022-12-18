@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { Callback, JsonProducts, UrlApi, FiltersType } from '../../types/Loader';
+import { Callback, JsonProducts, UrlApi, FiltersType, MaxMin } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -13,6 +13,7 @@ export class Loader {
     }
 
     async loadGoods() {
+        this.flag = false;
         await fetch(`${this.urlApi.base}${this.urlApi.goods}`)
             .then(this.errorHandler)
             .then((responce) => responce.json())
@@ -37,16 +38,39 @@ export class Loader {
         return res;
     }
 
-    getList(filtersType: FiltersType) {
+    getList(goods: Product[], filtersType: FiltersType) {
         this.checkFlag();
-        console.log(Array.from(new Set(this.rawArr.map((elem) => elem[filtersType]))));
-        return Array.from(new Set(this.rawArr.map((elem) => elem[filtersType])));
+        return Array.from(new Set(goods.map((elem) => elem[filtersType])));
     }
 
     checkFlag() {
         if (!this.flag) {
             console.log('Data hasn`t yet been recieved from the server');
             throw new Error('Data hasn`t yet been recieved from the server');
+        }
+    }
+
+    getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock) {
+        this.checkFlag();
+        const result: MaxMin = {
+            max: 0,
+            min: 0,
+        };
+        result.max = Math.max(...(this.getList(goods, filtersType) as number[]));
+        result.min = Math.min(...(this.getList(goods, filtersType) as number[]));
+        return result;
+    }
+
+    get rawData() {
+        this.checkFlag();
+        return this.rawArr;
+    }
+
+    filterData(goods: Product[], filterType: FiltersType, param: string | MaxMin) {
+        if (typeof param === 'string') {
+            return goods.filter((elem) => elem[filterType] === param);
+        } else {
+            return goods.filter((elem) => elem[filterType] >= param.min && elem[filterType] <= param.max);
         }
     }
 }
