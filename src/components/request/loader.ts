@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { Callback, JsonProducts, UrlApi } from '../../types/Loader';
+import { Callback, JsonProducts, UrlApi, FiltersType } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -19,6 +19,7 @@ export class Loader {
             .then((data: JsonProducts) => {
                 this.rawArr = data.products;
                 this.flag = true;
+                console.log(this.rawArr);
             });
     }
 
@@ -36,10 +37,10 @@ export class Loader {
         return res;
     }
 
-    get categories() {
+    getList(filtersType: FiltersType) {
         this.checkFlag();
-        //TODO: finish this method
-        return [];
+        console.log(Array.from(new Set(this.rawArr.map((elem) => elem[filtersType]))));
+        return Array.from(new Set(this.rawArr.map((elem) => elem[filtersType])));
     }
 
     checkFlag() {

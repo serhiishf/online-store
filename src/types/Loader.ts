@@ -14,3 +14,8 @@ export interface UrlApi {
     goods: string;
     categories: string;
 }
+
+export enum FiltersType {
+  category = 'category',
+  brand = 'brand',
+}
