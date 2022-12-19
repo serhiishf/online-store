@@ -58,4 +58,12 @@ export class Loader {
         result.min = Math.min(...(this.getList(goods, filtersType) as number[]));
         return result;
     }
+    
+    filterData(goods: Product[], filterType: FiltersType, param: string | MaxMin) {
+      if (typeof param === 'string') {
+          return goods.filter((elem) => elem[filterType] === param);
+      } else {
+          return goods.filter((elem) => elem[filterType] >= param.min && elem[filterType] <= param.max);
+      }
+  }
 }
