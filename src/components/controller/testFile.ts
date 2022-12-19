@@ -24,6 +24,6 @@ export async function testFunction() {
     console.log(test.getMaxMin(arr, FiltersType.stock));
 
     //filter raw arr
-    console.log(test.filterData(arr, FiltersType.category, 'smartphones'));
-    console.log(test.filterData(arr, FiltersType.price, { max: 125, min: 12 }));
+    console.log(test.getFilterData(arr, FiltersType.category, 'smartphones'));
+    console.log(test.getFilterData(arr, FiltersType.price, { max: 125, min: 12 }));
 }

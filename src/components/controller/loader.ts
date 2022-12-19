@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { UrlApi, JsonProducts, FiltersType, MaxMin } from '../../types/Loader';
+import { UrlApi, JsonProducts, FiltersType, MaxMin, } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -58,12 +58,18 @@ export class Loader {
         result.min = Math.min(...(this.getList(goods, filtersType) as number[]));
         return result;
     }
-    
-    filterData(goods: Product[], filterType: FiltersType, param: string | MaxMin) {
-      if (typeof param === 'string') {
-          return goods.filter((elem) => elem[filterType] === param);
-      } else {
-          return goods.filter((elem) => elem[filterType] >= param.min && elem[filterType] <= param.max);
-      }
-  }
+
+    getFilterData(goods: Product[], filterType: FiltersType, param: string | MaxMin) {
+        if (typeof param === 'string') {
+            return goods.filter((elem) => elem[filterType] === param);
+        } else {
+            return goods.filter((elem) => elem[filterType] >= param.min && elem[filterType] <= param.max);
+        }
+    }
+
+    /*     getAllFiltersData(goods: Product[], data: FilterCollection[] ){
+      const result: Product[] = data.forEach(elem => {
+        
+      })
+    } */
 }
