@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { UrlApi, JsonProducts } from '../../types/Loader';
+import { UrlApi, JsonProducts, FiltersType, MaxMin } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -21,7 +21,7 @@ export class Loader {
                 console.log(this.rawArr);
             });
     }
-    
+
     errorHandler(res: Response) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
@@ -29,5 +29,33 @@ export class Loader {
             throw Error(res.statusText);
         }
         return res;
+    }
+
+    checkFlag() {
+        if (!this.flag) {
+            console.log('Data hasn`t yet been recieved from the server');
+            throw new Error('Data hasn`t yet been recieved from the server');
+        }
+    }
+
+    get rawData() {
+        this.checkFlag();
+        return this.rawArr;
+    }
+
+    getList(goods: Product[], filtersType: FiltersType) {
+        this.checkFlag();
+        return Array.from(new Set(goods.map((elem) => elem[filtersType])));
+    }
+
+    getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock) {
+        this.checkFlag();
+        const result: MaxMin = {
+            max: 0,
+            min: 0,
+        };
+        result.max = Math.max(...(this.getList(goods, filtersType) as number[]));
+        result.min = Math.min(...(this.getList(goods, filtersType) as number[]));
+        return result;
     }
 }

@@ -12,3 +12,15 @@ export interface JsonProducts {
   skip: number;
   limit: number;
 }
+
+export enum FiltersType {
+  category = 'category',
+  brand = 'brand',
+  price = 'price',
+  stock = 'stock',
+}
+
+export type MaxMin = {
+  max: number;
+  min: number;
+}
