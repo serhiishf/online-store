@@ -8,7 +8,33 @@
     </head>
 
     <body>
-        <header></header>
+        <header class="header">
+            <div class="header__container">
+                <div class="header__top">
+                    <div>
+                        <a class="header__link header__link--phone" href="tel:123456789">123456789</a>
+                        <a class="header__link header__link--mail" href="mailto:example@mail.com">example@mail.com</a>
+                    </div>
+                    <div>
+                        <a class="header__link header__link--location" href="https://goo.gl/maps/ScdNtFsfG3qBBmxv5"
+                            >Store location</a
+                        >
+                        <button class="header__link header__link--sign-in" type="button">Sign In</button>
+                    </div>
+                </div>
+                <div class="header__bottom">
+                    <a class="header__loge" href="index.html">Online Store</a>
+                    <div class="header__price-box">
+                        <span class="header__price-txt">Cart total: </span>
+                        <span class="header__price"></span>
+                    </div>
+                    <div class="cart">
+                        <img class="cart__image" src="./assets/icons/cart.svg" alt="cart" />
+                        <div class="cart__count"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
         <main class="main">
             <div class="main__thumb">
                 <ul class="products"></ul>
