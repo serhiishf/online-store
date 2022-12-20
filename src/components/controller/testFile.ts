@@ -1,7 +1,7 @@
 //----Test File
 import { Loader } from './loader';
 //import { Products } from '../view/products/products';
-import { FiltersType } from '../../types/Loader';
+import { FiltersType, FilterCollection } from '../../types/Loader';
 enum Url {
     base = 'https://dummyjson.com',
     goods = '/products?limit=100',
@@ -24,6 +24,9 @@ export async function testFunction() {
     console.log(test.getMaxMin(arr, FiltersType.stock));
 
     //filter raw arr
-    console.log(test.filterData(arr, FiltersType.category, 'smartphones'));
-    console.log(test.filterData(arr, FiltersType.price, { max: 125, min: 12 }));
+    console.log(test.getFilterData(arr, FiltersType.category, 'smartphones'));
+    console.log(test.getFilterData(arr, FiltersType.price, { max: 125, min: 12 }));
+
+    //faceted filter 
+    console.log(test.facetedFilter(arr, [{type: FiltersType.category, keys: ['smartphones', 'fragrances']}, {type: FiltersType.brand, keys: ['OPPO', 'Apple']}, {type: FiltersType.price, keys: {max: 800, min: 150}}]))
 }
