@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { UrlApi, JsonProducts, FiltersType, MaxMin, FilterCollection } from '../../types/Loader';
+import { UrlApi, JsonProducts, FiltersType, MaxMin, FilterCollection, SortDirection } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -47,7 +47,7 @@ export class Loader {
         return Array.from(new Set(goods.map((elem) => elem[filtersType])));
     }
 
-    getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock) {
+    getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock | FiltersType.rating) {
         const result: MaxMin = {
             max: 0,
             min: 0,
@@ -65,22 +65,41 @@ export class Loader {
         }
     }
 
-    facetedFilter(goods: Product[], data: FilterCollection[] ){
+    facetedFilter(goods: Product[], data: FilterCollection[]) {
         let result: Product[] = goods;
-        data.forEach(elem => {
+        data.forEach((elem) => {
             let accum: Product[] = [];
-            if(Array.isArray(elem.keys)){
-                elem.keys.forEach((key)=> {
+            if (Array.isArray(elem.keys)) {
+                elem.keys.forEach((key) => {
                     const tempArr = this.getFilterData(result, elem.type, key);
-                    accum = [...accum, ...tempArr]
-                })
+                    accum = [...accum, ...tempArr];
+                });
             } else {
-            const tempArr = this.getFilterData(result, elem.type, elem.keys);
-            accum = [...accum, ...tempArr]
+                const tempArr = this.getFilterData(result, elem.type, elem.keys);
+                accum = [...accum, ...tempArr];
             }
             result = accum;
-        })
-        return result
+        });
+        return result;
     }
 
+    sortData(goods: Product[], sortType: FiltersType, direction: SortDirection) {
+        return goods.sort((a, b) => {
+            if (a[sortType] > b[sortType]) {
+                if (direction === SortDirection.up) {
+                    return 1;
+                } else if (direction === SortDirection.down) {
+                    return -1;
+                }
+            }
+            if (a[sortType] < b[sortType]) {
+                if (direction === SortDirection.up) {
+                    return -1;
+                } else if (direction === SortDirection.down) {
+                    return 1;
+                }
+            }
+            return 0;
+        });
+    }
 }
