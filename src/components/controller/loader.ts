@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { UrlApi, JsonProducts, FiltersType, MaxMin, } from '../../types/Loader';
+import { UrlApi, JsonProducts, FiltersType, MaxMin, FilterCollection } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -67,9 +67,22 @@ export class Loader {
         }
     }
 
-    /*     getAllFiltersData(goods: Product[], data: FilterCollection[] ){
-      const result: Product[] = data.forEach(elem => {
-        
-      })
-    } */
+    facetedFilter(goods: Product[], data: FilterCollection[] ){
+        let result: Product[] = goods;
+        data.forEach(elem => {
+            let accum: Product[] = [];
+            if(Array.isArray(elem.keys)){
+                elem.keys.forEach((key)=> {
+                    const tempArr = this.getFilterData(result, elem.type, key);
+                    accum = [...accum, ...tempArr]
+                })
+            } else {
+            const tempArr = this.getFilterData(result, elem.type, elem.keys);
+            accum = [...accum, ...tempArr]
+            }
+            result = accum;
+        })
+        return result
+    }
+
 }

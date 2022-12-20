@@ -27,5 +27,5 @@ export type MaxMin = {
 
 export interface FilterCollection {
     type: FiltersType;
-    keys: string[];
+    keys: string[] | MaxMin;
 }
