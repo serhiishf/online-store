@@ -44,12 +44,10 @@ export class Loader {
     }
 
     getList(goods: Product[], filtersType: FiltersType) {
-        this.checkFlag();
         return Array.from(new Set(goods.map((elem) => elem[filtersType])));
     }
 
     getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock) {
-        this.checkFlag();
         const result: MaxMin = {
             max: 0,
             min: 0,
