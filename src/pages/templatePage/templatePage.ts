@@ -7,10 +7,10 @@ abstract class TemplatePage {
         this.container.id = id;
     }
 
-    protected createPageHTML(text: string) {
-        const title = document.createElement('h1');
-        title.innerText = text;
-        return title;
+    protected createPageHTML(className: string): HTMLDivElement {
+        const thumb: HTMLDivElement = document.createElement('div');
+        thumb.classList.add(className);
+        return thumb;
     }
 
     render() {

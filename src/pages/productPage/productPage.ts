@@ -1,17 +1,19 @@
 import TemplatePage from '../templatePage';
 
 class ProductPage extends TemplatePage {
-    static TextObj = {
-        mainTitle: 'Product Page',
+    static TextObject = {
+        prodThumb: 'product__thumb',
+        //names of classes, text contents
     };
 
     constructor(id: string) {
         super(id);
     }
 
-    render() {
-        const title = this.createPageHTML(ProductPage.TextObj.mainTitle);
-        this.container.append(title);
+    render(): HTMLElement {
+        const thumb = this.createPageHTML(ProductPage.TextObject.prodThumb);
+        //TODO: create and input here method to render page of product
+        this.container.append(thumb);
         return this.container;
     }
 }
