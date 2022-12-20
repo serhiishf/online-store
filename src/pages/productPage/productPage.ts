@@ -12,6 +12,9 @@ class ProductPage extends TemplatePage {
 
     render(): HTMLElement {
         const thumb = this.createPageHTML(ProductPage.TextObject.prodThumb);
+        const title = document.createElement('h1');
+        title.textContent = 'Product page!';
+        thumb.append(title);
         //TODO: create and input here method to render page of product
         this.container.append(thumb);
         return this.container;

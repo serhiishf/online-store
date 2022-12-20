@@ -9,11 +9,11 @@ const enum PageIds {
 
 class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
-    private initialPage: MainPage;
+    // private initialPage: MainPage;
 
-    constructor() {
-        this.initialPage = new MainPage('main-page');
-    }
+    // constructor() {
+    //     this.initialPage = new MainPage('main-page');
+    // }
 
     static renderNewPage(idPage: string) {
         App.container.innerHTML = '';
