@@ -1,3 +1,5 @@
+import { ErrorTypes } from '../../types';
+import ErrorPage from '../errorPage';
 import MainPage from '../mainPage';
 import ProductPage from '../productPage';
 import TemplatePage from '../templatePage/templatePage';
@@ -5,15 +7,11 @@ import TemplatePage from '../templatePage/templatePage';
 const enum PageIds {
     MainPage = 'main-page',
     ProductPage = 'product-page',
+    ErrorPage = 'error-page',
 }
 
 class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
-    // private initialPage: MainPage;
-
-    // constructor() {
-    //     this.initialPage = new MainPage('main-page');
-    // }
 
     static renderNewPage(idPage: string) {
         App.container.innerHTML = '';
@@ -23,6 +21,8 @@ class App {
             page = new MainPage(idPage);
         } else if (idPage === PageIds.ProductPage) {
             page = new ProductPage(idPage);
+        } else {
+            page = new ErrorPage(PageIds.ErrorPage, ErrorTypes.Error_404);
         }
 
         if (page) {

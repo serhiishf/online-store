@@ -1,6 +1,6 @@
 abstract class TemplatePage {
     protected container: HTMLElement;
-    static TextObject = {};
+    static textObject = {};
 
     constructor(id: string) {
         this.container = document.createElement('div');

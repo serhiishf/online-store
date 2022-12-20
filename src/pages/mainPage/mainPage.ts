@@ -13,7 +13,7 @@ class MainPage extends TemplatePage {
     loader: Loader;
     view: Products;
 
-    static TextObject = {
+    static textObject = {
         mainThumb: 'main__thumb',
     };
 
@@ -29,7 +29,7 @@ class MainPage extends TemplatePage {
     }
 
     render() {
-        const thumb = this.createPageHTML(MainPage.TextObject.mainThumb);
+        const thumb = this.createPageHTML(MainPage.textObject.mainThumb);
 
         this.createProductsCards().then((list) => thumb.append(list));
 
