@@ -1,0 +1,20 @@
+.cart {
+    position: relative;
+    &__image {
+    }
+    &__count {
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+        z-index: 1;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        background-color: $active-color;
+        border-radius: 50%;
+    }
+}
