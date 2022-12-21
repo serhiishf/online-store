@@ -16,10 +16,11 @@
     transition: all $transition;
     cursor: pointer;
 
-    &:hover,
+    &:hover {
+        box-shadow: $box-shadow-active;
+    }
     &:focus {
         outline: solid 1px $active-color;
-        box-shadow: $box-shadow-active;
     }
 
     &__header {

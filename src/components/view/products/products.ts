@@ -1,11 +1,17 @@
 import { Product } from '../../../types';
 
 export class Products {
-    public draw(data: Product[] | []): void {
+    protected productsList: HTMLElement;
+
+    constructor() {
+        this.productsList = <HTMLElement>document.createElement('ul');
+        this.productsList.classList.add('products');
+    }
+
+    public draw(data: Product[] | []): HTMLElement {
         const products = [...data]; // here we can filter data if we need it;
         const fragment = <DocumentFragment>document.createDocumentFragment();
         const productItemTemp = <HTMLTemplateElement>document.querySelector('#product-item');
-        const productsList = <HTMLElement>document.querySelector('.products');
 
         if (products.length > 0) {
             products.forEach((item: Product) => {
@@ -26,13 +32,15 @@ export class Products {
                 fragment.append(prodClone);
             });
 
-            productsList.innerHTML = '';
-            productsList.appendChild(fragment);
+            this.productsList.innerHTML = '';
+            this.productsList.appendChild(fragment);
         } else {
             const p: HTMLParagraphElement = document.createElement('p');
             p.textContent = 'No results';
-            productsList.innerHTML = '';
-            productsList.after(p);
+            this.productsList.innerHTML = '';
+            this.productsList.after(p);
         }
+
+        return this.productsList;
     }
 }
