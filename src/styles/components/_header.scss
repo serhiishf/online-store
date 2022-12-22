@@ -1,0 +1,51 @@
+.header {
+    color: $text-second-color;
+    &__container {
+        @extend %main-container;
+    }
+    &__top,
+    &__bottom,
+    &__link-thumb {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    &__top {
+        border-bottom: 1px solid $border-color;
+    }
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        &::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+
+    &__link--phone {
+        &::before {
+            background-image: url('../assets/icons/phone.svg');
+        }
+    }
+    &__link--mail {
+        &::before {
+            background-image: url('../assets/icons/email.svg');
+        }
+    }
+    &__link--location {
+        &::before {
+            background-image: url('../assets/icons/location.svg');
+        }
+    }
+    &__link--sign-in {
+        @extend %btn;
+        &::before {
+            background-image: url('../assets/icons/sign-in.svg');
+        }
+    }
+}

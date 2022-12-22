@@ -1,8 +1,8 @@
 import './styles/index.scss';
-
-//----Test code
-/* 
-import { testFunction } from './components/controller/testFile';
-testFunction(); 
-*/
-//-------------
+import App from './pages/app';
+//----Test code----------
+// import { testFunction } from './components/controller/testFile';
+// testFunction();
+//-----------------------
+const app = new App();
+app.run();
