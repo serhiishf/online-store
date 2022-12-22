@@ -4,25 +4,49 @@ import MainPage from '../mainPage';
 import ProductPage from '../productPage';
 import TemplatePage from '../templatePage/templatePage';
 
-const enum PageIds {
-    MainPage = 'main-page',
-    ProductPage = 'product-page',
-    ErrorPage = 'error-page',
+const enum PagePath {
+    MainPage = '/',
+    ProductPage = '/product',
+    ErrorPage = '/error',
 }
+//===============================
+export const parseRequestUrl = () => {
+    // Convert location hash into an url.
+    const path = location.hash.slice(2).toLowerCase() || '/';
+    const params = path.split('/');
 
+    // Build request variable.
+    const request = {
+        page: params[0] || null,
+        id: params[1] || null,
+    };
+    return request;
+};
+//==================
 class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
 
-    static renderNewPage(idPage: string) {
+    constructor() {
+        window.addEventListener('hashchange', this.router);
+        window.addEventListener('load', this.router);
+    }
+
+    router() {
+        const { page, id } = parseRequestUrl();
+        const path = (page ? '/' + page : '/') + (id ? '/:id' : '');
+        App.renderNewPage(path);
+    }
+
+    static renderNewPage(pageHash: string): void {
         App.container.innerHTML = '';
         let page: TemplatePage | null = null;
 
-        if (idPage === PageIds.MainPage) {
-            page = new MainPage(idPage);
-        } else if (idPage === PageIds.ProductPage) {
-            page = new ProductPage(idPage);
+        if (pageHash === PagePath.MainPage) {
+            page = new MainPage(pageHash);
+        } else if (pageHash === PagePath.ProductPage) {
+            page = new ProductPage(pageHash);
         } else {
-            page = new ErrorPage(PageIds.ErrorPage, ErrorTypes.Error_404);
+            page = new ErrorPage(PagePath.ErrorPage, ErrorTypes.Error_404);
         }
 
         if (page) {
@@ -31,16 +55,8 @@ class App {
         }
     }
 
-    private enableRouteChange() {
-        window.addEventListener('hashchange', () => {
-            const hash = window.location.hash.slice(1);
-            App.renderNewPage(hash);
-        });
-    }
-
     run() {
-        App.renderNewPage('main-page');
-        this.enableRouteChange();
+        this.router();
     }
 }
 

@@ -5,7 +5,7 @@ import { Products } from '../../components/view/products';
 //test URL:    (later will be class to parse info from URL string)
 enum Url {
     base = 'https://dummyjson.com',
-    goods = '/products?limit=100',
+    goods = '/products?limit=10',
     categories = '/products/categories',
 }
 
