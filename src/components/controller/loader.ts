@@ -102,4 +102,22 @@ export class Loader {
             return 0;
         });
     }
+
+    getSearchedData(goods: Product[], keys: string[]) {
+        let result: Product[] = goods;
+        keys.forEach((key) => {
+            const accum: Product[] = [];
+            const keyNormalize = key.toString().toLowerCase();
+            const regExp = new RegExp(`${keyNormalize}`)
+            result.forEach((item) => {
+                for (const prop in item) {
+                    if (regExp.test(item[prop as keyof Product].toString().toLowerCase())) {
+                        return accum.push(item);
+                    }
+                }
+            });
+            result = accum;
+        });
+        return result;
+    }
 }

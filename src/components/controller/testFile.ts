@@ -14,7 +14,7 @@ export async function testFunction() {
 
     //get raw data
     const arr = test.rawData;
-
+    
     //get arr with category and brands (this data we can use for render filters)
     //console.log(test.getList(arr, FiltersType.category));
     //console.log(test.getList(arr, FiltersType.brand));
@@ -32,4 +32,7 @@ export async function testFunction() {
 
     //sort data
     //console.log(test.sortData(arr, FiltersType.title, SortDirection.down))
+
+    //search data
+    //console.log(test.getSearchedData(arr, ['ap', '8', '23']))
 }
