@@ -1,4 +1,5 @@
-import { ErrorTypes } from '../../types';
+import { parseRequestUrl } from '../../components/controller/parseRequestUrl';
+import { ErrorTypes, UrlParams } from '../../types';
 import ErrorPage from '../errorPage';
 import MainPage from '../mainPage';
 import ProductPage from '../productPage';
@@ -9,20 +10,7 @@ const enum PagePath {
     ProductPage = '/product',
     ErrorPage = '/error',
 }
-//===============================
-export const parseRequestUrl = () => {
-    // Convert location hash into an url.
-    const path = location.hash.slice(2).toLowerCase() || '/';
-    const params = path.split('/');
 
-    // Build request variable.
-    const request = {
-        page: params[0] || null,
-        id: params[1] || null,
-    };
-    return request;
-};
-//==================
 class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
 
@@ -32,19 +20,17 @@ class App {
     }
 
     router() {
-        const { page, id } = parseRequestUrl();
-        const path = (page ? '/' + page : '/') + (id ? '/:id' : '');
-        App.renderNewPage(path);
+        App.renderNewPage(parseRequestUrl());
     }
 
-    static renderNewPage(pageHash: string): void {
+    static renderNewPage(params: UrlParams): void {
         App.container.innerHTML = '';
         let page: TemplatePage | null = null;
 
-        if (pageHash === PagePath.MainPage) {
-            page = new MainPage(pageHash);
-        } else if (pageHash === PagePath.ProductPage) {
-            page = new ProductPage(pageHash);
+        if (params.page === PagePath.MainPage) {
+            page = new MainPage(params.page);
+        } else if (params.page === PagePath.ProductPage) {
+            page = new ProductPage(params.page, params.id);
         } else {
             page = new ErrorPage(PagePath.ErrorPage, ErrorTypes.Error_404);
         }
