@@ -2,9 +2,9 @@ abstract class TemplatePage {
     protected container: HTMLElement;
     static textObject = {};
 
-    constructor(id: string) {
+    constructor(pageName: string) {
         this.container = document.createElement('div');
-        this.container.id = id;
+        this.container.classList.add(pageName.slice(1) || 'main');
     }
 
     protected createPageHTML(className: string): HTMLDivElement {

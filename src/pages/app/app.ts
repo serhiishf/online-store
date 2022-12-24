@@ -1,15 +1,9 @@
 import { parseRequestUrl } from '../../components/controller/parseRequestUrl';
-import { ErrorTypes, UrlParams } from '../../types';
+import { ErrorTypes, PagePath, UrlParams } from '../../types';
 import ErrorPage from '../errorPage';
 import MainPage from '../mainPage';
 import ProductPage from '../productPage';
 import TemplatePage from '../templatePage/templatePage';
-
-const enum PagePath {
-    MainPage = '/',
-    ProductPage = '/product',
-    ErrorPage = '/error',
-}
 
 class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
