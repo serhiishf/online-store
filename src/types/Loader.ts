@@ -18,6 +18,8 @@ export enum FiltersType {
     brand = 'brand',
     price = 'price',
     stock = 'stock',
+    rating = 'rating',
+    title = 'title',
 }
 
 export type MaxMin = {
@@ -28,4 +30,9 @@ export type MaxMin = {
 export interface FilterCollection {
     type: FiltersType;
     keys: string[] | MaxMin;
+}
+
+export enum SortDirection {
+    up,
+    down,
 }
