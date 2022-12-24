@@ -28,7 +28,7 @@ class MainPage extends TemplatePage {
         return this.view.draw(this.loader.rawData);
     }
 
-    render() {
+    async render() {
         const thumb = this.createPageHTML(MainPage.textObject.mainThumb);
 
         this.createProductsCards().then((list) => thumb.append(list));

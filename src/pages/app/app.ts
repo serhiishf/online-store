@@ -17,9 +17,9 @@ class App {
         App.renderNewPage(parseRequestUrl());
     }
 
-    static renderNewPage(params: UrlParams): void {
+    static async renderNewPage(params: UrlParams): Promise<void> {
         App.container.innerHTML = '';
-        let page: TemplatePage | null = null;
+        let page: MainPage | ProductPage | ErrorPage;
 
         if (params.page === PagePath.MainPage) {
             page = new MainPage(params.page);
@@ -30,7 +30,7 @@ class App {
         }
 
         if (page) {
-            const pageHTML = page.render();
+            const pageHTML = await page.render();
             App.container.append(pageHTML);
         }
     }
