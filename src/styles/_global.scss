@@ -3,11 +3,13 @@ body {
     color: $text-main-color;
     font-weight: 400;
     font-size: 14px;
-    line-height: 140%;
+    line-height: 120%;
     font-family: Roboto;
 }
 
 .main {
+    padding: 70px 0;
+
     &__thumb {
         @extend %main-container;
     }
