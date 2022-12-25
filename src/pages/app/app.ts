@@ -3,14 +3,13 @@ import { ErrorTypes, PagePath, UrlParams } from '../../types';
 import ErrorPage from '../errorPage';
 import MainPage from '../mainPage';
 import ProductPage from '../productPage';
-import TemplatePage from '../templatePage/templatePage';
 
 class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
 
     constructor() {
         window.addEventListener('hashchange', this.router);
-        window.addEventListener('load', this.router);
+        // window.addEventListener('load', this.router);
     }
 
     router() {

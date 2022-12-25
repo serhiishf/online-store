@@ -36,12 +36,6 @@
             </div>
         </header>
 
-        <!-- TEST: links for testing and delete later -->
-        <!-- <div>
-            <a href="/#/">to Main Page</a>
-            <a href="/#/product">to Product page</a>
-        </div> -->
-
         <main id="app"></main>
 
         <footer></footer>
@@ -74,6 +68,31 @@
                     </div>
                 </a>
             </li>
+        </template>
+
+        <template id="product-page">
+            <div>
+                <h1 class="product__title"></h1>
+                <span class="product__brand"></span>
+            </div>
+            <div class="product__img-thumb">
+                <!-- img exmpl. feature toto: here will slider -->
+                <img class="product__img" />
+            </div>
+            <div class="product__info-thumb">
+                <p class="product__category"></p>
+                <p class="product__rating"></p>
+                <p class="product__description"></p>
+                <p class="product__stock"></p>
+            </div>
+            <div class="product__price-thumb">
+                <p class="product__price-origin"></p>
+                <p class="product__price-with-discount"></p>
+            </div>
+            <div class="product__action-thumb">
+                <button class="product__action-btn" type="button">Add to cart</button>
+                <button class="product__action-btn" type="button">Buy now</button>
+            </div>
         </template>
     </body>
 </html>

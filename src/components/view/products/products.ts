@@ -22,15 +22,16 @@ export class Products {
                 (<HTMLElement>prodClone.querySelector('.card__brand')).textContent = item.brand;
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute(
                     'src',
-                    item.images[0] || './assets/img/default-image.png'
+                    item.thumbnail || './assets/img/default-image.png'
                 );
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute('alt', item.title);
+
                 (<HTMLElement>prodClone.querySelector('.card__desc')).textContent = item.description;
                 (<HTMLElement>prodClone.querySelector('.card__stock')).textContent = `In stock: ${item.stock}`;
                 (<HTMLElement>prodClone.querySelector('.card__price')).textContent = `${item.price} $`;
                 (<HTMLElement>(
                     (<HTMLElement>prodClone.querySelector('.card__icon-cart')).firstElementChild
-                )).setAttribute('href', './assets/icons/sprite.svg#to-cart');
+                )).setAttribute('href', './assets/sprite.svg#to-cart');
                 fragment.append(prodClone);
             });
 

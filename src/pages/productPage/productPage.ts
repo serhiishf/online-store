@@ -1,9 +1,11 @@
 import { LoaderSingleProduct } from '../../components/controller/loaderSingleProduct';
-import { Product } from '../../types';
+import { Product } from '../../components/view/product';
+import { Product as ProductType } from '../../types';
 import TemplatePage from '../templatePage';
 
 class ProductPage extends TemplatePage {
-    productObj!: Product;
+    productObj!: ProductType;
+    view: Product;
     productId: string | null;
 
     static textObject = {
@@ -13,6 +15,7 @@ class ProductPage extends TemplatePage {
     constructor(pageName: string, productId: string | undefined) {
         super(pageName);
         this.productId = productId || null;
+        this.view = new Product();
     }
 
     private async fetchProduct() {
@@ -23,9 +26,10 @@ class ProductPage extends TemplatePage {
 
     public async render(): Promise<HTMLElement> {
         await this.fetchProduct();
-        console.log(this.productObj);
+
         const thumb = this.createPageHTML(ProductPage.textObject.prodThumb);
-        //TODO: create and input here method to render page of product
+        const contentHTML = this.view.draw(this.productObj);
+        thumb.append(contentHTML);
         this.container.append(thumb);
         return this.container;
     }
