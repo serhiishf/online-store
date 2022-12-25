@@ -7,54 +7,55 @@ export class Product {
         this.productsThumb = <HTMLElement>document.createElement('div');
     }
 
+    private countPriceBeforeDiscount(price: number, discount: number): number {
+        return Math.round((price * 100) / (100 - Math.round(discount)));
+    }
+
     public draw(data: ProductType): HTMLElement {
+        const baseUrl = window.location.origin;
         this.productsThumb.innerHTML = '';
+
         const fragment = <DocumentFragment>document.createDocumentFragment();
         const productItemTemp = <HTMLTemplateElement>document.querySelector('#product-page');
         const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
 
+        //navidation:
+        const pathCategoryEl = <HTMLLinkElement>prodClone.querySelector('.product__path-category');
+        pathCategoryEl.href = `${baseUrl}/?category=${data.category}#/`;
+        pathCategoryEl.textContent = data.category;
+
+        const pathBrandEl = <HTMLLinkElement>prodClone.querySelector('.product__path-brand');
+        pathBrandEl.href = `${baseUrl}/?category=${data.category}&brand=${data.brand.toLocaleLowerCase()}#/`;
+        pathBrandEl.textContent = data.brand;
+
+        (<HTMLLinkElement>prodClone.querySelector('.product__path-name')).textContent = data.title;
+
+        //content:
         (<HTMLElement>prodClone.querySelector('.product__title')).textContent = data.title;
         (<HTMLElement>prodClone.querySelector('.product__brand')).textContent = data.brand;
 
-        (<HTMLElement>prodClone.querySelector('.product__img')).setAttribute('src', data.images[0]);
-        (<HTMLElement>prodClone.querySelector('.product__img')).setAttribute('alt', data.title);
+        //image slider:
+        const imgEl = <HTMLElement>prodClone.querySelector('.product__img');
+        imgEl.setAttribute('src', data.images[0]);
+        imgEl.setAttribute('alt', data.title);
 
+        //content:
         (<HTMLElement>prodClone.querySelector('.product__category')).textContent = `Category: ${data.category}`;
         (<HTMLElement>prodClone.querySelector('.product__rating')).textContent = `Rating: ${data.rating}`;
         (<HTMLElement>prodClone.querySelector('.product__description')).textContent = data.description;
         (<HTMLElement>prodClone.querySelector('.product__stock')).textContent = `In Stock: ${data.stock}`;
 
-        (<HTMLElement>prodClone.querySelector('.product__price-origin')).textContent = `Price: ${data.price} $`;
+        //price and discount:
+        (<HTMLElement>prodClone.querySelector('.product__price-discount')).textContent = `-${Math.round(
+            data.discountPercentage
+        )}%`;
+        (<HTMLElement>prodClone.querySelector('.product__price')).textContent = `${data.price} $`;
+        (<HTMLElement>(
+            prodClone.querySelector('.product__price-before-discount')
+        )).textContent = `${this.countPriceBeforeDiscount(data.price, data.discountPercentage)} $`;
 
         fragment.append(prodClone);
         this.productsThumb.appendChild(fragment);
         return this.productsThumb;
     }
 }
-
-/*
- <template id="product-page">
-            <div>
-                <h1 class="product__title"></h1>
-                <span class="product__brand"></span>
-            </div>
-            <div class="product__img-thumb">
-                <!-- img exmpl. feature toto: here will slider -->
-                <img class="product__img" />
-            </div>
-            <div class="product__info-thumb">
-                <p class="product__category"></p>
-                <p class="product__rating"></p>
-                <p class="product__description"></p>
-                <p class="product__stock"></p>
-            </div>
-            <div class="product__price-thumb">
-                <p class="product__price-origin"></p>
-                <p class="product__price-with-discount"></p>
-            </div>
-            <div class="product__action-thumb">
-                <button class="product__action-btn" type="button">Add to cart</button>
-                <button class="product__action-btn" type="button">Buy now</button>
-            </div>
-        </template>
-*/

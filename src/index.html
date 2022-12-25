@@ -71,6 +71,15 @@
         </template>
 
         <template id="product-page">
+            <div class="product__path">
+                <a href="/">Main store</a>
+                <span>/</span>
+                <a class="product__path-category"></a>
+                <span>/</span>
+                <a class="product__path-brand"></a>
+                <span>/</span>
+                <span class="product__path-name"></span>
+            </div>
             <div>
                 <h1 class="product__title"></h1>
                 <span class="product__brand"></span>
@@ -86,8 +95,11 @@
                 <p class="product__stock"></p>
             </div>
             <div class="product__price-thumb">
-                <p class="product__price-origin"></p>
-                <p class="product__price-with-discount"></p>
+                <div>
+                    <p class="product__price-discount"></p>
+                    <p class="product__price"></p>
+                </div>
+                <p>List Price: <span class="product__price-before-discount"></span></p>
             </div>
             <div class="product__action-thumb">
                 <button class="product__action-btn" type="button">Add to cart</button>
