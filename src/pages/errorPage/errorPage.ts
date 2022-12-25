@@ -13,7 +13,7 @@ class ErrorPage extends TemplatePage {
         this.errorType = errorType;
     }
 
-    render() {
+    async render() {
         const thumb = this.createPageHTML(ErrorPage.textObject.pageThumb);
 
         const title = document.createElement('h1');

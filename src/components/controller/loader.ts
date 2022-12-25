@@ -108,7 +108,7 @@ export class Loader {
         keys.forEach((key) => {
             const accum: Product[] = [];
             const keyNormalize = key.toString().toLowerCase();
-            const regExp = new RegExp(`${keyNormalize}`)
+            const regExp = new RegExp(`${keyNormalize}`);
             result.forEach((item) => {
                 for (const prop in item) {
                     if (regExp.test(item[prop as keyof Product].toString().toLowerCase())) {

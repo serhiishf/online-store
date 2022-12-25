@@ -36,15 +36,9 @@
             </div>
         </header>
 
-        <!-- TEST: links for testing and delete later -->
-        <!-- <div>
-            <a href="/#/">to Main Page</a>
-            <a href="/#/product">to Product page</a>
-        </div> -->
-
         <main id="app"></main>
 
-<!--         <div class="filters">
+        <!--         <div class="filters">
             <div class="filters__type filter">
                 <div class="filter__title">Category</div>
                 <ul class="filter__list">
@@ -135,6 +129,43 @@
                     </div>
                 </a>
             </li>
+        </template>
+
+        <template id="product-page">
+            <div class="product__path">
+                <a href="/">Main store</a>
+                <span>/</span>
+                <a class="product__path-category"></a>
+                <span>/</span>
+                <a class="product__path-brand"></a>
+                <span>/</span>
+                <span class="product__path-name"></span>
+            </div>
+            <div>
+                <h1 class="product__title"></h1>
+                <span class="product__brand"></span>
+            </div>
+            <div class="product__img-thumb">
+                <!-- img exmpl. feature todo: here will slider -->
+                <img class="product__img" />
+            </div>
+            <div class="product__info-thumb">
+                <p class="product__category"></p>
+                <p class="product__rating"></p>
+                <p class="product__description"></p>
+                <p class="product__stock"></p>
+            </div>
+            <div class="product__price-thumb">
+                <div>
+                    <p class="product__price-discount"></p>
+                    <p class="product__price"></p>
+                </div>
+                <p>List Price: <span class="product__price-before-discount"></span></p>
+            </div>
+            <div class="product__action-thumb">
+                <button class="product__action-btn" type="button">Add to cart</button>
+                <button class="product__action-btn" type="button">Buy now</button>
+            </div>
         </template>
     </body>
 </html>

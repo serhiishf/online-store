@@ -13,7 +13,7 @@ abstract class TemplatePage {
         return thumb;
     }
 
-    render() {
+    async render() {
         return this.container;
     }
 }
