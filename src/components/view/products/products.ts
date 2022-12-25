@@ -12,10 +12,12 @@ export class Products {
         const products = [...data]; // here we can filter data if we need it;
         const fragment = <DocumentFragment>document.createDocumentFragment();
         const productItemTemp = <HTMLTemplateElement>document.querySelector('#product-item');
+        const baseUrl = window.location.origin;
 
         if (products.length > 0) {
             products.forEach((item: Product) => {
                 const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
+                (<HTMLLinkElement>prodClone.querySelector('.card')).href = `${baseUrl}/?id=${item.id}#/product`;
                 (<HTMLElement>prodClone.querySelector('.card__title')).textContent = item.title;
                 (<HTMLElement>prodClone.querySelector('.card__brand')).textContent = item.brand;
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute(
