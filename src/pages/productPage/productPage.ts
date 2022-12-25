@@ -1,8 +1,9 @@
-import { ErrorTypes, PagePath } from '../../types';
+import { LoaderSingleProduct } from '../../components/controller/loaderSingleProduct';
+import { Product } from '../../types';
 import TemplatePage from '../templatePage';
 
 class ProductPage extends TemplatePage {
-    productObj!: {};
+    productObj!: Product;
     productId: string | null;
 
     static textObject = {
@@ -12,25 +13,17 @@ class ProductPage extends TemplatePage {
     constructor(pageName: string, productId: string | undefined) {
         super(pageName);
         this.productId = productId || null;
-        this.fetchProduct();
     }
 
     private async fetchProduct() {
         if (this.productId) {
-            //test fetch foo:
-            return fetch(`https://dummyjson.com/products/${this.productId}`).then((res) => {
-                if (res.status === ErrorTypes.Error_404) {
-                    window.location.hash = '#' + PagePath.ErrorPage;
-                } else if (res.status === 200) {
-                    return res.json();
-                }
-            });
+            this.productObj = await LoaderSingleProduct.fetchProduct(this.productId);
         }
     }
 
-    async render(): Promise<HTMLElement> {
+    public async render(): Promise<HTMLElement> {
         await this.fetchProduct();
-
+        console.log(this.productObj);
         const thumb = this.createPageHTML(ProductPage.textObject.prodThumb);
         //TODO: create and input here method to render page of product
         this.container.append(thumb);
