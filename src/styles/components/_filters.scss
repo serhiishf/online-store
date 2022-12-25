@@ -1,0 +1,26 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+    &__type {
+    }
+}
+.filter {
+    &__title {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item {
+    }
+    &__label {
+        cursor: pointer;
+    }
+
+    &__checkbox-input {
+    }
+}
