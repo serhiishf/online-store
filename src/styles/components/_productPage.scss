@@ -162,6 +162,7 @@
             background-color: $active-color-darker;
         }
     }
+
     &__btn-arrow {
         @extend %btn;
 
@@ -174,6 +175,50 @@
             opacity: 1;
             transform: scale(1.1);
         }
+    }
+
+    &__info-thumb {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 30px;
+    }
+    &__category {
+        font-size: 1.1rem;
+    }
+    &__rating {
+        font-size: 1.1rem;
+    }
+    &__description {
+        font-size: 1.5rem;
+    }
+    &__stock {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+    &__price-thumb {
+        margin-top: auto;
+        align-self: flex-end;
+        & div {
+            height: 25px;
+            display: flex;
+            align-items: flex-end;
+            gap: 7px;
+        }
+    }
+    &__price-discount {
+        align-self: flex-start;
+        font-style: italic;
+        color: rgb(183, 23, 63);
+    }
+    &__price {
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+    &__price-before-discount {
+        color: $text-second-color;
+        text-decoration: line-through;
     }
 
     &__action-thumb {
