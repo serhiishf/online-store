@@ -11,6 +11,32 @@ export class Product {
         return Math.round((price * 100) / (100 - Math.round(discount)));
     }
 
+    private createSlider(prodClone: HTMLElement, bigImage: HTMLImageElement, sliderThumb: HTMLElement) {
+        sliderThumb.addEventListener('click', (e) => {
+            const target = <HTMLElement>e.target;
+            let activeImages = sliderThumb.querySelectorAll('.product__small-img.active');
+
+            if (target.tagName === 'IMG') {
+                if (activeImages.length > 0) {
+                    activeImages[0].classList.remove('active');
+                }
+                target.classList.add('active');
+                bigImage.src = (<HTMLImageElement>e.target).src;
+            }
+        });
+
+        let buttonRight = <HTMLElement>prodClone.querySelector('#slideRight');
+        let buttonLeft = <HTMLElement>prodClone.querySelector('#slideLeft');
+
+        buttonLeft.addEventListener('click', function () {
+            sliderThumb.scrollLeft -= 180;
+        });
+
+        buttonRight.addEventListener('click', function () {
+            sliderThumb.scrollLeft += 180;
+        });
+    }
+
     public draw(data: ProductType): HTMLElement {
         const baseUrl = window.location.origin;
         this.productsThumb.innerHTML = '';
@@ -21,7 +47,7 @@ export class Product {
 
         //navidation:
         const pathCategoryEl = <HTMLLinkElement>prodClone.querySelector('.product__path-category');
-        pathCategoryEl.href = `${baseUrl}/?category=${data.category}#/`;
+        pathCategoryEl.href = `${baseUrl}/?category=${data.category.toLocaleLowerCase()}#/`;
         pathCategoryEl.textContent = data.category;
 
         const pathBrandEl = <HTMLLinkElement>prodClone.querySelector('.product__path-brand');
@@ -34,10 +60,25 @@ export class Product {
         (<HTMLElement>prodClone.querySelector('.product__title')).textContent = data.title;
         (<HTMLElement>prodClone.querySelector('.product__brand')).textContent = data.brand;
 
-        //image slider:
-        const imgEl = <HTMLElement>prodClone.querySelector('.product__img');
+        //big image:
+        const imgEl = <HTMLImageElement>prodClone.querySelector('.product__img');
         imgEl.setAttribute('src', data.images[0]);
         imgEl.setAttribute('alt', data.title);
+
+        //slider:
+        const sliderThumb = <HTMLElement>prodClone.querySelector('#slider');
+        data.images.forEach((imgUrl, i) => {
+            const img = document.createElement('img');
+            img.setAttribute('src', imgUrl);
+            img.setAttribute('url', `image ${i}`);
+            img.classList.add('product__small-img');
+            if (i === 0) {
+                img.classList.add('active');
+            }
+            sliderThumb.append(img);
+        });
+
+        this.createSlider(prodClone, imgEl, sliderThumb);
 
         //content:
         (<HTMLElement>prodClone.querySelector('.product__category')).textContent = `Category: ${data.category}`;

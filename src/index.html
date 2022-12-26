@@ -133,35 +133,56 @@
 
         <template id="product-page">
             <div class="product__path">
-                <a href="/">Main store</a>
-                <span>/</span>
+                <a href="/" class="product__path-main">Main store</a>
+                <span> > </span>
                 <a class="product__path-category"></a>
-                <span>/</span>
+                <span> > </span>
                 <a class="product__path-brand"></a>
-                <span>/</span>
+                <span> > </span>
                 <span class="product__path-name"></span>
             </div>
-            <div>
+            <div class="product__header">
                 <h1 class="product__title"></h1>
                 <span class="product__brand"></span>
             </div>
-            <div class="product__img-thumb">
-                <!-- img exmpl. feature todo: here will slider -->
-                <img class="product__img" />
-            </div>
-            <div class="product__info-thumb">
-                <p class="product__category"></p>
-                <p class="product__rating"></p>
-                <p class="product__description"></p>
-                <p class="product__stock"></p>
-            </div>
-            <div class="product__price-thumb">
-                <div>
-                    <p class="product__price-discount"></p>
-                    <p class="product__price"></p>
+            <div class="product__main">
+                <div class="product__images-thumb">
+                    <div class="product__img-box">
+                        <img class="product__img" />
+                    </div>
+
+                    <div class="product__slider-wrapper">
+                        <button type="button" id="slideLeft" class="product__btn-arrow">
+                            <svg>
+                                <use href="./assets/icons/sprite.svg#arrow-left" />
+                            </svg>
+                        </button>
+
+                        <div id="slider" class="product__slider"></div>
+
+                        <button type="button" id="slideRight" class="product__btn-arrow">
+                            <svg>
+                                <use href="./assets/icons/sprite.svg#arrow-right" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <p>List Price: <span class="product__price-before-discount"></span></p>
+                <div class="product__info-thumb">
+                    <p class="product__category"></p>
+                    <p class="product__rating"></p>
+                    <p class="product__description"></p>
+                    <p class="product__stock"></p>
+
+                    <div class="product__price-thumb">
+                        <div>
+                            <p class="product__price"></p>
+                            <p class="product__price-discount"></p>
+                        </div>
+                        <p>List Price: <span class="product__price-before-discount"></span></p>
+                    </div>
+                </div>
             </div>
+
             <div class="product__action-thumb">
                 <button class="product__action-btn" type="button">Add to cart</button>
                 <button class="product__action-btn" type="button">Buy now</button>
