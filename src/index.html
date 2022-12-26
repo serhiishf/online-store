@@ -38,68 +38,88 @@
 
         <main id="app"></main>
 
-        <!--         <div class="filters">
-            <div class="filters__type filter">
+        <div class="filters">
+            <!--             <div class="filters__type filter">
                 <div class="filter__title">Category</div>
                 <ul class="filter__list">
                     <li class="filter__item">
                         <label class="filter__label">
                             <input type="checkbox" class="filter__checkbox-input" />
-                            Text sda
+                            <span class="filter__text"
+                                >Text sda Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque debitis ipsam
+                            </span>
+                            <span class="filter__amount">(2)</span>
                         </label>
                     </li>
                     <li class="filter__item">
-                      <label class="filter__label">
-                        <input type="checkbox" class="filter__checkbox-input" />
-                        Text sda
-                    </label>
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input" />
+                            <span class="filter__text">Clothes</span>
+                            <span class="filter__amount">(5)</span>
+                        </label>
                     </li>
-                  <li class="filter__item">
-                    <label class="filter__label">
-                      <input type="checkbox" class="filter__checkbox-input" />
-                      Text sda
-                  </label>
-                  </li>
-                  <li class="filter__item">
-                    <label class="filter__label">
-                      <input type="checkbox" class="filter__checkbox-input" />
-                      Text sda
-                  </label>
-                  </li>
+                    <li class="filter__item">
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input" />
+                            <span class="filter__text">Phones</span>
+                            <span class="filter__amount">(1)</span>
+                        </label>
+                    </li>
+                    <li class="filter__item">
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input" />
+                            <span class="filter__text">Laptops</span>
+                            <span class="filter__amount">(4)</span>
+                        </label>
+                    </li>
                 </ul>
             </div>
             <div class="filters__type filter">
-              <div class="filter__title">Brand</div>
-              <ul class="filter__list">
-                  <li class="filter__item">
-                      <label class="filter__label">
-                          <input type="checkbox" class="filter__checkbox-input" />
-                          Apple
-                      </label>
-                  </li>
-                  <li class="filter__item">
-                    <label class="filter__label">
-                      <input type="checkbox" class="filter__checkbox-input" />
-                      Zotac
-                  </label>
-                  </li>
-                  <li class="filter__item">
-                    <label class="filter__label">
-                      <input type="checkbox" class="filter__checkbox-input" />
-                      Nvidia
-                  </label>
-                  </li>
-                  <li class="filter__item">
-                    <label class="filter__label">
-                      <input type="checkbox" class="filter__checkbox-input" />
-                      AMD
-                  </label>
-                  </li>
-              </ul>
-          </div>
-        </div> -->
+                <div class="filter__title">Brand</div>
+                <ul class="filter__list">
+                    <li class="filter__item">
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input" />
+                            <span class="filter__text">Apple</span>
+                            <span class="filter__amount">(6)</span>
+                        </label>
+                    </li>
+                    <li class="filter__item">
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input" />
+                            <span class="filter__text">Zotac</span>
+                            <span class="filter__amount">(2)</span>
+                        </label>
+                    </li>
+                    <li class="filter__item">
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input" />
+                            <span class="filter__text">N-Vidia</span>
+                            <span class="filter__amount">(1)</span>
+                        </label>
+                    </li>
+                    <li class="filter__item filter__item_disabled">
+                        <label class="filter__label">
+                            <input type="checkbox" class="filter__checkbox-input filter__checkbox-input_disabled" />
+                            <span class="filter__text">AMD</span>
+                            <span class="filter__amount">(0)</span>
+                        </label>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
 
         <footer></footer>
+
+        <template id="filter-item">
+            <li class="filter__item">
+                <label class="filter__label">
+                    <input type="checkbox" class="filter__checkbox-input" />
+                    <span class="filter__text"></span>
+                    <span class="filter__amount"></span>
+                </label>
+            </li>
+        </template>
 
         <template id="product-item">
             <li class="products__item">
