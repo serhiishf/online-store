@@ -1,5 +1,5 @@
 import { Product } from '../../types/index';
-import { UrlApi, JsonProducts, FiltersType, MaxMin, FilterCollection, SortDirection } from '../../types/Loader';
+import { UrlApi, JsonProducts, FiltersType, MaxMin, FilterCollection, SortDirection, SortType } from '../../types/Loader';
 
 export class Loader {
     rawArr: Product[] = [];
@@ -47,10 +47,10 @@ export class Loader {
         return Array.from(new Set(goods.map((elem) => elem[filtersType])));
     }
 
-    getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock | FiltersType.rating) {
+    getMaxMin(goods: Product[], filtersType: FiltersType.price | FiltersType.stock) {
         const result: MaxMin = {
-            max: 0,
             min: 0,
+            max: 0,
         };
         result.max = Math.max(...(this.getList(goods, filtersType) as number[]));
         result.min = Math.min(...(this.getList(goods, filtersType) as number[]));
@@ -83,7 +83,7 @@ export class Loader {
         return result;
     }
 
-    sortData(goods: Product[], sortType: FiltersType, direction: SortDirection) {
+    sortData(goods: Product[], sortType: SortType, direction: SortDirection) {
         return goods.sort((a, b) => {
             if (a[sortType] > b[sortType]) {
                 if (direction === SortDirection.up) {
