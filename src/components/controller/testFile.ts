@@ -1,7 +1,7 @@
 //----Test File
 import { Loader } from './loader';
 //import { Products } from '../view/products/products';
-import { FiltersType, FilterCollection, SortDirection } from '../../types/Loader';
+import { FiltersType, FilterCollection, SortDirection } from '../../types/Filter';
 import { Filter } from '../view/filter/filter';
 import { StatusFilterItem } from '../../types/Filter';
 enum Url {
