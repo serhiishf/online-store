@@ -9,7 +9,7 @@ interface Cart {
     products: Product[];
 }
 
-export class cartController {
+export class CartController {
     static createCart(id: number, price: number): Cart {
         return {
             totalCount: 1,
@@ -28,7 +28,7 @@ export class cartController {
     }
 
     static findProductPos(id: number): number {
-        const cart: string | null = cartController.getCart();
+        const cart: string | null = CartController.getCart();
         if (cart) {
             const cartParsed: Cart = JSON.parse(cart);
             const productIdInCart: number = cartParsed.products.findIndex((el) => el.id === id);
@@ -41,12 +41,12 @@ export class cartController {
     }
 
     static addProduct(id: number, price: number): void {
-        const cart: string | null = cartController.getCart();
+        const cart: string | null = CartController.getCart();
         if (cart) {
             const cartParsed: Cart = JSON.parse(cart);
             cartParsed.totalCount += 1;
             cartParsed.totalPrice += price;
-            const productPos: number = cartController.findProductPos(id);
+            const productPos: number = CartController.findProductPos(id);
             if (productPos >= 0) {
                 cartParsed.products[productPos].count += 1;
             } else {
@@ -54,8 +54,50 @@ export class cartController {
             }
             window.localStorage.setItem('cart', JSON.stringify(cartParsed));
         } else {
-            const newCart = cartController.createCart(id, price);
+            const newCart = CartController.createCart(id, price);
             window.localStorage.setItem('cart', JSON.stringify(newCart));
+        }
+    }
+
+    static removeOneProductOneType(id: number, price: number) {
+        const cart: string | null = CartController.getCart();
+        if (cart) {
+            const cartParsed: Cart = JSON.parse(cart);
+            const productPos: number = CartController.findProductPos(id);
+            if (productPos >= 0) {
+                cartParsed.totalCount -= 1;
+                cartParsed.totalPrice -= price;
+                const prodCount = cartParsed.products[productPos].count;
+                if (prodCount > 1) {
+                    cartParsed.products[productPos].count -= 1;
+                } else if (prodCount === 1) {
+                    cartParsed.products.splice(productPos, 1);
+                }
+            } else {
+                console.log("You didn't add anything in Cart yet");
+            }
+            window.localStorage.setItem('cart', JSON.stringify(cartParsed));
+        } else {
+            console.log("You didn't add anything in Cart yet");
+        }
+    }
+
+    static removeAllProductsOneType(id: number, price: number) {
+        const cart: string | null = CartController.getCart();
+        if (cart) {
+            const cartParsed: Cart = JSON.parse(cart);
+            const productPos: number = CartController.findProductPos(id);
+            if (productPos >= 0) {
+                const prodCount = cartParsed.products[productPos].count;
+                cartParsed.totalCount -= prodCount;
+                cartParsed.totalPrice -= price * prodCount;
+                cartParsed.products.splice(productPos, 1);
+            } else {
+                console.log("You didn't add anything in Cart yet");
+            }
+            window.localStorage.setItem('cart', JSON.stringify(cartParsed));
+        } else {
+            console.log("You didn't add anything in Cart yet");
         }
     }
 }

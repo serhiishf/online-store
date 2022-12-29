@@ -1,5 +1,5 @@
 import { Product } from '../../../types';
-import { cartController } from '../../controller/cartController';
+import { CartController } from '../../controller/cartController';
 
 export class Products {
     protected productsList: HTMLElement;
@@ -9,15 +9,27 @@ export class Products {
         this.productsList.classList.add('products');
     }
 
-    private addEventListeners(cartBtn: HTMLButtonElement, id: number, price: number): void {
-        cartBtn.addEventListener('click', addToLocalStorage);
+    private static addListenerToAddProduct(cartBtn: HTMLButtonElement, id: number, price: number): void {
+        cartBtn.addEventListener('click', addProduct);
 
-        function addToLocalStorage(e: MouseEvent): void {
+        function addProduct(e: MouseEvent): void {
             e.preventDefault();
-            cartController.addProduct(id, price);
-            cartBtn.disabled = true;
-            cartBtn.style.backgroundColor = '#f1d627';
-            cartBtn.removeEventListener('click', addToLocalStorage);
+            CartController.addProduct(id, price);
+            cartBtn.classList.add('card__btn-cart--active');
+            Products.addListenerToRemoveProduct(cartBtn, id, price);
+            cartBtn.removeEventListener('click', addProduct);
+        }
+    }
+
+    private static addListenerToRemoveProduct(cartBtn: HTMLButtonElement, id: number, price: number) {
+        cartBtn.addEventListener('click', removeProduct);
+
+        function removeProduct(e: MouseEvent) {
+            e.preventDefault();
+            CartController.removeAllProductsOneType(id, price);
+            cartBtn.classList.remove('card__btn-cart--active');
+            Products.addListenerToAddProduct(cartBtn, id, price);
+            cartBtn.removeEventListener('click', removeProduct);
         }
     }
 
@@ -45,15 +57,15 @@ export class Products {
                     (<HTMLElement>prodClone.querySelector('.card__icon-cart')).firstElementChild
                 )).setAttribute('href', './assets/sprite.svg#to-cart');
 
-                const AddToCartBtn = <HTMLButtonElement>prodClone.querySelector('.card__btn-cart');
+                const addToCartBtn = <HTMLButtonElement>prodClone.querySelector('.card__btn-cart');
 
-                const productInCartPosition = cartController.findProductPos(item.id);
+                const productInCartPosition = CartController.findProductPos(item.id);
 
                 if (productInCartPosition >= 0) {
-                    AddToCartBtn.disabled = true;
-                    AddToCartBtn.style.backgroundColor = '#f1d627';
+                    addToCartBtn.classList.add('card__btn-cart--active');
+                    Products.addListenerToRemoveProduct(addToCartBtn, item.id, item.price);
                 } else {
-                    this.addEventListeners(AddToCartBtn, item.id, item.price);
+                    Products.addListenerToAddProduct(addToCartBtn, item.id, item.price);
                 }
 
                 fragment.append(prodClone);

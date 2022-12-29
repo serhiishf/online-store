@@ -98,9 +98,12 @@
 
         transition: all $transition;
 
-        &:hover,
-        &:focus {
+        &:hover {
             outline: none;
+            background-color: $active-color;
+        }
+
+        &.card__btn-cart--active {
             background-color: $active-color;
         }
     }
