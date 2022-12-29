@@ -1,13 +1,4 @@
-interface Product {
-    id: number;
-    count: number;
-}
-
-interface Cart {
-    totalCount: number;
-    totalPrice: number;
-    products: Product[];
-}
+import { Cart } from '../../types';
 
 export class CartController {
     static createCart(id: number, price: number): Cart {
