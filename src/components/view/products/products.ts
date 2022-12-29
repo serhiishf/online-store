@@ -28,7 +28,6 @@ export class Products {
         const baseUrl = window.location.origin;
 
         if (products.length > 0) {
-            //check localStorage. if we have already, don't add eventListener on this cart, render with yellow color on cart img
             products.forEach((item: Product) => {
                 const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
                 (<HTMLLinkElement>prodClone.querySelector('.card')).href = `${baseUrl}/?id=${item.id}#/product`;
@@ -46,11 +45,16 @@ export class Products {
                     (<HTMLElement>prodClone.querySelector('.card__icon-cart')).firstElementChild
                 )).setAttribute('href', './assets/sprite.svg#to-cart');
 
-                this.addEventListeners(
-                    <HTMLButtonElement>prodClone.querySelector('.card__btn-cart'),
-                    item.id,
-                    item.price
-                );
+                const AddToCartBtn = <HTMLButtonElement>prodClone.querySelector('.card__btn-cart');
+
+                const productInCartPosition = cartController.findProductPos(item.id);
+
+                if (productInCartPosition >= 0) {
+                    AddToCartBtn.disabled = true;
+                    AddToCartBtn.style.backgroundColor = '#f1d627';
+                } else {
+                    this.addEventListeners(AddToCartBtn, item.id, item.price);
+                }
 
                 fragment.append(prodClone);
             });
