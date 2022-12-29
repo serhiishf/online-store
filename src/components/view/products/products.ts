@@ -1,14 +1,5 @@
-import { ids } from 'webpack';
 import { Product } from '../../../types';
-
-interface Cart {
-    totalCount: number;
-    totalPrice: number;
-    products: {
-        id: number;
-        count: number;
-    }[];
-}
+import { cartController } from '../../controller/cartController';
 
 export class Products {
     protected productsList: HTMLElement;
@@ -18,34 +9,14 @@ export class Products {
         this.productsList.classList.add('products');
     }
 
-    private addEventListeners(cartBtn: HTMLElement, id: number, price: number): void {
+    private addEventListeners(cartBtn: HTMLButtonElement, id: number, price: number): void {
         cartBtn.addEventListener('click', addToLocalStorage);
 
         function addToLocalStorage(e: MouseEvent): void {
             e.preventDefault();
-
-            if (window.localStorage.getItem('cart')) {
-                const cart: Cart = JSON.parse(<string>window.localStorage.getItem('cart'));
-                cart.totalCount += 1;
-                cart.totalPrice += price;
-                //check if id is already exist in cart.produsts. if yes - +=1 to count
-                cart.products.push({ id, count: 1 });
-                window.localStorage.setItem('cart', JSON.stringify(cart));
-                // console.log('updated cart', JSON.parse(<string>window.localStorage.getItem('cart')));
-            } else {
-                const cart: Cart = {
-                    totalCount: 1,
-                    totalPrice: price,
-                    products: [
-                        {
-                            id,
-                            count: 1,
-                        },
-                    ],
-                };
-                window.localStorage.setItem('cart', JSON.stringify(cart));
-                // console.log('new cart', JSON.parse(<string>window.localStorage.getItem('cart')));
-            }
+            cartController.addProduct(id, price);
+            cartBtn.disabled = true;
+            cartBtn.style.backgroundColor = '#f1d627';
             cartBtn.removeEventListener('click', addToLocalStorage);
         }
     }
@@ -75,7 +46,11 @@ export class Products {
                     (<HTMLElement>prodClone.querySelector('.card__icon-cart')).firstElementChild
                 )).setAttribute('href', './assets/sprite.svg#to-cart');
 
-                this.addEventListeners(<HTMLElement>prodClone.querySelector('.card__btn-cart'), item.id, item.price);
+                this.addEventListeners(
+                    <HTMLButtonElement>prodClone.querySelector('.card__btn-cart'),
+                    item.id,
+                    item.price
+                );
 
                 fragment.append(prodClone);
             });
