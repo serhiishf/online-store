@@ -26,7 +26,6 @@ class ProductPage extends TemplatePage {
 
     public async render(): Promise<HTMLElement> {
         await this.fetchProduct();
-
         const thumb = this.createPageHTML(ProductPage.textObject.prodThumb);
         const contentHTML = this.view.draw(this.productObj);
         thumb.append(contentHTML);
