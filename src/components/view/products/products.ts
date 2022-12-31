@@ -1,5 +1,7 @@
-import { Cart, Product } from '../../../types';
+import { Product } from '../../../types';
 import { CartController } from '../../controller/cartController';
+import { HeaderController } from '../../controller/headerController';
+//TODO: add better animation on adding and removing product from cart
 
 export class Products {
     protected productsList: HTMLElement;
@@ -9,15 +11,6 @@ export class Products {
         this.productsList.classList.add('products');
     }
 
-    private static changeViewOnCartAction() {
-        const cart = CartController.getCart();
-        if (cart) {
-            const parsedCart: Cart = JSON.parse(cart);
-            (<HTMLElement>document.querySelector('.header__price')).textContent = parsedCart.totalPrice.toString();
-            (<HTMLElement>document.querySelector('.cart__count')).textContent = parsedCart.totalCount.toString();
-        }
-    }
-
     private static addListenerToAddProduct(cartBtn: HTMLButtonElement, id: number, price: number): void {
         cartBtn.addEventListener('click', addProduct);
 
@@ -25,7 +18,7 @@ export class Products {
             e.preventDefault();
             CartController.addProduct(id, price);
             cartBtn.classList.add('card__btn-cart--active');
-            Products.changeViewOnCartAction();
+            HeaderController.changeViewOnCartAction();
             Products.addListenerToRemoveProduct(cartBtn, id, price);
             cartBtn.removeEventListener('click', addProduct);
         }
@@ -38,7 +31,7 @@ export class Products {
             e.preventDefault();
             CartController.removeAllProductsOneType(id, price);
             cartBtn.classList.remove('card__btn-cart--active');
-            Products.changeViewOnCartAction();
+            HeaderController.changeViewOnCartAction();
             Products.addListenerToAddProduct(cartBtn, id, price);
             cartBtn.removeEventListener('click', removeProduct);
         }
@@ -90,7 +83,7 @@ export class Products {
             this.productsList.innerHTML = '';
             this.productsList.after(p);
         }
-        Products.changeViewOnCartAction();
+
         return this.productsList;
     }
 }

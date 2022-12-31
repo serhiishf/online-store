@@ -1,3 +1,4 @@
+import { HeaderController } from '../../components/controller/headerController';
 import { parseRequestUrl } from '../../components/controller/parseRequestUrl';
 import { ErrorTypes, PagePath, UrlParams } from '../../types';
 import ErrorPage from '../errorPage';
@@ -8,8 +9,8 @@ class App {
     private static container: HTMLElement = <HTMLElement>document.body.querySelector('#app');
 
     constructor() {
+        window.addEventListener('load', HeaderController.changeViewOnCartAction);
         window.addEventListener('hashchange', this.router);
-        // window.addEventListener('load', this.router);
     }
 
     router() {
