@@ -19,7 +19,9 @@ class MainPage extends TemplatePage {
 
     constructor(id: string) {
         super(id);
+        //test loader:
         this.loader = new Loader(Url);
+
         this.view = new Products();
     }
 

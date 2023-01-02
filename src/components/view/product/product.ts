@@ -1,4 +1,7 @@
 import { Product as ProductType } from '../../../types';
+import { CartController } from '../../controller/cartController';
+import { HeaderController } from '../../controller/headerController';
+//TODO: add render count of added product to cart and maybe input for changing this number
 
 export class Product {
     protected productsThumb: HTMLElement;
@@ -35,6 +38,30 @@ export class Product {
         buttonRight.addEventListener('click', function () {
             sliderThumb.scrollLeft += 180;
         });
+    }
+
+    private static addListenerToAddProduct(cartBtn: HTMLButtonElement, id: number, price: number): void {
+        cartBtn.addEventListener('click', addProduct);
+
+        function addProduct(e: MouseEvent): void {
+            CartController.addProduct(id, price);
+            cartBtn.textContent = 'Drop from cart';
+            HeaderController.changeViewOnCartAction();
+            Product.addListenerToRemoveProduct(cartBtn, id, price);
+            cartBtn.removeEventListener('click', addProduct);
+        }
+    }
+
+    private static addListenerToRemoveProduct(cartBtn: HTMLButtonElement, id: number, price: number) {
+        cartBtn.addEventListener('click', removeProduct);
+
+        function removeProduct(e: MouseEvent) {
+            CartController.removeAllProductsOneType(id, price);
+            cartBtn.textContent = 'Add to cart';
+            HeaderController.changeViewOnCartAction();
+            Product.addListenerToAddProduct(cartBtn, id, price);
+            cartBtn.removeEventListener('click', removeProduct);
+        }
     }
 
     public draw(data: ProductType): HTMLElement {
@@ -94,6 +121,17 @@ export class Product {
         (<HTMLElement>(
             prodClone.querySelector('.product__price-before-discount')
         )).textContent = `${this.countPriceBeforeDiscount(data.price, data.discountPercentage)} $`;
+
+        //add product to cart logic:
+        const addToCartBtn = <HTMLButtonElement>prodClone.querySelector('.product__action-btn--add-cart');
+        const isProductInCart = CartController.findProductPos(data.id);
+        addToCartBtn.textContent = isProductInCart === -1 ? 'Add to cart' : 'Drop from cart';
+
+        if (isProductInCart >= 0) {
+            Product.addListenerToRemoveProduct(addToCartBtn, data.id, data.price);
+        } else {
+            Product.addListenerToAddProduct(addToCartBtn, data.id, data.price);
+        }
 
         fragment.append(prodClone);
         this.productsThumb.appendChild(fragment);
