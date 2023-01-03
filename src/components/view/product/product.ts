@@ -40,6 +40,18 @@ export class Product {
         });
     }
 
+    private static actionsWithProduct(parentEl: HTMLElement, data: ProductType) {
+        const addToCartBtn = <HTMLButtonElement>parentEl.querySelector('.product__action-btn--add-cart');
+        const isProductInCart = CartController.findProductPos(data.id);
+        addToCartBtn.textContent = isProductInCart === -1 ? 'Add to cart' : 'Drop from cart';
+
+        if (isProductInCart >= 0) {
+            Product.addListenerToRemoveProduct(addToCartBtn, data.id, data.price);
+        } else {
+            Product.addListenerToAddProduct(addToCartBtn, data.id, data.price);
+        }
+    }
+
     private static addListenerToAddProduct(cartBtn: HTMLButtonElement, id: number, price: number): void {
         cartBtn.addEventListener('click', addProduct);
 
@@ -123,15 +135,7 @@ export class Product {
         )).textContent = `${this.countPriceBeforeDiscount(data.price, data.discountPercentage)} $`;
 
         //add product to cart logic:
-        const addToCartBtn = <HTMLButtonElement>prodClone.querySelector('.product__action-btn--add-cart');
-        const isProductInCart = CartController.findProductPos(data.id);
-        addToCartBtn.textContent = isProductInCart === -1 ? 'Add to cart' : 'Drop from cart';
-
-        if (isProductInCart >= 0) {
-            Product.addListenerToRemoveProduct(addToCartBtn, data.id, data.price);
-        } else {
-            Product.addListenerToAddProduct(addToCartBtn, data.id, data.price);
-        }
+        Product.actionsWithProduct(prodClone, data);
 
         fragment.append(prodClone);
         this.productsThumb.appendChild(fragment);
