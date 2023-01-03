@@ -6,7 +6,7 @@
         & > div {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
     }
 
@@ -58,10 +58,9 @@
         flex-wrap: nowrap;
         justify-content: center;
         align-items: baseline;
-        gap: 35px;
+        gap: 100px;
     }
     &__brand {
-        margin-left: 70px;
         font-weight: 700;
         font-style: italic;
         letter-spacing: 0.1rem;
@@ -72,7 +71,7 @@
     }
 
     &__main {
-        height: 700px;
+        // height: 700px;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -222,7 +221,7 @@
     }
 
     &__action-thumb {
-        margin-top: 70px;
+        margin-top: 150px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -232,14 +231,14 @@
     &__action-btn {
         @extend %btn;
 
-        font-size: 1rem;
+        font-size: 2rem;
         font-weight: 700;
         color: $text-second-color;
         background: $active-color;
         box-shadow: $box-shadow-active;
-        width: 200px;
-        height: 50px;
-        border-radius: 25px;
+        width: 300px;
+        height: 80px;
+        border-radius: 35px;
 
         transition: all $transition;
 
