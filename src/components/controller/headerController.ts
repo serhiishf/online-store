@@ -9,7 +9,7 @@ export class HeaderController {
         if (cart) {
             const parsedCart: Cart = JSON.parse(cart);
             priceEl.textContent = `${parsedCart.totalPrice} $`;
-            countEl.textContent = parsedCart.oneTypeProductCount.toString();
+            countEl.textContent = parsedCart.totalCount.toString();
         } else {
             priceEl.textContent = '0';
             countEl.textContent = '0';
