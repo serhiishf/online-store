@@ -15,13 +15,13 @@ class MainPage extends TemplatePage {
 
     static textObject = {
         mainThumb: 'main__thumb',
+        filters: 'filters',
     };
 
     constructor(id: string) {
         super(id);
         //test loader:
         this.loader = new Loader(Url);
-
         this.view = new Products();
     }
 
@@ -32,10 +32,11 @@ class MainPage extends TemplatePage {
 
     async render() {
         const thumb = this.createPageHTML(MainPage.textObject.mainThumb);
-        
-        const filters = this.createPageHTML('filters');
 
-        this.createProductsCards().then((list) => thumb.append(filters, list));
+        const filters = this.createPageHTML(MainPage.textObject.filters);
+        const products = await this.createProductsCards();
+
+        thumb.append(filters, products);
 
         this.container.append(thumb);
         return this.container;
