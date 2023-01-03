@@ -8,8 +8,8 @@ export class HeaderController {
         const countEl = <HTMLElement>document.querySelector('.cart__count');
         if (cart) {
             const parsedCart: Cart = JSON.parse(cart);
-            priceEl.textContent = `${parsedCart.totalPrice.toString()} $`;
-            countEl.textContent = parsedCart.totalCount.toString();
+            priceEl.textContent = `${parsedCart.totalPrice} $`;
+            countEl.textContent = parsedCart.oneTypeProductCount.toString();
         } else {
             priceEl.textContent = '0';
             countEl.textContent = '0';
