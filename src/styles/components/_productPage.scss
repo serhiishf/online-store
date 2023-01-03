@@ -71,7 +71,6 @@
     }
 
     &__main {
-        // height: 700px;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -80,9 +79,9 @@
     }
 
     &__images-thumb {
-        height: 100%;
+        height: 600px;
         width: 100%;
-        max-width: 600px;
+        max-width: 500px;
 
         display: flex;
         flex-direction: column;
@@ -92,8 +91,8 @@
     }
 
     &__img-box {
-        width: 100%;
-        height: 100%;
+        height: 450px;
+        width: 500px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -101,8 +100,8 @@
 
     &__img {
         width: 100%;
-        max-width: 500px;
-        max-height: 550px;
+        height: 100%;
+
         object-fit: contain;
         cursor: pointer;
     }
@@ -221,7 +220,7 @@
     }
 
     &__action-thumb {
-        margin-top: 150px;
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
