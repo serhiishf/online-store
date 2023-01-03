@@ -10,13 +10,31 @@ import {
 } from '../../types/Filter';
 
 export class FilterData {
-    goods: Product[];
-
-    constructor(goods: Product[]) {
-        this.goods = goods;
+    getFilterItems(goods: Product[], checkedItemsFilter: FilterCollection[], checkAvailable: FiltersType) {
+        const filterListData: FilterItem[] = [];
+        const allFilterList = this.getList(goods, checkAvailable);
+        const excludedCheckedItemsFilter = checkedItemsFilter.filter((elem) => elem.type !== checkAvailable);
+        const availableGoods = this.facetedFilter(goods, excludedCheckedItemsFilter);
+        const availableFilterList = this.getList(availableGoods, checkAvailable);
+        const checkedFilterList = checkedItemsFilter.filter(elem => elem.type === checkAvailable).shift()?.keys;
+        allFilterList.forEach(title => {
+          const result: FilterItem = {
+            filterName: title.toString(),
+            status: StatusFilterItem.disabled,
+            amount: 0,
+          }
+          if (availableFilterList.includes(title)) {
+            result.status = StatusFilterItem.normal;
+          }
+          if (checkedFilterList && Array.isArray(checkedFilterList)) {
+            if (checkedFilterList.includes(title.toString())) {
+              result.status = StatusFilterItem.active;
+            }
+          }
+          filterListData.push(result);
+        })
+      return filterListData;
     }
-
-    getFilterItems(goods: Product[], checkedItemsFilter: FilterCollection[]) {}
 
     getList(goods: Product[], filtersType: FiltersType) {
         return Array.from(new Set(goods.map((elem) => elem[filtersType])));
