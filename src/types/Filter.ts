@@ -9,3 +9,30 @@ export enum StatusFilterItem {
     normal = 'normal',
     disabled = 'disabled',
 }
+
+export enum FiltersType {
+    category = 'category',
+    brand = 'brand',
+    price = 'price',
+    stock = 'stock',
+}
+
+export enum SortType {
+    rating = 'rating',
+    title = 'title',
+}
+
+export type MaxMin = {
+    min: number;
+    max: number;
+};
+
+export interface FilterCollection {
+    type: FiltersType;
+    keys: string[] | MaxMin;
+}
+
+export enum SortDirection {
+    up,
+    down,
+}
