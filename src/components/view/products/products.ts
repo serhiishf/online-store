@@ -41,7 +41,7 @@ export class Products {
         const products = [...data];
         const fragment = <DocumentFragment>document.createDocumentFragment();
         const productItemTemp = <HTMLTemplateElement>document.querySelector('#product-item');
-        const baseUrl = window.location.origin;
+        const baseUrl = window.location.href;
 
         if (products.length > 0) {
             products.forEach((item: Product) => {
