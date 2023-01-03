@@ -32,8 +32,10 @@ class MainPage extends TemplatePage {
 
     async render() {
         const thumb = this.createPageHTML(MainPage.textObject.mainThumb);
+        
+        const filters = this.createPageHTML('filters');
 
-        this.createProductsCards().then((list) => thumb.append(list));
+        this.createProductsCards().then((list) => thumb.append(filters, list));
 
         this.container.append(thumb);
         return this.container;

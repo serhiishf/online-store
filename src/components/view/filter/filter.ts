@@ -1,4 +1,4 @@
-import { FiltersType } from '../../../types/Loader';
+import { FiltersType } from '../../../types/Filter';
 import { FilterItem, StatusFilterItem } from '../../../types/Filter';
 
 export class Filter {
