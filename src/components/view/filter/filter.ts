@@ -5,16 +5,19 @@ export class Filter {
     filterSection: HTMLElement;
     filterTitle: HTMLElement;
     filterList: HTMLElement;
+    category: FiltersType;
 
     constructor(category: FiltersType) {
         this.filterSection = <HTMLElement>document.createElement('div');
         this.filterSection.classList.add(`filter__${category}`, 'filter');
+        this.filterSection.setAttribute('filterkey', category);
         this.filterTitle = <HTMLElement>document.createElement('div');
         this.filterTitle.classList.add('filter__title');
         this.filterTitle.textContent = `${category}`;
         this.filterList = <HTMLElement>document.createElement('ul');
         this.filterList.classList.add('filter__list');
         this.filterSection.append(this.filterTitle, this.filterList);
+        this.category = category;
     }
 
     draw(filterListData: FilterItem[]): HTMLElement {
@@ -23,7 +26,8 @@ export class Filter {
         filterListData.forEach((item) => {
             const itemClone = <HTMLElement>itemCloneTemp.content.cloneNode(true);
             (<HTMLElement>itemClone.querySelector('.filter__text')).textContent = item.filterName;
-            (<HTMLElement>itemClone.querySelector('.filter__amount')).textContent = `(${item.amount.toString()})`;
+            // disable amount items
+            // (<HTMLElement>itemClone.querySelector('.filter__amount')).textContent = `(${item.amount.toString()})`;
             if (item.status === StatusFilterItem.active) {
                 (<HTMLInputElement>itemClone.querySelector('.filter__checkbox-input')).checked = true;
             } else if (item.status === StatusFilterItem.normal) {
@@ -34,10 +38,16 @@ export class Filter {
                 checkBox.classList.add('filter__checkbox-input_disabled');
                 (<HTMLInputElement>itemClone.querySelector('.filter__item')).classList.add('filter__item_disabled');
             }
+            (<HTMLInputElement>itemClone.querySelector('.filter__checkbox-input')).setAttribute(this.category, item.filterName);
+            (<HTMLElement>itemClone.querySelector('.filter__item')).onchange = () => callback;
             fragment.append(itemClone);
         });
         this.filterList.innerHTML = '';
         this.filterList.append(fragment);
         return this.filterSection;
     }
+}
+
+function callback () {
+  console.log('click');
 }

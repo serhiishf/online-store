@@ -3,8 +3,11 @@ import { Loader } from './loader';
 //import { Products } from '../view/products/products';
 import { FiltersType, FilterCollection, SortDirection } from '../../types/Filter';
 import { Filter } from '../view/filter/filter';
-import { StatusFilterItem } from '../../types/Filter';
+import { StatusFilterItem, FilterOrRange } from '../../types/Filter';
 import { FilterData } from '../controller/filterData';
+import { rawDataMoc } from '../controller/testData';
+import { parseRequestUrl } from '../controller/parseRequestUrl';
+import { RenderFilters } from '../controller/renderAllFilters';
 enum Url {
     base = 'https://dummyjson.com',
     goods = '/products?limit=100',
@@ -26,29 +29,45 @@ export async function testFunction() {
     );
 
     //get data from api, render carts with goods
-    await test.loadGoods();
+    //await test.loadGoods();
     function timeout(ms: number) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-  }
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
     await timeout(1000);
 
     const mocFilterChecked = [
         { type: FiltersType.category, keys: ['smartphones', 'fragrances'] },
-        { type: FiltersType.price, keys: { min: 10, max: 15} },
+        { type: FiltersType.price, keys: { min: 10, max: 15 } },
     ];
     //get raw data
-    const arr = test.rawData;
+    // const arr = test.rawData;
+    const arr = rawDataMoc;
 
     //get FilterItem for render
     const filterData = new FilterData();
     const categoryItemsForRender = filterData.getFilterItems(arr, mocFilterChecked, FiltersType.category);
     const brandItemsForRender = filterData.getFilterItems(arr, mocFilterChecked, FiltersType.brand);
 
-    //render filters
-    const categoryRender = new Filter(FiltersType.category).draw(categoryItemsForRender);
-    const brandRender = new Filter(FiltersType.brand).draw(brandItemsForRender)
+    //render multiply filters with class
+    const parentNodeFilters = document.querySelector('.filters');
+    const mocDataArrFiltersAndRange: FilterOrRange[] = [
+        { type: 'filter', name: FiltersType.category },
+        { type: 'filter', name: FiltersType.brand },
+        { type: 'range', name: FiltersType.price },
+        { type: 'range', name: FiltersType.stock },
+    ];
+    if (parentNodeFilters) {
+        const renderFiltersClass = new RenderFilters(<HTMLElement>parentNodeFilters);
+        renderFiltersClass.drawAll(arr, mocDataArrFiltersAndRange, mocFilterChecked);
+    }
+
+    //render filters manual
+    /*     const categoryRender = new Filter(FiltersType.category).draw(categoryItemsForRender);
+    const brandRender = new Filter(FiltersType.brand).draw(brandItemsForRender);
     document.querySelector('.filters')?.append(categoryRender, brandRender);
     
+    const isParseUrl = parseRequestUrl;
+    console.log(isParseUrl); */
 
     //get arr with category and brands (this data we can use for render filters)
     //console.log(test.getList(arr, FiltersType.category));
