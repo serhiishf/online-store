@@ -96,6 +96,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        //for img bigger:
+        position: relative;
+        &:hover,
+        &:active {
+            .product__img-magnify {
+                opacity: 1;
+            }
+        }
     }
 
     &__img {
@@ -104,6 +113,22 @@
 
         object-fit: contain;
         cursor: pointer;
+    }
+
+    &__img-magnify {
+        background-repeat: no-repeat;
+        background-color: $white-color;
+        width: 350px;
+        height: 350px;
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        border: 4px solid #efefef;
+        border-radius: 100%;
+        display: block;
+        opacity: 0;
+        transition: opacity 0.2s;
+        position: absolute;
+        z-index: 99;
     }
 
     &__slider-wrapper {
