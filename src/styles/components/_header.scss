@@ -9,11 +9,25 @@
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
+        align-items: center;
         gap: 20px;
     }
     &__top {
+        height: 50px;
         border-bottom: 1px solid $border-color;
     }
+    &__bottom {
+        height: 60px;
+    }
+    &__logo,
+    &__price-box {
+        font-size: 1.5rem;
+    }
+    &__logo,
+    &__price {
+        font-weight: 700;
+    }
+
     &__link {
         display: flex;
         align-items: center;

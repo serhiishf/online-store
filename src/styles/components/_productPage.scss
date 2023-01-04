@@ -6,7 +6,7 @@
         & > div {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
     }
 
@@ -58,10 +58,9 @@
         flex-wrap: nowrap;
         justify-content: center;
         align-items: baseline;
-        gap: 35px;
+        gap: 100px;
     }
     &__brand {
-        margin-left: 70px;
         font-weight: 700;
         font-style: italic;
         letter-spacing: 0.1rem;
@@ -72,7 +71,6 @@
     }
 
     &__main {
-        height: 700px;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -81,9 +79,9 @@
     }
 
     &__images-thumb {
-        height: 100%;
+        height: 600px;
         width: 100%;
-        max-width: 600px;
+        max-width: 500px;
 
         display: flex;
         flex-direction: column;
@@ -93,19 +91,44 @@
     }
 
     &__img-box {
-        width: 100%;
-        height: 100%;
+        height: 450px;
+        width: 500px;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        //for img bigger:
+        position: relative;
+        &:hover,
+        &:active {
+            .product__img-magnify {
+                opacity: 1;
+            }
+        }
     }
 
     &__img {
         width: 100%;
-        max-width: 500px;
-        max-height: 550px;
+        height: 100%;
+
         object-fit: contain;
         cursor: pointer;
+    }
+
+    &__img-magnify {
+        background-repeat: no-repeat;
+        background-color: $white-color;
+        width: 350px;
+        height: 350px;
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        border: 4px solid #efefef;
+        border-radius: 100%;
+        display: block;
+        opacity: 0;
+        transition: opacity 0.2s;
+        position: absolute;
+        z-index: 99;
     }
 
     &__slider-wrapper {
@@ -222,7 +245,7 @@
     }
 
     &__action-thumb {
-        margin-top: 70px;
+        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -232,14 +255,14 @@
     &__action-btn {
         @extend %btn;
 
-        font-size: 1rem;
+        font-size: 2rem;
         font-weight: 700;
         color: $text-second-color;
         background: $active-color;
         box-shadow: $box-shadow-active;
-        width: 200px;
-        height: 50px;
-        border-radius: 25px;
+        width: 300px;
+        height: 80px;
+        border-radius: 35px;
 
         transition: all $transition;
 

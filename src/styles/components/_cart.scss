@@ -1,18 +1,19 @@
 .cart {
     position: relative;
     &__image {
+        width: 60px;
     }
     &__count {
         position: absolute;
-        right: -5px;
-        bottom: -5px;
+        right: -10px;
+        bottom: -10px;
         z-index: 1;
-        width: 25px;
-        height: 25px;
+        width: 40px;
+        height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
-        // font-family: 'Inter', sans-serif;
+        font-size: 1.3rem;
         font-weight: 700;
         background-color: $active-color;
         border-radius: 50%;
