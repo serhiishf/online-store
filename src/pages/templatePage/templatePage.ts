@@ -4,7 +4,7 @@ abstract class TemplatePage {
 
     constructor(pageName: string) {
         this.container = document.createElement('div');
-        this.container.classList.add(pageName.slice(1) || 'main');
+        this.container.classList.add(pageName.slice(1) /*remove '/' before page name*/ || 'main');
     }
 
     protected createPageHTML(className: string): HTMLDivElement {
