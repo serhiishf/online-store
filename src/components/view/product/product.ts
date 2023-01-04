@@ -25,6 +25,7 @@ export class Product {
                 }
                 target.classList.add('active');
                 bigImage.src = (<HTMLImageElement>e.target).src;
+                this.createMagnify(bigImage, (<HTMLImageElement>e.target).src);
             }
         });
 
@@ -38,6 +39,58 @@ export class Product {
         buttonRight.addEventListener('click', function () {
             sliderThumb.scrollLeft += 180;
         });
+    }
+
+    private createMagnify(bigImage: HTMLImageElement, imgSrc: string) {
+        const boxImg = <HTMLElement>bigImage.parentElement;
+        const magnifyEl = <HTMLElement>bigImage.nextElementSibling;
+        console.log(bigImage.parentElement);
+        magnifyEl.style.backgroundImage = `url(${imgSrc})`;
+
+        boxImg.addEventListener('mousemove', (e: MouseEvent) => magnifyOnMousemove(e, boxImg, bigImage, magnifyEl));
+        function magnifyOnMousemove(
+            e: MouseEvent,
+            boxImg: HTMLElement,
+            bigImage: HTMLImageElement,
+            magnifyEl: HTMLElement
+        ) {
+            const x = e.pageX - boxImg.offsetLeft;
+            const y = e.pageY - boxImg.offsetTop;
+
+            let xPerc = (x / bigImage.width) * 100;
+            let yPerc = (y / bigImage.height) * 100;
+
+            // Add some margin for right edge
+            if (x > 0.01 * bigImage.width) {
+                xPerc += 0.15 * xPerc;
+            }
+
+            // Add some margin for bottom edge
+            if (y >= 0.01 * bigImage.height) {
+                yPerc += 0.15 * yPerc;
+            }
+
+            // Set the background of the magnified image horizontal
+            magnifyEl.style.backgroundPositionX = xPerc - 9 + '%';
+            // Set the background of the magnified image vertical
+            magnifyEl.style.backgroundPositionY = yPerc - 9 + '%';
+
+            // Move the magnifying glass with the mouse movement.
+            magnifyEl.style.left = x - magnifyEl.clientWidth / 2 + 'px';
+            magnifyEl.style.top = y - magnifyEl.clientWidth / 2 + 'px';
+        }
+    }
+
+    private static actionsWithProduct(parentEl: HTMLElement, data: ProductType) {
+        const addToCartBtn = <HTMLButtonElement>parentEl.querySelector('.product__action-btn--add-cart');
+        const isProductInCart = CartController.findProductPos(data.id);
+        addToCartBtn.textContent = isProductInCart === -1 ? 'Add to cart' : 'Drop from cart';
+
+        if (isProductInCart >= 0) {
+            Product.addListenerToRemoveProduct(addToCartBtn, data.id, data.price);
+        } else {
+            Product.addListenerToAddProduct(addToCartBtn, data.id, data.price);
+        }
     }
 
     private static addListenerToAddProduct(cartBtn: HTMLButtonElement, id: number, price: number): void {
@@ -91,6 +144,7 @@ export class Product {
         const imgEl = <HTMLImageElement>prodClone.querySelector('.product__img');
         imgEl.setAttribute('src', data.images[0]);
         imgEl.setAttribute('alt', data.title);
+        this.createMagnify(imgEl, data.images[0]);
 
         //slider:
         const sliderThumb = <HTMLElement>prodClone.querySelector('#slider');
@@ -123,15 +177,7 @@ export class Product {
         )).textContent = `${this.countPriceBeforeDiscount(data.price, data.discountPercentage)} $`;
 
         //add product to cart logic:
-        const addToCartBtn = <HTMLButtonElement>prodClone.querySelector('.product__action-btn--add-cart');
-        const isProductInCart = CartController.findProductPos(data.id);
-        addToCartBtn.textContent = isProductInCart === -1 ? 'Add to cart' : 'Drop from cart';
-
-        if (isProductInCart >= 0) {
-            Product.addListenerToRemoveProduct(addToCartBtn, data.id, data.price);
-        } else {
-            Product.addListenerToAddProduct(addToCartBtn, data.id, data.price);
-        }
+        Product.actionsWithProduct(prodClone, data);
 
         fragment.append(prodClone);
         this.productsThumb.appendChild(fragment);

@@ -4,6 +4,7 @@ export class CartController {
     static createCart(id: number, price: number): Cart {
         return {
             totalCount: 1,
+            oneTypeProductCount: 1,
             totalPrice: price,
             products: [
                 {
@@ -31,17 +32,18 @@ export class CartController {
         return -1;
     }
 
-    static addProduct(id: number, price: number): void {
+    static addProduct(id: number, price: number, quantity: number = 1): void {
         const cart: string | null = CartController.getCart();
         if (cart) {
             const cartParsed: Cart = JSON.parse(cart);
-            cartParsed.totalCount += 1;
-            cartParsed.totalPrice += price;
+            cartParsed.totalCount += quantity;
+            cartParsed.totalPrice += price * quantity;
             const productPos: number = CartController.findProductPos(id);
             if (productPos >= 0) {
-                cartParsed.products[productPos].count += 1;
+                cartParsed.products[productPos].count += quantity;
             } else {
-                cartParsed.products.push({ id, count: 1 });
+                cartParsed.oneTypeProductCount += 1;
+                cartParsed.products.push({ id, count: quantity });
             }
             window.localStorage.setItem('cart', JSON.stringify(cartParsed));
         } else {
@@ -50,19 +52,20 @@ export class CartController {
         }
     }
 
-    static removeOneProductOneType(id: number, price: number) {
+    static removeOneProductOneType(id: number, price: number, quantity: number = 1) {
         const cart: string | null = CartController.getCart();
         if (cart) {
             const cartParsed: Cart = JSON.parse(cart);
             const productPos: number = CartController.findProductPos(id);
             if (productPos >= 0) {
-                cartParsed.totalCount -= 1;
-                cartParsed.totalPrice -= price;
+                cartParsed.totalCount -= quantity;
+                cartParsed.totalPrice -= price * quantity;
                 const prodCount = cartParsed.products[productPos].count;
                 if (prodCount > 1) {
-                    cartParsed.products[productPos].count -= 1;
+                    cartParsed.products[productPos].count -= quantity;
                 } else if (prodCount === 1) {
                     cartParsed.products.splice(productPos, 1);
+                    cartParsed.oneTypeProductCount -= 1;
                 }
             } else {
                 console.log("You didn't add anything in Cart yet");
@@ -81,6 +84,7 @@ export class CartController {
             if (productPos >= 0) {
                 const prodCount = cartParsed.products[productPos].count;
                 cartParsed.totalCount -= prodCount;
+                cartParsed.oneTypeProductCount -= 1;
                 cartParsed.totalPrice -= price * prodCount;
                 cartParsed.products.splice(productPos, 1);
             } else {

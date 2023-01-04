@@ -46,7 +46,7 @@ export class Products {
         if (products.length > 0) {
             products.forEach((item: Product) => {
                 const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
-                (<HTMLLinkElement>prodClone.querySelector('.card')).href = `${baseUrl}/?id=${item.id}#/product`;
+                (<HTMLLinkElement>prodClone.querySelector('.card')).href = `${baseUrl}?id=${item.id}#/product`;
                 (<HTMLElement>prodClone.querySelector('.card__title')).textContent = item.title;
                 (<HTMLElement>prodClone.querySelector('.card__brand')).textContent = item.brand;
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute(
