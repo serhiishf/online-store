@@ -6,6 +6,11 @@
     max-width: 250px;
     &__type {
     }
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 .filter {

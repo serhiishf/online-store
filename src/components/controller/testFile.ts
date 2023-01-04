@@ -57,7 +57,7 @@ export async function testFunction() {
         { type: 'range', name: FiltersType.stock },
     ];
     if (parentNodeFilters) {
-        const renderFiltersClass = new RenderFilters(<HTMLElement>parentNodeFilters);
+        const renderFiltersClass = new RenderFilters(<HTMLElement>parentNodeFilters, () => console.log('click'));
         renderFiltersClass.drawAll(arr, mocDataArrFiltersAndRange, mocFilterChecked);
     }
 
