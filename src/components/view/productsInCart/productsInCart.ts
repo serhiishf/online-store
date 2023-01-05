@@ -1,3 +1,5 @@
+import cartPage from '../../../pages/cartPage';
+import CartPage from '../../../pages/cartPage/cartPage';
 import { Cart, Product, ProductInCart as IProductInCart } from '../../../types';
 import { CartController } from '../../controller/cartController';
 import { HeaderController } from '../../controller/headerController';
@@ -37,7 +39,7 @@ export class ProductsInCart {
         const priceEl = <HTMLElement>parentEl.querySelector('.cart__product-price-quantity');
 
         incrBtnEl.addEventListener('click', addProduct);
-        decrBtnEl.addEventListener('click', removeProduct);
+        decrBtnEl.addEventListener('click', () => removeProduct(this.listEl));
 
         function addProduct(): void {
             const prodQuantity = 1;
@@ -52,7 +54,7 @@ export class ProductsInCart {
             }
         }
 
-        function removeProduct(): void {
+        function removeProduct(listEl: HTMLElement): void {
             const prodQuantity = 1;
             CartController.removeOneProductOneType(prodId, prodPrice, prodQuantity);
             HeaderController.changeViewOnCartAction();
@@ -61,10 +63,18 @@ export class ProductsInCart {
             countEl.textContent = `${Number(<string>countEl.textContent) - prodQuantity}`;
             priceEl.textContent = `${Number(<string>priceEl.textContent) - prodPrice * prodQuantity}`;
             if (countEl.textContent === '0') {
-                incrBtnEl.removeEventListener('click', addProduct);
-                decrBtnEl.removeEventListener('click', removeProduct);
                 const parentElInDOM = <HTMLElement>document.querySelector(`#product-id-${prodId}`);
                 parentElInDOM.remove();
+            }
+            const cartStorage = CartController.getCart();
+            if (cartStorage) {
+                const cart: Cart = JSON.parse(cartStorage);
+                if (cart.totalCount === 0) {
+                    const alternativeTxt = document.createElement('p');
+                    alternativeTxt.classList.add('alternative-txt');
+                    alternativeTxt.textContent = 'Your Cart is Empty';
+                    listEl.append(alternativeTxt);
+                }
             }
         }
     }
