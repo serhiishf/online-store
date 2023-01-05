@@ -28,9 +28,9 @@
                         <span class="header__price-txt">Cart total: </span>
                         <span class="header__price"></span>
                     </div>
-                    <div class="cart">
-                        <img class="cart__image" src="./assets/icons/cart.svg" alt="cart" />
-                        <div class="cart__count"></div>
+                    <div class="header__cart">
+                        <img class="header__cart-image" src="./assets/icons/cart.svg" alt="cart" />
+                        <div class="header__cart-count"></div>
                     </div>
                 </div>
             </div>
@@ -136,6 +136,67 @@
             <div class="product__action-thumb">
                 <button class="product__action-btn product__action-btn--add-cart" type="button"></button>
                 <button class="product__action-btn" type="button">Buy now</button>
+            </div>
+        </template>
+        <!-- products in cart header: -->
+        <template>
+            <div>
+                <h1>Products in cart</h1>
+                <div>
+                    <label for="limit-prod-on-page">Show products on page:</label>
+                    <input type="number" id="limit-prod-on-page" name="limit" min="3" max="5" />
+                </div>
+                <div>
+                    <p>Show products on page:</p>
+                    <div>
+                        <button type="button"><</button>
+                        <span></span>
+                        <button>></button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- one product on Cart page: -->
+        <template>
+            <ol>
+                <div>
+                    <img />
+                    <div>
+                        <h3>name</h3>
+                        <hr />
+                        <p>desc</p>
+                        <div>
+                            <p>Rating: <span></span></p>
+                            <p>Discount: <span></span></p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Stock: <span></span></p>
+                        <div>
+                            <button type="button">+</button>
+                            <span>1</span>
+                            <button type="button">-</button>
+                        </div>
+                        <p>$<span>price</span></p>
+                    </div>
+                </div>
+            </ol>
+        </template>
+
+        <!-- Summary on Cart Page -->
+        <template>
+            <div>
+                <h2>Summary</h2>
+                <div>
+                    <p>Products: <span></span></p>
+                    <p>Total: <span></span></p>
+
+                    <input type="search" template="Enter promo code" />
+                    <p>Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
+
+                    <button type="button">Buy now</button>
+                </div>
             </div>
         </template>
     </body>
