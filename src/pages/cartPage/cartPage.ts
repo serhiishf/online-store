@@ -25,7 +25,7 @@ class CartPage extends TemplatePage {
 
         if (this.cart && this.cart.totalCount > 0) {
             //render products in cart
-            const view = new ProductsInCart(this.cart.products);
+            const view = new ProductsInCart(this.cart);
             const products = await view.draw();
             //render bloc with total price
 

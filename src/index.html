@@ -138,7 +138,7 @@
                 <button class="product__action-btn" type="button">Buy now</button>
             </div>
         </template>
-        <!-- products in cart header: -->
+        <!-- Cart page header: -->
         <template>
             <div>
                 <h1>Products in cart</h1>
@@ -158,27 +158,27 @@
         </template>
 
         <!-- one product on Cart page: -->
-        <template>
-            <ol>
+        <template id="product-in-cart">
+            <ol class="cart__product-item">
                 <div>
-                    <img />
+                    <img class="cart__product-img" />
                     <div>
-                        <h3>name</h3>
+                        <h3 class="cart__product-title">name</h3>
                         <hr />
-                        <p>desc</p>
+                        <p class="cart__product-desc">desc</p>
                         <div>
-                            <p>Rating: <span></span></p>
-                            <p>Discount: <span></span></p>
+                            <p class="cart__product-inf">Rating: <span class="cart__product-inf--rating"></span></p>
+                            <p class="cart__product-inf">Discount: <span class="cart__product-inf--discount"></span></p>
                         </div>
                     </div>
                     <div>
-                        <p>Stock: <span></span></p>
+                        <p class="cart__product-inf">Stock: <span class="cart__inf--stock"></span></p>
                         <div>
-                            <button type="button">+</button>
-                            <span>1</span>
-                            <button type="button">-</button>
+                            <button type="button" class="cart__product-count-incr">+</button>
+                            <span class="cart__product-count"></span>
+                            <button type="button" class="cart__product-count-decr">-</button>
                         </div>
-                        <p>$<span>price</span></p>
+                        <p class="cart__product-price">$<span class="cart__product-price-quantity"></span></p>
                     </div>
                 </div>
             </ol>

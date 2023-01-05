@@ -63,9 +63,9 @@ export class Products {
 
                 const addToCartBtn = <HTMLButtonElement>prodClone.querySelector('.card__btn-cart');
 
-                const productInCartPosition = CartController.findProductPos(item.id);
+                const productInCartIndx = CartController.findProductPos(item.id);
 
-                if (productInCartPosition >= 0) {
+                if (productInCartIndx >= 0) {
                     addToCartBtn.classList.add('card__btn-cart--active');
                     Products.addListenerToRemoveProduct(addToCartBtn, item.id, item.price);
                 } else {
