@@ -1,15 +1,18 @@
 import { Cart, Product, ProductInCart as IProductInCart } from '../../../types';
+import { CartController } from '../../controller/cartController';
+import { HeaderController } from '../../controller/headerController';
 import { LoaderSingleProduct } from '../../controller/loaderSingleProduct';
 
 export class ProductsInCart {
     protected items: IProductInCart[];
     protected listEl: HTMLUListElement;
-    // { products: IProductInCart[]}
+
     constructor(storageCart: Cart) {
         this.items = storageCart.products;
-        this.listEl = document.createElement('ul');
+        this.listEl = document.createElement('ol');
         this.listEl.classList.add('cart__product-list');
     }
+
     private async getProducts() {
         try {
             const promises = this.items.map((el: IProductInCart) => LoaderSingleProduct.fetchProduct(el.id.toString()));
@@ -27,6 +30,45 @@ export class ProductsInCart {
         }
     }
 
+    private addOrRemoveProdAction(parentEl: HTMLElement, prodId: number, prodPrice: number, inStock: number) {
+        const incrBtnEl = <HTMLButtonElement>parentEl.querySelector('.cart__product-count-incr');
+        const decrBtnEl = <HTMLButtonElement>parentEl.querySelector('.cart__product-count-decr');
+        const countEl = <HTMLElement>parentEl.querySelector('.cart__product-count');
+        const priceEl = <HTMLElement>parentEl.querySelector('.cart__product-price-quantity');
+
+        incrBtnEl.addEventListener('click', addProduct);
+        decrBtnEl.addEventListener('click', removeProduct);
+
+        function addProduct(): void {
+            const prodQuantity = 1;
+            CartController.addProduct(prodId, prodPrice, prodQuantity);
+            HeaderController.changeViewOnCartAction();
+
+            countEl.textContent = `${Number(<string>countEl.textContent) + prodQuantity}`;
+            priceEl.textContent = `${Number(<string>priceEl.textContent) + prodPrice * prodQuantity}`;
+
+            if (Number(countEl.textContent) === inStock) {
+                incrBtnEl.disabled = true;
+            }
+        }
+
+        function removeProduct(): void {
+            const prodQuantity = 1;
+            CartController.removeOneProductOneType(prodId, prodPrice, prodQuantity);
+            HeaderController.changeViewOnCartAction();
+            incrBtnEl.disabled = false;
+
+            countEl.textContent = `${Number(<string>countEl.textContent) - prodQuantity}`;
+            priceEl.textContent = `${Number(<string>priceEl.textContent) - prodPrice * prodQuantity}`;
+            if (countEl.textContent === '0') {
+                incrBtnEl.removeEventListener('click', addProduct);
+                decrBtnEl.removeEventListener('click', removeProduct);
+                const parentElInDOM = <HTMLElement>document.querySelector(`#product-id-${prodId}`);
+                parentElInDOM.remove();
+            }
+        }
+    }
+
     public async draw() {
         const products = await this.getProducts();
         if (products) {
@@ -35,6 +77,10 @@ export class ProductsInCart {
 
             products.forEach((prod) => {
                 const prodClone = <HTMLElement>template.content.cloneNode(true);
+                (<HTMLImageElement>prodClone.querySelector('.cart__product-item')).setAttribute(
+                    'id',
+                    `product-id-${prod.id}`
+                );
                 //product image:
                 const imgEl = <HTMLImageElement>prodClone.querySelector('.cart__product-img');
                 imgEl.setAttribute('src', prod.thumbnail);
@@ -49,16 +95,14 @@ export class ProductsInCart {
                 (<HTMLElement>prodClone.querySelector('.cart__inf--stock')).textContent = prod.stock.toString();
                 //how many in cart:
                 const count: number | undefined = this.items.find((el) => el.id === prod.id)?.count;
-                (<HTMLElement>prodClone.querySelector('.cart__product-count')).textContent = count
-                    ? count.toString()
-                    : '1';
+                const countEl = <HTMLElement>prodClone.querySelector('.cart__product-count');
+                countEl.textContent = count ? count.toString() : '1';
                 //total price for one product*product quantity:
-                (<HTMLElement>prodClone.querySelector('.cart__product-price-quantity')).textContent = count
-                    ? `${prod.price * count}`
-                    : `${prod.price}`;
+                const priceEl = <HTMLElement>prodClone.querySelector('.cart__product-price-quantity');
+                priceEl.textContent = count ? `${prod.price * count}` : `${prod.price}`;
 
                 //add + and - product in Cart
-                // this.addOrRemoveProdAction(prodClone);
+                this.addOrRemoveProdAction(prodClone, prod.id, prod.price, prod.stock);
 
                 fragment.append(prodClone);
             });

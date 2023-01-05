@@ -23,15 +23,15 @@
                     </div>
                 </div>
                 <div class="header__bottom">
-                    <a class="header__logo" href="/">Online Store</a>
+                    <a class="header__logo" href="#/">Online Store</a>
                     <div class="header__price-box">
                         <span class="header__price-txt">Cart total: </span>
                         <span class="header__price"></span>
                     </div>
-                    <div class="header__cart">
+                    <a class="header__cart" href="#/cart">
                         <img class="header__cart-image" src="./assets/icons/cart.svg" alt="cart" />
                         <div class="header__cart-count"></div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </header>
@@ -159,7 +159,7 @@
 
         <!-- one product on Cart page: -->
         <template id="product-in-cart">
-            <ol class="cart__product-item">
+            <li class="cart__product-item">
                 <div>
                     <img class="cart__product-img" />
                     <div>
@@ -181,7 +181,7 @@
                         <p class="cart__product-price">$<span class="cart__product-price-quantity"></span></p>
                     </div>
                 </div>
-            </ol>
+            </li>
         </template>
 
         <!-- Summary on Cart Page -->
