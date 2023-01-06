@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Online store</title>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online store</title>
+  </head>
+
 
     <body>
         <header class="header">
@@ -36,19 +37,39 @@
             </div>
         </header>
 
-        <main id="app"></main>
 
-        <footer></footer>
+    <main id="app"></main>
 
-        <template id="filter-item">
-            <li class="filter__item">
-                <label class="filter__label">
-                    <input type="checkbox" class="filter__checkbox-input" />
-                    <span class="filter__text"></span>
-                    <span class="filter__amount"></span>
-                </label>
-            </li>
-        </template>
+    <footer></footer>
+
+<template id="filter-item">
+      <li class="filter__item">
+        <label class="filter__label">
+          <input type="checkbox" class="filter__checkbox-input" />
+          <span class="filter__text"></span>
+          <span class="filter__amount"></span>
+        </label>
+      </li>
+    </template>
+
+    <template id="dual-range-item">
+      <div class="range">
+        <div class="range__slider-control">
+          <input class="range__slider range__slider_from" type="range" value="10" min="0" max="100" />
+          <input class="range__slider range__slider_to" type="range" value="30" min="0" max="100" />
+        </div>
+        <div class="range__input-control">
+          <div class="range__input-wrap">
+            <div class="range__subtitle">Min</div>
+            <input class="range__num-input range__num-input_from" type="number" value="10" min="0" max="100" />
+          </div>
+          <div class="range__input-wrap">
+            <div class="range__subtitle">Max</div>
+            <input class="range__num-input range__num-input_to" type="number" value="30" min="0" max="100" />
+          </div>
+        </div>
+      </div>
+    </template>
 
         <template id="product-item">
             <li class="products__item">
@@ -197,5 +218,5 @@
                 </div>
             </div>
         </template>
-    </body>
+
 </html>

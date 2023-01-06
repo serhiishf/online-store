@@ -36,3 +36,8 @@ export enum SortDirection {
     up,
     down,
 }
+
+export interface FilterOrRange {
+    type: 'filter' | 'range';
+    name: FiltersType;
+}
