@@ -4,92 +4,78 @@
   display: flex;
   flex-direction: column;
   width: 80%;
-  margin: 100px auto;
-  &__control {
+
+  &__slider-control {
     position: relative;
-    min-height: 50px;
+    margin-top: 20px;
+    min-height: 25px;
   }
-}
+  &__input-control {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    color: #635a5a;
+  }
+  &__num-input {
+    color: #8a8383;
+    width: 50px;
+    height: 30px;
+    font-size: 1.2rem;
+    border: none;
 
+    // disable arrows in Input - type Number
+    /* Firefox */
+    -moz-appearance: textfield;
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    opacity: 1;
+  }
+  &__slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    background-color: #c6c6c6;
+    pointer-events: none;
 
-.form_control {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  font-size: 24px;
-  color: #635a5a;
-}
-
-input[type='range']::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  pointer-events: all;
-  width: 24px;
-  height: 24px;
-  background-color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px #c6c6c6;
-  cursor: pointer;
-}
-
-input[type='range']::-moz-range-thumb {
-  -webkit-appearance: none;
-  pointer-events: all;
-  width: 24px;
-  height: 24px;
-  background-color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px #c6c6c6;
-  cursor: pointer;
-}
-
-input[type='range']::-webkit-slider-thumb:hover {
-  background: #f7f7f7;
-}
-
-input[type='range']::-webkit-slider-thumb:active {
-  box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-  -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-}
-
-input[type='number'] {
-  color: #8a8383;
-  width: 50px;
-  height: 30px;
-  font-size: 20px;
-  border: none;
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  opacity: 1;
-}
-
-input[type='range'] {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 2px;
-  width: 100%;
-  position: absolute;
-  background-color: #c6c6c6;
-  pointer-events: none;
-}
-
-#fromSlider {
-  height: 0;
-  z-index: 1;
-}
-
-//////////////////////////////////////////////////////////////////
-// disable arrows in Input - type Number
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type='number'] {
-  -moz-appearance: textfield;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      pointer-events: all;
+      width: 16px;
+      height: 16px;
+      background-color: #f1d627;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &::-moz-range-thumb {
+      -moz-appearance: none;
+      appearance: none;
+      pointer-events: all;
+      width: 16px;
+      height: 16px;
+      background-color: #f1d627;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &::-webkit-slider-thumb:hover {
+      background: #5d5c5c;
+    }
+    &::-webkit-slider-thumb:active {
+      box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+      -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+    }
+    &_from {
+      height: 0;
+      z-index: 1;
+    }
+  }
 }

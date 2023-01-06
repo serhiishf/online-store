@@ -10,7 +10,7 @@ export class Filter {
     constructor(category: FiltersType) {
         this.filterSection = <HTMLElement>document.createElement('div');
         this.filterSection.classList.add(`filter__${category}`, 'filter');
-        this.filterSection.setAttribute('filterkey', category);
+        this.filterSection.setAttribute('data-filterkey', category);
         this.filterTitle = <HTMLElement>document.createElement('div');
         this.filterTitle.classList.add('filter__title');
         this.filterTitle.textContent = `${category}`;
@@ -38,8 +38,7 @@ export class Filter {
                 checkBox.classList.add('filter__checkbox-input_disabled');
                 (<HTMLInputElement>itemClone.querySelector('.filter__item')).classList.add('filter__item_disabled');
             }
-            (<HTMLInputElement>itemClone.querySelector('.filter__checkbox-input')).setAttribute(this.category, item.filterName);
-            (<HTMLElement>itemClone.querySelector('.filter__item')).onchange = () => callback;
+            (<HTMLInputElement>itemClone.querySelector('.filter__checkbox-input')).setAttribute(`data-${this.category}`, item.filterName);
             fragment.append(itemClone);
         });
         this.filterList.innerHTML = '';
@@ -48,6 +47,3 @@ export class Filter {
     }
 }
 
-function callback () {
-  console.log('click');
-}
