@@ -1,5 +1,6 @@
 import { Product as ProductType } from '../../../types';
 import { CartController } from '../../controller/cartController';
+import { clearSearchParams } from '../../controller/clearSearchParams';
 import { HeaderController } from '../../controller/headerController';
 //TODO: add render count of added product to cart and maybe input for changing this number
 
@@ -44,7 +45,7 @@ export class Product {
     private createMagnify(bigImage: HTMLImageElement, imgSrc: string) {
         const boxImg = <HTMLElement>bigImage.parentElement;
         const magnifyEl = <HTMLElement>bigImage.nextElementSibling;
-        console.log(bigImage.parentElement);
+
         magnifyEl.style.backgroundImage = `url(${imgSrc})`;
 
         boxImg.addEventListener('mousemove', (e: MouseEvent) => magnifyOnMousemove(e, boxImg, bigImage, magnifyEl));
@@ -117,22 +118,49 @@ export class Product {
         }
     }
 
+    private onCategoryLinkClick(category: string): void {
+        const url = new URL(window.location.href);
+        clearSearchParams(url);
+        url.searchParams.delete('id');
+        url.searchParams.set('category', `${category}`);
+        window.history.pushState(null, '', url.toString());
+    }
+
+    private obBrandLinkClick(category: string, brand: string): void {
+        const url = new URL(window.location.href);
+        clearSearchParams(url);
+        url.searchParams.delete('id');
+        url.searchParams.set('category', `${category}`);
+        url.searchParams.set('brand', `${brand}`);
+
+        window.history.pushState(null, '', url.toString());
+    }
+
     public draw(data: ProductType): HTMLElement {
-        const baseUrl = window.location.origin;
         this.productsThumb.innerHTML = '';
 
         const fragment = <DocumentFragment>document.createDocumentFragment();
         const productItemTemp = <HTMLTemplateElement>document.querySelector('#product-page');
         const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
 
-        //navidation:
+        //navigation:
+        (<HTMLElement>prodClone.querySelector('.product__path-main')).addEventListener('click', () => {
+            const url = new URL(window.location.origin);
+            url.searchParams.delete('id');
+            window.history.pushState(null, '', url.toString());
+        });
+
         const pathCategoryEl = <HTMLLinkElement>prodClone.querySelector('.product__path-category');
-        pathCategoryEl.href = `${baseUrl}/?category=${data.category.toLocaleLowerCase()}#/`;
+        // pathCategoryEl.href = `${baseUrl}/?category=${data.category.toLocaleLowerCase()}#/`;
         pathCategoryEl.textContent = data.category;
+        pathCategoryEl.addEventListener('click', () => this.onCategoryLinkClick(data.category.toLocaleLowerCase()));
 
         const pathBrandEl = <HTMLLinkElement>prodClone.querySelector('.product__path-brand');
-        pathBrandEl.href = `${baseUrl}/?category=${data.category}&brand=${data.brand.toLocaleLowerCase()}#/`;
+        // pathBrandEl.href = `${baseUrl}/?category=${data.category}&brand=${data.brand.toLocaleLowerCase()}#/`;
         pathBrandEl.textContent = data.brand;
+        pathBrandEl.addEventListener('click', () =>
+            this.obBrandLinkClick(data.category.toLocaleLowerCase(), data.brand.toLocaleLowerCase())
+        );
 
         (<HTMLLinkElement>prodClone.querySelector('.product__path-name')).textContent = data.title;
 

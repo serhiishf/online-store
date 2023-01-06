@@ -1,6 +1,8 @@
 import { Product } from '../../../types';
 import { CartController } from '../../controller/cartController';
+import { clearSearchParams } from '../../controller/clearSearchParams';
 import { HeaderController } from '../../controller/headerController';
+
 //TODO: add better animation on adding and removing product from cart
 
 export class Products {
@@ -46,7 +48,14 @@ export class Products {
         if (products.length > 0) {
             products.forEach((item: Product) => {
                 const prodClone = <HTMLElement>productItemTemp.content.cloneNode(true);
-                (<HTMLLinkElement>prodClone.querySelector('.card')).href = `${baseUrl}?id=${item.id}#/product`;
+                // (<HTMLLinkElement>prodClone.querySelector('.card')).href = `${baseUrl}?id=${item.id}#/product`;
+                (<HTMLLinkElement>prodClone.querySelector('.card')).addEventListener('click', () => {
+                    const url = new URL(window.location.href);
+                    clearSearchParams(url);
+                    url.searchParams.set('id', `${item.id}`);
+                    window.history.pushState(null, '', url.toString());
+                });
+
                 (<HTMLElement>prodClone.querySelector('.card__title')).textContent = item.title;
                 (<HTMLElement>prodClone.querySelector('.card__brand')).textContent = item.brand;
                 (<HTMLElement>prodClone.querySelector('.card__image')).setAttribute(
@@ -63,9 +72,9 @@ export class Products {
 
                 const addToCartBtn = <HTMLButtonElement>prodClone.querySelector('.card__btn-cart');
 
-                const productInCartPosition = CartController.findProductPos(item.id);
+                const productInCartIndx = CartController.findProductPos(item.id);
 
-                if (productInCartPosition >= 0) {
+                if (productInCartIndx >= 0) {
                     addToCartBtn.classList.add('card__btn-cart--active');
                     Products.addListenerToRemoveProduct(addToCartBtn, item.id, item.price);
                 } else {

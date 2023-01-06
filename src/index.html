@@ -7,40 +7,42 @@
     <title>Online store</title>
   </head>
 
-  <body>
-    <header class="header">
-      <div class="header__container">
-        <div class="header__top">
-          <div class="header__link-thumb">
-            <a class="header__link header__link--phone" href="tel:123456789">+123 456 789</a>
-            <a class="header__link header__link--mail" href="mailto:example@mail.com">example@mail.com</a>
-          </div>
-          <div class="header__link-thumb">
-            <a class="header__link header__link--location" href="https://goo.gl/maps/ScdNtFsfG3qBBmxv5"
-              >Store location</a
-            >
-            <button class="header__link header__link--sign-in" type="button">Sign In</button>
-          </div>
-        </div>
-        <div class="header__bottom">
-          <a class="header__logo" href="/">Online Store</a>
-          <div class="header__price-box">
-            <span class="header__price-txt">Cart total: </span>
-            <span class="header__price"></span>
-          </div>
-          <div class="cart">
-            <img class="cart__image" src="./assets/icons/cart.svg" alt="cart" />
-            <div class="cart__count"></div>
-          </div>
-        </div>
-      </div>
-    </header>
+
+    <body>
+        <header class="header">
+            <div class="header__container">
+                <div class="header__top">
+                    <div class="header__link-thumb">
+                        <a class="header__link header__link--phone" href="tel:123456789">+123 456 789</a>
+                        <a class="header__link header__link--mail" href="mailto:example@mail.com">example@mail.com</a>
+                    </div>
+                    <div class="header__link-thumb">
+                        <a class="header__link header__link--location" href="https://goo.gl/maps/ScdNtFsfG3qBBmxv5"
+                            >Store location</a
+                        >
+                        <button class="header__link header__link--sign-in" type="button">Sign In</button>
+                    </div>
+                </div>
+                <div class="header__bottom">
+                    <a class="header__logo" href="#/">Online Store</a>
+                    <div class="header__price-box">
+                        <span class="header__price-txt">Cart total: </span>
+                        <span class="header__price"></span>
+                    </div>
+                    <a class="header__cart" href="#/cart">
+                        <img class="header__cart-image" src="./assets/icons/cart.svg" alt="cart" />
+                        <div class="header__cart-count"></div>
+                    </a>
+                </div>
+            </div>
+        </header>
+
 
     <main id="app"></main>
 
     <footer></footer>
 
-    <template id="filter-item">
+<template id="filter-item">
       <li class="filter__item">
         <label class="filter__label">
           <input type="checkbox" class="filter__checkbox-input" />
@@ -69,93 +71,152 @@
       </div>
     </template>
 
-    <template id="product-item">
-      <li class="products__item">
-        <a class="card" href="">
-          <div class="card__header">
-            <span class="card__brand"></span>
-            <span class="card__title"></span>
-          </div>
+        <template id="product-item">
+            <li class="products__item">
+                <a class="card" href="#/product">
+                    <div class="card__header">
+                        <span class="card__brand"></span>
+                        <span class="card__title"></span>
+                    </div>
 
-          <!-- TODO: slider for images -->
-          <div class="card__img-thumb">
-            <img class="card__image" />
-          </div>
+                    <div class="card__img-thumb">
+                        <img class="card__image" />
+                    </div>
 
-          <div class="card__desc-thumb">
-            <p class="card__desc"></p>
-          </div>
-          <p class="card__stock"></p>
+                    <div class="card__desc-thumb">
+                        <p class="card__desc"></p>
+                    </div>
+                    <p class="card__stock"></p>
 
-          <div class="card__footer">
-            <p class="card__price"></p>
-            <button class="card__btn-cart" type="button">
-              <svg class="card__icon-cart">
-                <use />
-              </svg>
-            </button>
-          </div>
-        </a>
-      </li>
-    </template>
+                    <div class="card__footer">
+                        <p class="card__price"></p>
+                        <button class="card__btn-cart" type="button">
+                            <svg class="card__icon-cart">
+                                <use />
+                            </svg>
+                        </button>
+                    </div>
+                </a>
+            </li>
+        </template>
 
-    <template id="product-page">
-      <div class="product__path">
-        <a href="/" class="product__path-main">Main store</a>
-        <span> > </span>
-        <a class="product__path-category"></a>
-        <span> > </span>
-        <a class="product__path-brand"></a>
-        <span> > </span>
-        <span class="product__path-name"></span>
-      </div>
-      <div class="product__header">
-        <h1 class="product__title"></h1>
-        <span class="product__brand"></span>
-      </div>
-      <div class="product__main">
-        <div class="product__images-thumb">
-          <div class="product__img-box">
-            <img class="product__img" />
-            <div class="product__img-magnify"></div>
-          </div>
-
-          <div class="product__slider-wrapper">
-            <button type="button" id="slideLeft" class="product__btn-arrow">
-              <svg>
-                <use href="./assets/icons/sprite.svg#arrow-left" />
-              </svg>
-            </button>
-
-            <div id="slider" class="product__slider"></div>
-
-            <button type="button" id="slideRight" class="product__btn-arrow">
-              <svg>
-                <use href="./assets/icons/sprite.svg#arrow-right" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="product__info-thumb">
-          <p class="product__category"></p>
-          <p class="product__rating"></p>
-          <p class="product__description"></p>
-          <p class="product__stock"></p>
-
-          <div class="product__price-thumb">
-            <div>
-              <p class="product__price"></p>
-              <p class="product__price-discount"></p>
+        <!-- Page of Single Product -->
+        <template id="product-page">
+            <div class="product__path">
+                <a href="#/" class="product__path-main">Main store</a>
+                <span> > </span>
+                <a href="#/" class="product__path-category"></a>
+                <span> > </span>
+                <a href="#/" class="product__path-brand"></a>
+                <span> > </span>
+                <span class="product__path-name"></span>
             </div>
-            <p>List Price: <span class="product__price-before-discount"></span></p>
-          </div>
-        </div>
-      </div>
+            <div class="product__header">
+                <h1 class="product__title"></h1>
+                <span class="product__brand"></span>
+            </div>
+            <div class="product__main">
+                <div class="product__images-thumb">
+                    <div class="product__img-box">
+                        <img class="product__img" />
+                        <div class="product__img-magnify"></div>
+                    </div>
 
-      <div class="product__action-thumb">
-        <button class="product__action-btn product__action-btn--add-cart" type="button"></button>
-        <button class="product__action-btn" type="button">Buy now</button>
-      </div>
-    </template>
-  </body>
+                    <div class="product__slider-wrapper">
+                        <button type="button" id="slideLeft" class="product__btn-arrow">
+                            <svg>
+                                <use href="./assets/icons/sprite.svg#arrow-left" />
+                            </svg>
+                        </button>
+
+                        <div id="slider" class="product__slider"></div>
+
+                        <button type="button" id="slideRight" class="product__btn-arrow">
+                            <svg>
+                                <use href="./assets/icons/sprite.svg#arrow-right" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="product__info-thumb">
+                    <p class="product__category"></p>
+                    <p class="product__rating"></p>
+                    <p class="product__description"></p>
+                    <p class="product__stock"></p>
+
+                    <div class="product__price-thumb">
+                        <div>
+                            <p class="product__price"></p>
+                            <p class="product__price-discount"></p>
+                        </div>
+                        <p>List Price: <span class="product__price-before-discount"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product__action-thumb">
+                <button class="product__action-btn product__action-btn--add-cart" type="button"></button>
+                <button class="product__action-btn" type="button">Buy now</button>
+            </div>
+        </template>
+        <!-- Cart page header: -->
+        <template id="cart-page-header">
+            <h1 class="cart__header-title">Products in cart</h1>
+            <div class="cart__page-limit">
+                <label for="limit-prod-on-page">Show products on page: </label>
+                <input type="number" id="limit-prod-on-page" name="limit" min="2" max="5" value="2" />
+            </div>
+            <div class="cart__sub-page">
+                <p>Page:</p>
+                <div>
+                    <button class="cart__sub-page-btn-prev" type="button"><</button>
+                    <span class="cart__sub-page-count"></span>
+                    <button class="cart__sub-page-btn-next">></button>
+                </div>
+            </div>
+        </template>
+
+        <!-- one product on Cart page: -->
+        <template id="product-in-cart">
+            <li class="cart__product-item">
+                <div>
+                    <img class="cart__product-img" />
+                    <div>
+                        <h3 class="cart__product-title">name</h3>
+                        <hr />
+                        <p class="cart__product-desc">desc</p>
+                        <div>
+                            <p class="cart__product-inf">Rating: <span class="cart__product-inf--rating"></span></p>
+                            <p class="cart__product-inf">Discount: <span class="cart__product-inf--discount"></span></p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="cart__product-inf">Stock: <span class="cart__inf--stock"></span></p>
+                        <div>
+                            <button type="button" class="cart__product-count-incr">+</button>
+                            <span class="cart__product-count"></span>
+                            <button type="button" class="cart__product-count-decr">-</button>
+                        </div>
+                        <p class="cart__product-price">$<span class="cart__product-price-quantity"></span></p>
+                    </div>
+                </div>
+            </li>
+        </template>
+
+        <!-- Summary on Cart Page -->
+        <template>
+            <div>
+                <h2>Summary</h2>
+                <div>
+                    <p>Products: <span></span></p>
+                    <p>Total: <span></span></p>
+
+                    <input type="search" template="Enter promo code" />
+                    <p>Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
+
+                    <button type="button">Buy now</button>
+                </div>
+            </div>
+        </template>
+
 </html>
