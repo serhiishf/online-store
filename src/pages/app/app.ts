@@ -21,12 +21,28 @@ class App {
     static async renderNewPage(params: UrlParams): Promise<void> {
         App.container.innerHTML = '';
         let page: MainPage | ProductPage | CartPage | ErrorPage;
-
+        // const url = new URL(window.location.href);
         if (params.page === PagePath.MainPage) {
+            // url.searchParams.forEach((_, key, parent) => {
+            //     if (key === 'id' || key === 'limit' || key === 'page') {
+            //         parent.delete(key);
+            //     }
+            // });
+            // window.history.pushState(null, '', url.toString());
             page = new MainPage(params.page);
         } else if (params.page === PagePath.ProductPage) {
+            // url.searchParams.forEach((_, key, parent) => {
+            //     if (key !== 'id') {
+            //         parent.delete(key);
+            //     }
+            // });
+            // window.history.pushState(null, '', url.toString());
             page = new ProductPage(params.page, params.id);
         } else if (params.page === PagePath.CartPage) {
+            // url.searchParams.forEach((_, key, parent) => {
+            //     parent.delete(key);
+            // });
+            // window.history.pushState(null, '', url.toString());
             page = new CartPage(params.page);
         } else {
             page = new ErrorPage(PagePath.ErrorPage, ErrorTypes.Error_404);

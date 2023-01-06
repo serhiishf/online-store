@@ -1,5 +1,5 @@
-import cartPage from '.';
 import { CartController } from '../../components/controller/cartController';
+// import { CartPageHeader } from '../../components/view/cartPageHeader';
 import { ProductsInCart } from '../../components/view/productsInCart';
 import { Cart } from '../../types';
 import TemplatePage from '../templatePage/templatePage';
@@ -20,7 +20,7 @@ class CartPage extends TemplatePage {
         return null;
     }
 
-    async render() {
+    async render(): Promise<HTMLElement> {
         const thumb = this.createPageHTML('cart__thumb');
 
         if (this.cart && this.cart.totalCount > 0) {

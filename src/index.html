@@ -52,13 +52,12 @@
 
         <template id="product-item">
             <li class="products__item">
-                <a class="card" href="">
+                <a class="card" href="#/product">
                     <div class="card__header">
                         <span class="card__brand"></span>
                         <span class="card__title"></span>
                     </div>
 
-                    <!-- TODO: slider for images -->
                     <div class="card__img-thumb">
                         <img class="card__image" />
                     </div>
@@ -80,13 +79,14 @@
             </li>
         </template>
 
+        <!-- Page of Single Product -->
         <template id="product-page">
             <div class="product__path">
-                <a href="/" class="product__path-main">Main store</a>
+                <a href="#/" class="product__path-main">Main store</a>
                 <span> > </span>
-                <a class="product__path-category"></a>
+                <a href="#/" class="product__path-category"></a>
                 <span> > </span>
-                <a class="product__path-brand"></a>
+                <a href="#/" class="product__path-brand"></a>
                 <span> > </span>
                 <span class="product__path-name"></span>
             </div>
@@ -139,20 +139,18 @@
             </div>
         </template>
         <!-- Cart page header: -->
-        <template>
-            <div>
-                <h1>Products in cart</h1>
+        <template id="cart-page-header">
+            <h1 class="cart__header-title">Products in cart</h1>
+            <div class="cart__page-limit">
+                <label for="limit-prod-on-page">Show products on page: </label>
+                <input type="number" id="limit-prod-on-page" name="limit" min="2" max="5" value="2" />
+            </div>
+            <div class="cart__sub-page">
+                <p>Page:</p>
                 <div>
-                    <label for="limit-prod-on-page">Show products on page:</label>
-                    <input type="number" id="limit-prod-on-page" name="limit" min="3" max="5" />
-                </div>
-                <div>
-                    <p>Show products on page:</p>
-                    <div>
-                        <button type="button"><</button>
-                        <span></span>
-                        <button>></button>
-                    </div>
+                    <button class="cart__sub-page-btn-prev" type="button"><</button>
+                    <span class="cart__sub-page-count"></span>
+                    <button class="cart__sub-page-btn-next">></button>
                 </div>
             </div>
         </template>
