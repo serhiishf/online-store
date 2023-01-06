@@ -1,0 +1,13 @@
+.cart {
+    &__thumb {
+        @extend %main-container;
+    }
+}
+.alternative-txt {
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 70px 0;
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: $text-second-color;
+}

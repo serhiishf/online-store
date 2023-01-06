@@ -18,7 +18,7 @@ export class Loader {
             .then((data: JsonProducts) => {
                 this.rawArr = data.products;
                 this.flag = true;
-                // console.log(this.rawArr);
+               
             });
     }
 

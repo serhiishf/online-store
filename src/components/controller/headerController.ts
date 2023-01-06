@@ -5,7 +5,7 @@ export class HeaderController {
     static changeViewOnCartAction() {
         const cart = CartController.getCart();
         const priceEl = <HTMLElement>document.querySelector('.header__price');
-        const countEl = <HTMLElement>document.querySelector('.cart__count');
+        const countEl = <HTMLElement>document.querySelector('.header__cart-count');
         if (cart) {
             const parsedCart: Cart = JSON.parse(cart);
             priceEl.textContent = `${parsedCart.totalPrice} $`;
