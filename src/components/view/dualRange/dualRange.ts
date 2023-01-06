@@ -31,18 +31,22 @@ export class DualRange {
     sliderFrom.setAttribute('min', min);
     sliderFrom.setAttribute('max', max);
     sliderFrom.setAttribute('value', min);
+    sliderFrom.setAttribute(`data-${this.category}-min`, sliderFrom.value);
+    sliderTo.setAttribute(`data-${this.category}-max`, sliderTo.value);
     sliderTo.setAttribute('min', min);
     sliderTo.setAttribute('max', max);
     sliderTo.setAttribute('value', max);
     inputFrom.setAttribute('value', min);
+    inputFrom.disabled = true;
+    inputTo.disabled = true;
     inputTo.setAttribute('value', max);
     this.fillSlider(sliderFrom, sliderTo, sliderTo);
     this.setToggleAccessible(sliderTo, sliderTo);
 
     sliderFrom.oninput = () => this.controlFromSlider(sliderFrom, sliderTo, inputFrom);
     sliderTo.oninput = () => this.controlToSlider(sliderFrom, sliderTo, inputTo);
-    inputFrom.oninput = () => this.controlFromInput(sliderFrom, inputFrom, inputTo, sliderTo);
-    inputTo.oninput = () => this.controlToInput(sliderTo, inputFrom, inputTo, sliderTo);
+    inputFrom.onchange = () => this.controlFromInput(sliderFrom, inputFrom, inputTo, sliderTo);
+    inputTo.onchange = () => this.controlToInput(sliderTo, inputFrom, inputTo, sliderTo);
 
     this.filterSection.append(itemClone);
     return this.filterSection;
@@ -90,6 +94,7 @@ export class DualRange {
     } else {
       sliderFrom.value = from.toString();
     }
+   
   }
 
   controlToInput(
@@ -99,14 +104,14 @@ export class DualRange {
     controlSlider: HTMLInputElement
   ) {
     const [from, to] = this.getParsed(inputFrom, inputTo);
-    this.fillSlider(inputFrom, inputTo, controlSlider);
-    this.setToggleAccessible(inputTo, sliderTo);
     if (from <= to) {
       sliderTo.value = to.toString();
       inputTo.value = to.toString();
     } else {
       inputTo.value = from.toString();
     }
+    this.fillSlider(inputFrom, inputTo, controlSlider);
+    this.setToggleAccessible(inputTo, sliderTo);
   }
 
   controlFromSlider(sliderFrom: HTMLInputElement, sliderTo: HTMLInputElement, inputFrom: HTMLInputElement) {
@@ -118,6 +123,8 @@ export class DualRange {
     } else {
       inputFrom.value = from.toString();
     }
+    sliderFrom.setAttribute(`data-${this.category}-min`, sliderFrom.value);
+    sliderTo.setAttribute(`data-${this.category}-max`, sliderTo.value);
   }
 
   controlToSlider(sliderFrom: HTMLInputElement, sliderTo: HTMLInputElement, inputTo: HTMLInputElement) {
@@ -131,5 +138,7 @@ export class DualRange {
       inputTo.value = from.toString();
       sliderTo.value = from.toString();
     }
+    sliderFrom.setAttribute(`data-${this.category}-min`, sliderFrom.value);
+    sliderTo.setAttribute(`data-${this.category}-max`, sliderTo.value);
   }
 }

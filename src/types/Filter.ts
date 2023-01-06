@@ -17,6 +17,11 @@ export enum FiltersType {
     stock = 'stock',
 }
 
+export enum RangeType {
+  price = 'price',
+  stock = 'stock',
+}
+
 export enum SortType {
     rating = 'rating',
     title = 'title',

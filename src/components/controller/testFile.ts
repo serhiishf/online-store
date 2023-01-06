@@ -2,14 +2,15 @@
 //----Test File
 
 import { Loader } from './loader';
-//import { Products } from '../view/products/products';
+import { Products } from '../view/products/products';
 import { FiltersType, FilterCollection, SortDirection } from '../../types/Filter';
 import { Filter } from '../view/filter/filter';
-import { StatusFilterItem, FilterOrRange } from '../../types/Filter';
+import { StatusFilterItem, FilterOrRange, RangeType } from '../../types/Filter';
 import { FilterData } from '../controller/filterData';
 import { rawDataMoc } from '../controller/testData';
 import { parseRequestUrl } from '../controller/parseRequestUrl';
 import { RenderFilters } from '../controller/renderAllFilters';
+import {FormData} from '../controller/formData'
 enum Url {
   base = 'https://dummyjson.com',
   goods = '/products?limit=100',
@@ -30,9 +31,9 @@ export async function testFunction() {
   await timeout(1000);
 
   const mocFilterChecked = [
-    { type: FiltersType.category, keys: ['smartphones', 'fragrances'] },
-    { type: FiltersType.brand, keys: ['Apple', 'OPPO'] },
-    { type: FiltersType.price, keys: { min: 10, max: 1500 } },
+    //{ type: FiltersType.category, keys: ['smartphones', 'fragrances'] },
+    //{ type: FiltersType.brand, keys: ['Apple', 'OPPO'] },
+    //{ type: FiltersType.price, keys: { min: 0, max: 4500 } },
   ];
   //get raw data
   // const arr = test.rawData;
@@ -42,6 +43,11 @@ export async function testFunction() {
   const filterData = new FilterData();
   const categoryItemsForRender = filterData.getFilterItems(arr, mocFilterChecked, FiltersType.category);
   const brandItemsForRender = filterData.getFilterItems(arr, mocFilterChecked, FiltersType.brand);
+
+  //class for get form data
+
+  const formData = new FormData();
+  //const callbackForm = formData.getFormData('filterkey', RangeType);
 
   //render multiply filters with class
   const parentNodeFilters = document.querySelector('.filters');
@@ -53,11 +59,15 @@ export async function testFunction() {
   ];
   if (parentNodeFilters) {
     const renderFiltersClass = new RenderFilters(<HTMLElement>parentNodeFilters, () => {
-    const datasetData = [...document.querySelectorAll('[data-filterkey]')].map((elem) => elem.dataset.filterkey )
-    console.log(datasetData)
-    });
+      console.log('onchenfhdfsd')
+      //const renderFilter = renderFiltersClass;
+      const dataForRender = formData.getFormData('filterkey', FiltersType, RangeType);
+
+    }
+    );
     renderFiltersClass.drawAll(arr, mocDataArrFiltersAndRange, mocFilterChecked);
   }
+
 
 
   //render filters manual
