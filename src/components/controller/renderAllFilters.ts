@@ -26,9 +26,8 @@ export class RenderFilters {
         const renderSection = new Filter(section.name).draw(dataForRender);
         this.form.append(renderSection);
       } else if (section.type === 'range') {
-        const filterArr = filterData.facetedFilter(goods, checkedItemsFilter)
         if(section.name === FiltersType.price || section.name === FiltersType.stock){
-          const dataForRender = filterData.getMaxMin(filterArr, section.name);
+          const dataForRender = filterData.getRangeItems(goods, checkedItemsFilter, section.name);
           const renderSection = new DualRange(section.name).draw(dataForRender);
           this.form.append(renderSection);
         }
