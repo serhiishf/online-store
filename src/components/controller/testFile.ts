@@ -31,13 +31,13 @@ export async function testFunction() {
   await timeout(1000);
 
   const mocFilterChecked = [
-    //{ type: FiltersType.category, keys: ['smartphones', 'fragrances'] },
+    { type: FiltersType.category, keys: ['smartphones', 'fragrances'] },
     //{ type: FiltersType.brand, keys: ['Apple', 'OPPO'] },
     //{ type: FiltersType.price, keys: { min: 0, max: 4500 } },
   ];
   //get raw data
   // const arr = test.rawData;
-  const arr = rawDataMoc;
+/*   const arr = rawDataMoc;
 
   //get FilterItem for render
   const filterData = new FilterData();
@@ -66,7 +66,7 @@ export async function testFunction() {
     }
     );
     renderFiltersClass.drawAll(arr, mocDataArrFiltersAndRange, mocFilterChecked);
-  }
+  } */
 
 
 
