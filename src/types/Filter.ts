@@ -27,14 +27,19 @@ export enum SortType {
     title = 'title',
 }
 
-export type MaxMin = {
+export interface MaxMin {
     min: number;
     max: number;
 };
 
+export interface MaxMinValue extends MaxMin {
+  minValue: number;
+  maxValue: number;
+}
+
 export interface FilterCollection {
     type: FiltersType;
-    keys: string[] | MaxMin;
+    keys: string[] | MaxMinValue;
 }
 
 export enum SortDirection {

@@ -7,6 +7,7 @@ import {
     FilterCollection,
     SortDirection,
     SortType,
+    MaxMinValue
 } from '../../types/Filter';
 
 export class FilterData {
@@ -36,6 +37,24 @@ export class FilterData {
       return filterListData;
     }
 
+    getRangeItems(goods: Product[], checkedItemsFilter: FilterCollection[], checkRange: FiltersType.price | FiltersType.stock) {
+      const excludedCheckedItemsFilter = checkedItemsFilter.filter((elem) => elem.type !== checkRange);
+      const itemRange = checkedItemsFilter.find((elem) => elem.type === checkRange);
+      const availableGoods = this.facetedFilter(goods, excludedCheckedItemsFilter);
+      const maxMin: MaxMin = this.getMaxMin(availableGoods, checkRange);
+      const maxMinValue: MaxMinValue = {
+        min: maxMin.min,
+        max: maxMin.max,
+        minValue: maxMin.min,
+        maxValue: maxMin.max,
+      }
+      if (itemRange && itemRange.type === checkRange && !Array.isArray(itemRange.keys)) {
+        maxMinValue.minValue = itemRange.keys.minValue;
+        maxMinValue.maxValue = itemRange.keys.maxValue;
+      }
+      return maxMinValue;
+    }
+
     getList(goods: Product[], filtersType: FiltersType) {
         return Array.from(new Set(goods.map((elem) => elem[filtersType])));
     }
@@ -50,11 +69,11 @@ export class FilterData {
         return result;
     }
 
-    getFilterData(goods: Product[], filterType: FiltersType, param: string | MaxMin) {
+    getFilterData(goods: Product[], filterType: FiltersType, param: string | MaxMinValue) {
         if (typeof param === 'string') {
             return goods.filter((elem) => elem[filterType] === param);
         } else {
-            return goods.filter((elem) => elem[filterType] >= param.min && elem[filterType] <= param.max);
+            return goods.filter((elem) => elem[filterType] >= param.minValue && elem[filterType] <= param.maxValue);
         }
     }
 
