@@ -23,6 +23,9 @@
     height: 30px;
     font-size: 1.2rem;
     border: none;
+    &:disabled {
+      background: inherit;
+    }
 
     // disable arrows in Input - type Number
     /* Firefox */
