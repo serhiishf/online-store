@@ -1,127 +1,130 @@
 .products {
-    display: flex;
-    justify-content: right;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .card {
-    height: 400px;
-    width: 100%;
-    max-width: 250px;
+  height: 100%;
+  width: 100%;
+  max-width: 250px;
+  min-height: 400px;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+  transition: all $transition;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: $box-shadow-active;
+  }
+  &:focus {
+    outline: solid 1px $active-color;
+  }
+
+  &__header {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  &__brand {
+    letter-spacing: 0.1rem;
+    color: $text-second-color;
+  }
+
+  &__img-thumb {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 230px;
+    height: 250px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__desc-thumb {
+    margin-top: auto;
+    height: 60px;
+    padding-right: 7px;
+    overflow-y: scroll;
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: rgb(231, 231, 231);
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: rgb(176, 176, 176);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(181, 181, 181, 0.208);
+    }
+  }
+
+  &__desc {
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  &__stock {
+    color: $text-second-color;
+  }
+
+  &__footer {
+    display: flex;
     justify-content: space-between;
-    gap: 5px;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: $box-shadow;
+    align-items: center;
+  }
+
+  &__btn-cart {
+    @extend %btn;
+    width: 40px;
+    height: 40px;
+    background-color: $border-color;
+    border-radius: 50%;
+
     transition: all $transition;
-    cursor: pointer;
 
     &:hover {
-        box-shadow: $box-shadow-active;
-    }
-    &:focus {
-        outline: solid 1px $active-color;
+      outline: none;
+      background-color: $active-color;
     }
 
-    &__header {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        font-size: 16px;
-        font-weight: 400;
+    &.card__btn-cart--active {
+      background-color: $active-color;
     }
+  }
 
-    &__brand {
-        letter-spacing: 0.1rem;
-        color: $text-second-color;
-    }
+  &__icon-cart {
+    fill: $white-color;
+    width: 25px;
+    height: 25px;
+  }
 
-    &__img-thumb {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    &__image {
-        object-fit: cover;
-        object-position: top;
-        max-width: 230px;
-    }
-
-    &__desc-thumb {
-        margin-top: auto;
-        height: 60px;
-        padding-right: 7px;
-        overflow-y: scroll;
-
-        /* width */
-        &::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        /* Track */
-        &::-webkit-scrollbar-track {
-            background: rgb(231, 231, 231);
-        }
-
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-            background: rgb(176, 176, 176);
-        }
-
-        /* Handle on hover */
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(181, 181, 181, 0.208);
-        }
-    }
-
-    &__desc {
-        font-size: 14px;
-        line-height: 1.1;
-    }
-
-    &__stock {
-        color: $text-second-color;
-    }
-
-    &__footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    &__btn-cart {
-        @extend %btn;
-        width: 40px;
-        height: 40px;
-        background-color: $border-color;
-        border-radius: 50%;
-
-        transition: all $transition;
-
-        &:hover {
-            outline: none;
-            background-color: $active-color;
-        }
-
-        &.card__btn-cart--active {
-            background-color: $active-color;
-        }
-    }
-
-    &__icon-cart {
-        fill: $white-color;
-        width: 25px;
-        height: 25px;
-    }
-
-    &__price {
-        font-size: 20px;
-        font-weight: 700;
-    }
+  &__price {
+    font-size: 20px;
+    font-weight: 700;
+  }
 }
