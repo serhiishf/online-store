@@ -3,10 +3,13 @@ import { Loader } from '../../components/controller/loader';
 import { Products } from '../../components/view/products';
 import { RenderFilters } from '../../components/controller/renderAllFilters';
 import { Callback } from '../../types/Callbacks';
-import { FilterCollection, FiltersType, FilterOrRange } from '../../types/Filter';
+import { FilterCollection, FiltersType, FilterOrRange, SortDirection } from '../../types/Filter';
 import { Product } from '../../types/Product';
 import { FormData } from '../../components/controller/formData';
 import { FilterData } from '../../components/controller/filterData';
+import { Subheader } from '../../components/view/subheader/subheader';
+import { SubHeaderData } from '../../types/Subheader';
+import { SubHeaderFormData } from '../../components/controller/subHeaderFormData';
 
 //test URL:    (later will be class to parse info from URL string)
 enum Url {
@@ -45,16 +48,39 @@ class MainPage extends TemplatePage {
     //const rawData = rawDataMoc;
     const thumb = this.createPageHTML(MainPage.textObject.mainThumb);
 
+    const subHeadContainer = this.createPageHTML('sub-header-container');
+    const mainContainer = this.createPageHTML('main-container');
+
+    //data for render
+    const formData = new FormData().getFormData('filterkey');
+    const dataProduct = new FilterData().facetedFilter(rawData, formData);
+    const mocDataForSubHeader:SubHeaderData = {
+      sort: 'default',
+      direction: SortDirection.up,
+      searchData: [],
+    }
+
+    // filters
+
     const filtersContainer = this.createPageHTML(MainPage.textObject.filters);
     this.renderFilters(rawData, filtersContainer, [], () => {
       const formData = new FormData().getFormData('filterkey');
       this.formCallback(filtersContainer, formData);
       const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
       this.createProductsCards(dataProduct);
+      const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
+      if(parentNodeForSubHEader) {
+        this.renderSubHeader(parentNodeForSubHEader, mocDataForSubHeader, dataProduct.length)
+      }
     });
     const products = await this.createProductsCards(rawData);
+    
+    //subheader
+    this.renderSubHeader(subHeadContainer, mocDataForSubHeader, dataProduct.length);
 
-    thumb.append(filtersContainer, products);
+    mainContainer.append(filtersContainer, products);
+    thumb.append(subHeadContainer, mainContainer);
+    //thumb.append(filtersContainer, products);
 
     this.container.append(thumb);
     return this.container;
@@ -71,6 +97,15 @@ class MainPage extends TemplatePage {
     ];
     renderFiltersObj.drawAll(goods, mockFilterOrRange, checkedData);
   }
+
+  renderSubHeader(parentNode: HTMLElement, mocDataForSubHeader: SubHeaderData, length: number) {
+    parentNode.innerHTML = '';
+    const subHeader = new Subheader().draw(mocDataForSubHeader, length, () => {
+      const sortSearchFromData = new SubHeaderFormData().getFormData();
+    })
+    parentNode.append(subHeader);
+  }
+
   formCallback(parentNode: HTMLElement, checkedData: FilterCollection[]) {
     parentNode.innerHTML = '';
     const rawData = this.loader.rawData;
@@ -79,6 +114,18 @@ class MainPage extends TemplatePage {
       this.formCallback(parentNode, formData);
       const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
       this.createProductsCards(dataProduct);
+
+      //mocData
+      const mocDataForSubHeader:SubHeaderData = {
+        sort: 'default',
+        direction: SortDirection.up,
+        searchData: [],
+      }
+      const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
+      if(parentNodeForSubHEader) {
+        this.renderSubHeader(parentNodeForSubHEader, mocDataForSubHeader, dataProduct.length)
+      }
+      
     });
   }
 }

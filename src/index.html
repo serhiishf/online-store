@@ -35,10 +35,61 @@
         </div>
       </div>
     </header>
-
+<!--     <div class="main__subheader subheader">
+      <div class="subheader__wrap">
+        <div class="subheader__buttons-wrap">
+          <div class="subheader__btn btn">Reset Filters</div>
+          <div class="subheader__btn btn">Copy Link</div>
+        </div>
+        <div class="subheader__sort-wrap">
+          <select name="sort-select" id="sort-select" class="subheader__sort sort-select">
+            <option value="sort-title" data-sort-direction="up" class="sort-select__option" disabled="" selected="">Sort options:</option>
+            <option value="price" data-sort-direction="up" class="sort-select__option">Price Up</option>
+            <option value="price" data-sort-direction="down" class="sort-select__option">Price Down</option>
+            <option value="title" data-sort-direction="up" class="sort-select__option">Name Up</option>
+            <option value="title" data-sort-direction=down" class="sort-select__option">Name Down</option>
+          </select>
+        </div>
+        <div class="subheader__search-wrap">
+          <div class="subheader__count">
+            <span class="subheader__count_text">Found: </span>
+            <span class="subheader__count_item">25</span>
+          </div>
+          <input type="text" class="subheader__search" placeholder="Search product">
+        </div>
+        <div class="subheader__view-wrap"></div>
+      </div>
+    </div> -->
     <main id="app"></main>
 
     <footer></footer>
+    <template id="subheader-main">
+      <div class="subheader">
+        <form class="subheader__wrap">
+          <div class="subheader__buttons-wrap">
+            <div class="subheader__btn btn subheader__btn_reset">Reset Filters</div>
+            <div class="subheader__btn btn subheader__btn_copy">Copy Link</div>
+          </div>
+          <div class="subheader__sort-wrap">
+            <select name="sort-select" id="sort-select" class="subheader__sort sort-select">
+              <option value="sort-title" data-sort-direction="up" class="sort-select__option sort-default-up" disabled selected>Sort options:</option>
+              <option value="price-up" data-sort-direction="up" class="sort-select__option sort-price-up">Price Up</option>
+              <option value="price-down" data-sort-direction="down" class="sort-select__option sort-price-down">Price Down</option>
+              <option value="title-up" data-sort-direction="up" class="sort-select__option sort-title-up">Name Up</option>
+              <option value="title-down" data-sort-direction=down" class="sort-select__option sort-title-dowm">Name Down</option>
+            </select>
+          </div>
+          <div class="subheader__search-wrap">
+            <div class="subheader__count">
+              <span class="subheader__count_text">Found: </span>
+              <span class="subheader__count_item">25</span>
+            </div>
+            <input type="text" class="subheader__search" placeholder="Search product">
+          </div>
+          <div class="subheader__view-wrap"></div>
+        </form>
+      </div>
+    </template>
 
     <template id="filter-item">
       <li class="filter__item">

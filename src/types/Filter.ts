@@ -26,6 +26,7 @@ export enum RangeType {
 export enum SortType {
     rating = 'rating',
     title = 'title',
+    price = 'price',
 }
 
 export interface MaxMin {
@@ -44,8 +45,8 @@ export interface FilterCollection {
 }
 
 export enum SortDirection {
-    up,
-    down,
+    up = 'up',
+    down = 'down',
 }
 
 export interface FilterOrRange {

@@ -57,5 +57,4 @@ export class FormData {
     });
     return result;
   }
-  
 }
