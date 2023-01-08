@@ -16,13 +16,15 @@ export class FilterData {
         const allFilterList = this.getList(goods, checkAvailable);
         const excludedCheckedItemsFilter = checkedItemsFilter.filter((elem) => elem.type !== checkAvailable);
         const availableGoods = this.facetedFilter(goods, excludedCheckedItemsFilter);
+        const finalGoodsArr = this.facetedFilter(goods, checkedItemsFilter);
         const availableFilterList = this.getList(availableGoods, checkAvailable);
         const checkedFilterList = checkedItemsFilter.filter(elem => elem.type === checkAvailable).shift()?.keys;
         allFilterList.forEach(title => {
           const result: FilterItem = {
             filterName: title.toString(),
             status: StatusFilterItem.disabled,
-            amount: 0,
+            amount: this.getFilterData(finalGoodsArr, checkAvailable,  title.toString()).length,
+            maxAmount: this.getFilterData(goods, checkAvailable,  title.toString()).length,
           }
           if (availableFilterList.includes(title)) {
             result.status = StatusFilterItem.normal;

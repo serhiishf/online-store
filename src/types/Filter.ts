@@ -2,6 +2,7 @@ export interface FilterItem {
     filterName: string;
     status: StatusFilterItem;
     amount: number;
+    maxAmount: number;
 }
 
 export enum StatusFilterItem {

@@ -1,5 +1,5 @@
 import { FiltersType } from '../../../types/Filter';
-import { FilterItem, StatusFilterItem, MaxMin, MaxMinValue } from '../../../types/Filter';
+import { MaxMinValue } from '../../../types/Filter';
 
 export class DualRange {
   filterSection: HTMLElement;
