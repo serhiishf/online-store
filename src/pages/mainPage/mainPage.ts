@@ -111,23 +111,37 @@ class MainPage extends TemplatePage {
     const rawData = this.loader.rawData;
     this.renderFilters(rawData, parentNode, checkedData, () => {
       const formData = new FormData().getFormData('filterkey');
+      const searchData = new SubHeaderFormData().getFormData();
       this.formCallback(parentNode, formData);
       const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
       this.createProductsCards(dataProduct);
 
-      //mocData
-      const mocDataForSubHeader:SubHeaderData = {
-        sort: 'default',
-        direction: SortDirection.up,
-        searchData: [],
-      }
       const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
       if(parentNodeForSubHEader) {
-        this.renderSubHeader(parentNodeForSubHEader, mocDataForSubHeader, dataProduct.length)
+        this.renderSubHeader(parentNodeForSubHEader, searchData, dataProduct.length)
       }
-      
     });
   }
+
+/*   searchCallback(parentNode: HTMLElement) {
+    const checkedData = new FormData().getFormData('filterkey');
+    const searchData = new SubHeaderFormData().getFormData();
+
+    const rawData = this.loader.rawData;
+    
+    this.renderFilters(rawData, parentNode, checkedData, () => {
+      const formData = new FormData().getFormData('filterkey');
+      const searchData = new SubHeaderFormData().getFormData();
+      this.formCallback(parentNode, formData);
+      const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
+      this.createProductsCards(dataProduct);
+
+      const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
+      if(parentNodeForSubHEader) {
+        this.renderSubHeader(parentNodeForSubHEader, searchData, dataProduct.length)
+      }
+    });
+  } */
 }
 
 export default MainPage;
