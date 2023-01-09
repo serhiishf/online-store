@@ -88,9 +88,10 @@ export class Products {
             this.productsList.appendChild(fragment);
         } else {
             const p: HTMLParagraphElement = document.createElement('p');
-            p.textContent = 'No results';
+            p.textContent = 'No results!';
+            p.classList.add('product__alert');
             this.productsList.innerHTML = '';
-            this.productsList.after(p);
+            this.productsList.append(p);
         }
 
         return this.productsList;

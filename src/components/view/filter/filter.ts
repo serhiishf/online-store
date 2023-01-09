@@ -27,7 +27,8 @@ export class Filter {
             const itemClone = <HTMLElement>itemCloneTemp.content.cloneNode(true);
             (<HTMLElement>itemClone.querySelector('.filter__text')).textContent = item.filterName;
             // disable amount items
-            // (<HTMLElement>itemClone.querySelector('.filter__amount')).textContent = `(${item.amount.toString()})`;
+            (<HTMLElement>itemClone.querySelector('.filter__amount')).textContent = `(${item.amount.toString()}/`;
+            (<HTMLElement>itemClone.querySelector('.filter__amount_max')).textContent = `${item.maxAmount.toString()})`;
             if (item.status === StatusFilterItem.active) {
                 (<HTMLInputElement>itemClone.querySelector('.filter__checkbox-input')).checked = true;
             } else if (item.status === StatusFilterItem.normal) {
