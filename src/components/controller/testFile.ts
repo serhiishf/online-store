@@ -10,7 +10,7 @@ import { FilterData } from '../controller/filterData';
 import { rawDataMoc } from '../controller/testData';
 import { parseRequestUrl } from '../controller/parseRequestUrl';
 import { RenderFilters } from '../controller/renderAllFilters';
-import {FormData} from '../controller/formData'
+import { FormData } from '../controller/formData';
 enum Url {
   base = 'https://dummyjson.com',
   goods = '/products?limit=100',
@@ -37,7 +37,7 @@ export async function testFunction() {
   ];
   //get raw data
   // const arr = test.rawData;
-/*   const arr = rawDataMoc;
+  /*   const arr = rawDataMoc;
 
   //get FilterItem for render
   const filterData = new FilterData();
@@ -59,7 +59,7 @@ export async function testFunction() {
   ];
   if (parentNodeFilters) {
     const renderFiltersClass = new RenderFilters(<HTMLElement>parentNodeFilters, () => {
-      console.log('onchenfhdfsd')
+  
       //const renderFilter = renderFiltersClass;
       const dataForRender = formData.getFormData('filterkey', FiltersType, RangeType);
 
@@ -67,8 +67,6 @@ export async function testFunction() {
     );
     renderFiltersClass.drawAll(arr, mocDataArrFiltersAndRange, mocFilterChecked);
   } */
-
-
 
   //render filters manual
   /*     const categoryRender = new Filter(FiltersType.category).draw(categoryItemsForRender);

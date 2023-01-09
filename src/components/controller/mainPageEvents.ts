@@ -69,7 +69,7 @@ export class MainPageEvent {
     const renderFilters = new RenderFilters(parentFilterNode, () =>
       this.handlerEvent(parentFilterNode, parentSearchNode, parentMainNode)
     );
-    console.log(rawData)
+
     renderFilters.drawAll(/* rawData  */ dataOnlyAfterSearch, this.filterOrRange, checkedFormData);
 
     //render search

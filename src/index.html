@@ -35,7 +35,7 @@
         </div>
       </div>
     </header>
-<!--     <div class="main__subheader subheader">
+    <!--     <div class="main__subheader subheader">
       <div class="subheader__wrap">
         <div class="subheader__buttons-wrap">
           <div class="subheader__btn btn">Reset Filters</div>
@@ -72,11 +72,31 @@
           </div>
           <div class="subheader__sort-wrap">
             <select name="sort-select" class="subheader__sort sort-select">
-              <option value="sort-title" data-sort-direction="up" class="sort-select__option sort-default-up" disabled selected>Sort options:</option>
-              <option value="price-up" data-sort-direction="up" class="sort-select__option sort-price-up">Price Up</option>
-              <option value="price-down" data-sort-direction="down" class="sort-select__option sort-price-down">Price Down</option>
-              <option value="title-up" data-sort-direction="up" class="sort-select__option sort-title-up sort-stock-up">Stock Up</option>
-              <option value="title-down" data-sort-direction="down" class="sort-select__option sort-title-down sort-stock-down">Stock Down</option>
+              <option
+                value="sort-title"
+                data-sort-direction="up"
+                class="sort-select__option sort-default-up"
+                disabled
+                selected
+              >
+                Sort options:
+              </option>
+              <option value="price-up" data-sort-direction="up" class="sort-select__option sort-price-up">
+                Price Up
+              </option>
+              <option value="price-down" data-sort-direction="down" class="sort-select__option sort-price-down">
+                Price Down
+              </option>
+              <option value="title-up" data-sort-direction="up" class="sort-select__option sort-title-up sort-stock-up">
+                Stock Up
+              </option>
+              <option
+                value="title-down"
+                data-sort-direction="down"
+                class="sort-select__option sort-title-down sort-stock-down"
+              >
+                Stock Down
+              </option>
             </select>
           </div>
           <div class="subheader__search-wrap">
@@ -84,7 +104,7 @@
               <span class="subheader__count_text">Found: </span>
               <span class="subheader__count_item">25</span>
             </div>
-            <input type="text" class="subheader__search" placeholder="Search product">
+            <input type="text" class="subheader__search" placeholder="Search product" />
           </div>
           <div class="subheader__view-wrap"></div>
         </form>
@@ -229,7 +249,6 @@
             name="limit"
             min="2"
             max="5"
-            value="2"
             onkeydown="return false"
             placeholder="0"
           />
@@ -290,18 +309,16 @@
     </template>
 
     <!-- Summary on Cart Page -->
-    <template>
+    <template id="cart-summary">
+      <h2>Summary</h2>
       <div>
-        <h2>Summary</h2>
-        <div>
-          <p>Products: <span></span></p>
-          <p>Total: <span></span></p>
+        <p>Products: <span></span></p>
+        <p>Total: <span></span></p>
 
-          <input type="search" template="Enter promo code" />
-          <p>Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
+        <input type="search" template="Enter promo code" />
+        <p>Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
 
-          <button type="button">Buy now</button>
-        </div>
+        <button type="button">Buy now</button>
       </div>
     </template>
   </body>

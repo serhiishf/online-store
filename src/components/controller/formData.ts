@@ -16,7 +16,7 @@ export class FormData {
           const max = maxRange.getAttribute('max');
           const minValue = minRange.getAttribute('value');
           const maxValue = maxRange.getAttribute('value');
-        //  console.log(minValue, maxValue, min, max);
+
           if (minValue !== min || maxValue !== max) {
             if (min !== undefined && max !== undefined) {
               const maxMinVal: MaxMinValue = {

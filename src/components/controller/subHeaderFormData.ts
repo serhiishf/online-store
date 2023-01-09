@@ -29,7 +29,7 @@ export class SubHeaderFormData {
       const searchParamArr = searchParam.split(' ').filter((item) => item.length !== 0);
       result.searchData = searchParamArr;
     }
-    console.log(result);
+
     return result;
   }
 }
