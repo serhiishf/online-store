@@ -8,7 +8,6 @@ export class Subheader {
     const subHeaderElem: HTMLElement = <HTMLElement>templateElem.content.cloneNode(true);
     subHeaderElem.querySelector('.subheader__wrap')?.addEventListener('change', callback);
     if (subHeaderData.sort !== 'default') {
-      console.log(subHeaderData.sort, subHeaderData.direction);
       (<HTMLOptionElement>subHeaderElem.querySelector(`.sort-${subHeaderData.sort}-${subHeaderData.direction}`)).selected = true;
     }
     
@@ -43,7 +42,6 @@ export class Subheader {
     }
     const searchInput = <HTMLInputElement>subHeaderElem.querySelector('.subheader__search');
     if (searchInput) {
-      searchInput.addEventListener('input', () => console.log(searchInput.value));
       searchInput.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
           event.preventDefault();

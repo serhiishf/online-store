@@ -11,6 +11,7 @@ import { Subheader } from '../../components/view/subheader/subheader';
 import { SubHeaderData } from '../../types/Subheader';
 import { SubHeaderFormData } from '../../components/controller/subHeaderFormData';
 import { MainPageEvent } from '../../components/controller/mainPageEvents';
+import { parseRequestUrl } from '../../components/controller/parseRequestUrl';
 
 //test URL:    (later will be class to parse info from URL string)
 enum Url {
@@ -48,6 +49,28 @@ class MainPage extends TemplatePage {
     await this.loadData();
     const rawData = this.loader.rawData;
 
+    
+    //parse url
+    let mocDataForSubHeader:SubHeaderData = {
+      sort: 'default',
+      direction: SortDirection.up,
+      searchData: [],
+    };
+
+    const urlParams = parseRequestUrl();
+
+    if(urlParams.search !== undefined) {
+      if(urlParams.search.search !== undefined) {
+        const strKey = urlParams.search.search;
+        if(typeof strKey === 'string'){
+          mocDataForSubHeader = this.mainEvent.parseSearchData(strKey);
+        } 
+      }
+    }
+
+    
+    //this.mainEvent
+
     //const rawData = rawDataMoc;
     const thumb = this.createPageHTML(MainPage.textObject.mainThumb);
 
@@ -57,17 +80,13 @@ class MainPage extends TemplatePage {
     //data for render
     const formData = new FormData().getFormData('filterkey');
     const dataProduct = new FilterData().facetedFilter(rawData, formData);
-    const mocDataForSubHeader:SubHeaderData = {
-      sort: 'default',
-      direction: SortDirection.up,
-      searchData: [],
-    }
+    
 
     // filters
 
     const filtersContainer = this.createPageHTML(MainPage.textObject.filters);
 
-    this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
+    //this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     this.renderFilters(rawData, filtersContainer, [], () => {
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer )
     });
@@ -77,7 +96,7 @@ class MainPage extends TemplatePage {
     const subHeader = new Subheader().draw(mocDataForSubHeader, length, () => {
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     })
-
+    this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     subHeadContainer.append(subHeader);
 
     mainContainer.append(filtersContainer, products);
@@ -109,42 +128,6 @@ class MainPage extends TemplatePage {
     parentNode.append(subHeader);
   }
 
-  /* formCallback(parentNode: HTMLElement, checkedData: FilterCollection[]) {
-    parentNode.innerHTML = '';
-    const rawData = this.loader.rawData;
-    this.renderFilters(rawData, parentNode, checkedData, () => {
-      const formData = new FormData().getFormData('filterkey');
-      const searchData = new SubHeaderFormData().getFormData();
-      this.formCallback(parentNode, formData);
-      const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
-      this.createProductsCards(dataProduct);
-
-      const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
-      if(parentNodeForSubHEader) {
-        //this.renderSubHeader(parentNodeForSubHEader, searchData, dataProduct.length)
-      }
-    });
-  } */
-
-/*   searchCallback(parentNode: HTMLElement) {
-    const checkedData = new FormData().getFormData('filterkey');
-    const searchData = new SubHeaderFormData().getFormData();
-
-    const rawData = this.loader.rawData;
-    
-    this.renderFilters(rawData, parentNode, checkedData, () => {
-      const formData = new FormData().getFormData('filterkey');
-      const searchData = new SubHeaderFormData().getFormData();
-      this.formCallback(parentNode, formData);
-      const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
-      this.createProductsCards(dataProduct);
-
-      const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
-      if(parentNodeForSubHEader) {
-        this.renderSubHeader(parentNodeForSubHEader, searchData, dataProduct.length)
-      }
-    });
-  } */
 }
 
 export default MainPage;
