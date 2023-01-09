@@ -1,0 +1,100 @@
+.cart {
+  &__header-thumb {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__header-title {
+    color: $text-second-color;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &__label {
+    color: $text-main-color;
+    font-size: 0.8rem;
+    font-weight: 800;
+    font-style: italic;
+  }
+
+  &__limit-thumb,
+  &__sub-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__limit-input-box,
+  &__sub-page-box {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__limit-input,
+  &__sub-page-count {
+    font-size: 1rem;
+    font-family: sans-serif;
+    width: 3rem;
+    height: 2rem;
+    padding: 3px;
+    border: solid $border-color;
+    border: 1px solid $border-color;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+  }
+
+  &__limit-input {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
+  &__limit-input-incr,
+  &__limit-input-decr,
+  &__sub-page-btn-prev,
+  &__sub-page-btn-next {
+    @extend %btn;
+
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    border: 1px solid $border-color;
+
+    &:before,
+    &:after {
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      content: '';
+      width: 1rem;
+      height: 2px;
+      background-color: $text-main-color;
+      transform: translate(-50%, -50%);
+    }
+    &:disabled {
+      cursor: not-allowed;
+      background-color: $border-color;
+    }
+  }
+
+  &__limit-input-incr,
+  &__sub-page-btn-next {
+    &:after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  }
+}
