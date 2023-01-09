@@ -21,58 +21,105 @@ export class CartPageHeader {
     this.lastPage = lastPageMath();
   }
 
-  private setPageQueryParams(pageCountEl: HTMLElement) {
+  public static setPageQueryParams() {
+    const pageCountEl = <HTMLElement>document.querySelector('.cart__sub-page-count');
     const url = new URL(window.location.href);
     url.searchParams.set('page', <string>pageCountEl.textContent);
     window.history.pushState(null, '', url.toString());
   }
-  private setLimitQueryParams(inputLimitEl: HTMLInputElement) {
+
+  private static setLimitQueryParams(inputLimitEl: HTMLInputElement) {
     const url = new URL(window.location.href);
     url.searchParams.set('limit', `${inputLimitEl.value}`);
     window.history.pushState(null, '', url.toString());
   }
-  private setActualLastPage(): number {
+
+  public static setActualLastPage(): number {
     const inputLimitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
     const cart = CartController.getCart() ? JSON.parse(<string>CartController.getCart()) : null;
     const oneTypeProductCount: number = cart?.oneTypeProductCount || 1;
     return Math.ceil(oneTypeProductCount / Number(inputLimitEl.value));
   }
 
-  private onPrevPageBtnClick(prevBtnEl: HTMLButtonElement, pageCountEl: HTMLElement, nextBtnEl: HTMLButtonElement) {
-    nextBtnEl.disabled = false;
-    pageCountEl.textContent = `${+(<string>pageCountEl.textContent) - 1}`;
+  private onPrevPageBtnClick() {
+    const prevPageButtonEl = <HTMLButtonElement>document.querySelector('.cart__sub-page-btn-prev');
+    const nextPageButtonEl = <HTMLButtonElement>document.querySelector('.cart__sub-page-btn-next');
+    const pageNumEl = <HTMLElement>document.querySelector('.cart__sub-page-count');
 
-    this.setPageQueryParams(pageCountEl);
-    //?
-    const lastPage = this.setActualLastPage();
-    if (pageCountEl.textContent === lastPage.toString()) {
-      nextBtnEl.disabled = true;
-    }
-    //?
-    if (pageCountEl.textContent === '1') {
-      prevBtnEl.disabled = true;
-    }
-  }
+    nextPageButtonEl.disabled = false;
+    pageNumEl.textContent = `${+(<string>pageNumEl.textContent) - 1}`;
 
-  private onNextPageBtnClick(prevBtnEl: HTMLButtonElement, pageCountEl: HTMLElement, nextBtnEl: HTMLButtonElement) {
-    prevBtnEl.disabled = false;
-    pageCountEl.textContent = `${+(<string>pageCountEl.textContent) + 1}`;
-    this.setPageQueryParams(pageCountEl);
-    const lastPage = this.setActualLastPage();
-    if (pageCountEl.textContent === lastPage.toString()) {
-      nextBtnEl.disabled = true;
+    CartPageHeader.setPageQueryParams();
+
+    const lastPage = CartPageHeader.setActualLastPage();
+    if (pageNumEl.textContent === lastPage.toString()) {
+      nextPageButtonEl.disabled = true;
+    }
+
+    if (pageNumEl.textContent === '1') {
+      prevPageButtonEl.disabled = true;
     }
   }
 
-  private onLimitChange(inputLimitEl: HTMLInputElement, pageCountEl: HTMLElement, nextBtnEl: HTMLButtonElement) {
-    this.setLimitQueryParams(inputLimitEl);
-    const lastPage = this.setActualLastPage();
+  private onNextPageBtnClick() {
+    const prevPageButtonEl = <HTMLButtonElement>document.querySelector('.cart__sub-page-btn-prev');
+    const nextPageButtonEl = <HTMLButtonElement>document.querySelector('.cart__sub-page-btn-next');
+    const pageNumEl = <HTMLElement>document.querySelector('.cart__sub-page-count');
+
+    prevPageButtonEl.disabled = false;
+    pageNumEl.textContent = `${+(<string>pageNumEl.textContent) + 1}`;
+    CartPageHeader.setPageQueryParams();
+    const lastPage = CartPageHeader.setActualLastPage();
+    if (pageNumEl.textContent === lastPage.toString()) {
+      nextPageButtonEl.disabled = true;
+    }
+  }
+
+  private onLimitChange() {
+    const limitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
+    const pageCountEl = <HTMLElement>document.querySelector('.cart__sub-page-count');
+    const nextBtnEl = <HTMLButtonElement>document.querySelector('.cart__sub-page-btn-next');
+    CartPageHeader.setLimitQueryParams(limitEl);
+    const lastPage = CartPageHeader.setActualLastPage();
+
     if (pageCountEl.textContent === lastPage.toString()) {
       nextBtnEl.disabled = true;
       pageCountEl.textContent = lastPage.toString();
-      this.setPageQueryParams(pageCountEl);
+      CartPageHeader.setPageQueryParams();
     } else {
       nextBtnEl.disabled = false;
+    }
+  }
+
+  private incLimitPage() {
+    const limitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
+    const btnDecrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-decr');
+    const btnIncrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-incr');
+
+    btnDecrLimitEl.disabled = false;
+
+    limitEl.value = `${parseInt(limitEl.value) + 1}`;
+    const changeEvent = new Event('change');
+    limitEl.dispatchEvent(changeEvent);
+
+    if (limitEl.value >= limitEl.max) {
+      btnIncrLimitEl.disabled = true;
+    }
+  }
+
+  private decLimitPage() {
+    const limitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
+    const btnDecrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-decr');
+    const btnIncrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-incr');
+    btnIncrLimitEl.disabled = false;
+
+    if (limitEl.value > limitEl.min) {
+      limitEl.value = `${parseInt(limitEl.value) - 1}`;
+      const changeEvent = new Event('change');
+      limitEl.dispatchEvent(changeEvent);
+    }
+    if (limitEl.value === limitEl.min) {
+      btnDecrLimitEl.disabled = true;
     }
   }
 
@@ -82,16 +129,28 @@ export class CartPageHeader {
 
     const prodClone = <HTMLElement>template.content.cloneNode(true);
     const inputLimitEl = <HTMLInputElement>prodClone.querySelector('#limit-prod-on-page');
+    const btnIncLimitEl = <HTMLButtonElement>prodClone.querySelector('.cart__limit-input-incr');
+    const btnDecrLimitEl = <HTMLButtonElement>prodClone.querySelector('.cart__limit-input-decr');
+
     const prevPageButtonEl = <HTMLButtonElement>prodClone.querySelector('.cart__sub-page-btn-prev');
     const nextPageButtonEl = <HTMLButtonElement>prodClone.querySelector('.cart__sub-page-btn-next');
     const pageNumEl = <HTMLElement>prodClone.querySelector('.cart__sub-page-count');
+
     //set limit actual value:
+    inputLimitEl.max = this.cart?.oneTypeProductCount.toString() || '2';
     if (this.urlParams.search.limit) {
       inputLimitEl.value = this.urlParams.search.limit;
     }
+    if (inputLimitEl.value === '2') {
+      btnDecrLimitEl.disabled = true;
+    }
+    if (inputLimitEl.value >= inputLimitEl.max) {
+      btnIncLimitEl.disabled = true;
+    }
 
-    inputLimitEl.max = this.cart?.oneTypeProductCount.toString() || '2';
-    inputLimitEl.addEventListener('change', () => this.onLimitChange(inputLimitEl, pageNumEl, nextPageButtonEl));
+    inputLimitEl.addEventListener('change', this.onLimitChange);
+    btnIncLimitEl.addEventListener('click', this.incLimitPage);
+    btnDecrLimitEl.addEventListener('click', this.decLimitPage);
 
     //get query params for render  actual page
     pageNumEl.textContent = this.urlParams.search.page ? this.urlParams.search.page.toString() : '1';
@@ -101,12 +160,9 @@ export class CartPageHeader {
     if (this.lastPage <= Number(pageNumEl.textContent)) {
       nextPageButtonEl.disabled = true;
     }
-    prevPageButtonEl.addEventListener('click', () =>
-      this.onPrevPageBtnClick(prevPageButtonEl, pageNumEl, nextPageButtonEl)
-    );
-    nextPageButtonEl.addEventListener('click', () =>
-      this.onNextPageBtnClick(prevPageButtonEl, pageNumEl, nextPageButtonEl)
-    );
+
+    prevPageButtonEl.addEventListener('click', this.onPrevPageBtnClick);
+    nextPageButtonEl.addEventListener('click', this.onNextPageBtnClick);
 
     fragment.append(prodClone);
     this.headerEl.append(fragment);

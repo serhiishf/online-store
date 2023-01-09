@@ -157,12 +157,37 @@
         <button class="product__action-btn" type="button">Buy now</button>
       </div>
     </template>
+
     <!-- Cart page header: -->
     <template id="cart-page-header">
       <h1 class="cart__header-title">Products in cart</h1>
-      <div class="cart__page-limit">
-        <label for="limit-prod-on-page">Show products on page: </label>
-        <input type="number" id="limit-prod-on-page" name="limit" min="2" max="5" value="2" />
+
+      <div class="cart__limit-thumb">
+        <label class="cart__limit-label" for="limit-prod-on-page"> Show products on page: </label>
+        <!-- <input type="number"
+              id="limit-prod-on-page"
+              name="limit"
+              min="2"
+              max="5"
+              value="2"
+              placeholder="0"
+        /> -->
+        <div class="cart__limit-input-box">
+          <button class="cart__limit-input-decr" type="button"></button>
+
+          <input
+            class="cart__limit-input"
+            type="number"
+            id="limit-prod-on-page"
+            name="limit"
+            min="2"
+            max="5"
+            value="2"
+            placeholder="0"
+          />
+
+          <button class="cart__limit-input-incr" type="button"></button>
+        </div>
       </div>
       <div class="cart__sub-page">
         <p>Page:</p>
@@ -177,8 +202,9 @@
     <!-- one product on Cart page: -->
     <template id="product-in-cart">
       <li class="cart__product-item">
-        <div>
+        <div class="cart__product-thumb">
           <img class="cart__product-img" />
+
           <div>
             <h3 class="cart__product-title">name</h3>
             <hr />
@@ -188,15 +214,16 @@
               <p class="cart__product-inf">Discount: <span class="cart__product-inf--discount"></span></p>
             </div>
           </div>
+        </div>
+
+        <div>
+          <p class="cart__product-inf">Stock: <span class="cart__inf--stock"></span></p>
           <div>
-            <p class="cart__product-inf">Stock: <span class="cart__inf--stock"></span></p>
-            <div>
-              <button type="button" class="cart__product-count-incr">+</button>
-              <span class="cart__product-count"></span>
-              <button type="button" class="cart__product-count-decr">-</button>
-            </div>
-            <p class="cart__product-price">$<span class="cart__product-price-quantity"></span></p>
+            <button type="button" class="cart__product-count-incr">+</button>
+            <span class="cart__product-count"></span>
+            <button type="button" class="cart__product-count-decr">-</button>
           </div>
+          <p class="cart__product-price">$<span class="cart__product-price-quantity"></span></p>
         </div>
       </li>
     </template>
