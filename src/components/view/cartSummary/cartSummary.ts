@@ -13,5 +13,16 @@ export class CartSummary {
   public draw() {
     const fragment = <DocumentFragment>document.createDocumentFragment();
     const template = <HTMLTemplateElement>document.querySelector('#cart-summary');
+
+    const prodClone = <HTMLElement>template.content.cloneNode(true);
+    const totalCountEl = <HTMLElement>prodClone.querySelector('.cart__summary-data--products');
+    const totalPriceEl = <HTMLElement>prodClone.querySelector('.cart__summary-data--price');
+
+    totalCountEl.textContent = this.cart.totalCount.toString();
+    totalPriceEl.textContent = this.cart.totalPrice.toString();
+
+    fragment.append(prodClone);
+    this.thumb.append(fragment);
+    return this.thumb;
   }
 }

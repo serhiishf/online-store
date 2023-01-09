@@ -28,9 +28,10 @@ class CartPage extends TemplatePage {
       const view = new ProductsInCart(this.cart);
       const products = await view.draw();
       //render bloc with total price
-      //   const summaryView = new CartSummary(this.cart);
-
-      thumb.append(products);
+      const summaryView = new CartSummary(this.cart);
+      const summary = summaryView.draw();
+      console.log(summary);
+      thumb.append(products, summary);
     } else {
       const alternativeTxt = document.createElement('p');
       alternativeTxt.classList.add('alternative-txt');

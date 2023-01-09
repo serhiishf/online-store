@@ -310,15 +310,25 @@
 
     <!-- Summary on Cart Page -->
     <template id="cart-summary">
-      <h2>Summary</h2>
-      <div>
-        <p>Products: <span></span></p>
-        <p>Total: <span></span></p>
+      <h2 class="cart__summary-title">Summary</h2>
+      <div class="cart__summary-inf-thumb">
+        <p class="cart__summary-desc">
+          Products:
+          <span class="cart__summary-data cart__summary-data--products"></span>
+        </p>
+        <p class="cart__summary-desc">
+          Total:
+          <span class="cart__summary-data cart__summary-data--price"></span>
+        </p>
+        <p class="cart__summary-desc cart__summary-desc--after-discount hidden">
+          Total:
+          <span class="cart__summary-data cart__summary-data--price"></span>
+        </p>
 
-        <input type="search" template="Enter promo code" />
-        <p>Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
+        <input class="cart__summary-input" type="search" template="Enter promo code" />
+        <p class="cart__summary-exmpl">Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
 
-        <button type="button">Buy now</button>
+        <button class="cart__summary-btn" type="button">Buy now</button>
       </div>
     </template>
   </body>
