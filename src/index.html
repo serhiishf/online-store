@@ -198,27 +198,39 @@
     <template id="product-in-cart">
       <li class="cart__product-item">
         <div class="cart__product-thumb">
-          <img class="cart__product-img" />
+          <div class="cart__product-img-thumb">
+            <img class="cart__product-img" />
+          </div>
 
-          <div>
-            <h3 class="cart__product-title">name</h3>
-            <hr />
-            <p class="cart__product-desc">desc</p>
+          <div class="cart__product-content-thumb">
+            <h3 class="cart__product-title"></h3>
+
+            <p class="cart__product-desc"></p>
             <div>
-              <p class="cart__product-inf">Rating: <span class="cart__product-inf--rating"></span></p>
-              <p class="cart__product-inf">Discount: <span class="cart__product-inf--discount"></span></p>
+              <p class="cart__product-inf">
+                Rating: <span class="cart__product-inf--rating cart__product-inf-data"></span>
+              </p>
+              <p class="cart__product-inf">
+                Discount: <span class="cart__product-inf--discount cart__product-inf-data"></span>
+              </p>
             </div>
           </div>
         </div>
 
-        <div>
-          <p class="cart__product-inf">Stock: <span class="cart__inf--stock"></span></p>
-          <div>
-            <button type="button" class="cart__product-count-incr">+</button>
+        <div class="cart__product-action-thumb">
+          <p class="cart__product-inf">
+            In stock:
+            <span class="cart__inf--stock cart__product-inf-data"></span>
+          </p>
+          <div class="cart__product-count-thumb">
+            <button type="button" class="cart__product-count-incr" title="add one more product in your cart"></button>
             <span class="cart__product-count"></span>
-            <button type="button" class="cart__product-count-decr">-</button>
+            <button type="button" class="cart__product-count-decr" title="remove product from your cart"></button>
           </div>
-          <p class="cart__product-price">$<span class="cart__product-price-quantity"></span></p>
+          <p class="cart__product-price">
+            $
+            <span class="cart__product-price-quantity"></span>
+          </p>
         </div>
       </li>
     </template>

@@ -79,9 +79,13 @@ export class CartPageHeader {
     const limitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
     const pageCountEl = <HTMLElement>document.querySelector('.cart__sub-page-count');
     const nextBtnEl = <HTMLButtonElement>document.querySelector('.cart__sub-page-btn-next');
+    const btnIncrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-incr');
+    const btnDecrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-decr');
+
     CartPageHeader.setLimitQueryParams(limitEl);
     const lastPage = CartPageHeader.setActualLastPage();
-
+    const cart = CartController.getCart() ? JSON.parse(<string>CartController.getCart()) : null;
+    const oneTypeProductCount: number = cart?.oneTypeProductCount || 1;
     if (pageCountEl.textContent === lastPage.toString()) {
       nextBtnEl.disabled = true;
       pageCountEl.textContent = lastPage.toString();
@@ -89,37 +93,36 @@ export class CartPageHeader {
     } else {
       nextBtnEl.disabled = false;
     }
+
+    if (limitEl.value === limitEl.min) {
+      btnDecrLimitEl.disabled = true;
+    }
+
+    if (Number(limitEl.value) >= oneTypeProductCount) {
+      btnIncrLimitEl.disabled = true;
+    }
   }
 
   private incLimitPage() {
     const limitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
     const btnDecrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-decr');
-    const btnIncrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-incr');
 
     btnDecrLimitEl.disabled = false;
 
     limitEl.value = `${parseInt(limitEl.value) + 1}`;
     const changeEvent = new Event('change');
     limitEl.dispatchEvent(changeEvent);
-
-    if (limitEl.value >= limitEl.max) {
-      btnIncrLimitEl.disabled = true;
-    }
   }
 
   private decLimitPage() {
     const limitEl = <HTMLInputElement>document.querySelector('#limit-prod-on-page');
-    const btnDecrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-decr');
     const btnIncrLimitEl = <HTMLButtonElement>document.querySelector('.cart__limit-input-incr');
     btnIncrLimitEl.disabled = false;
 
-    if (limitEl.value > limitEl.min) {
+    if (Number(limitEl.value) > Number(limitEl.min)) {
       limitEl.value = `${parseInt(limitEl.value) - 1}`;
       const changeEvent = new Event('change');
       limitEl.dispatchEvent(changeEvent);
-    }
-    if (limitEl.value === limitEl.min) {
-      btnDecrLimitEl.disabled = true;
     }
   }
 
@@ -138,13 +141,15 @@ export class CartPageHeader {
 
     //set limit actual value:
     inputLimitEl.max = this.cart?.oneTypeProductCount.toString() || '2';
+
     if (this.urlParams.search.limit) {
       inputLimitEl.value = this.urlParams.search.limit;
     }
     if (inputLimitEl.value === '2') {
       btnDecrLimitEl.disabled = true;
     }
-    if (inputLimitEl.value >= inputLimitEl.max) {
+
+    if (Number(inputLimitEl.value) >= <number>this.cart?.oneTypeProductCount) {
       btnIncLimitEl.disabled = true;
     }
 
