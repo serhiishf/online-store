@@ -7,18 +7,21 @@ export class Subheader {
     const templateElem = <HTMLTemplateElement>document.querySelector('#subheader-main');
     const subHeaderElem: HTMLElement = <HTMLElement>templateElem.content.cloneNode(true);
     subHeaderElem.querySelector('.subheader__wrap')?.addEventListener('input', callback);
-
     if (subHeaderData.sort !== 'default') {
-      (<HTMLOptionElement>subHeaderElem.querySelector(`.sort-${subHeaderData.sort}`)).selected = true;
+      console.log(subHeaderData.sort, subHeaderData.direction);
+      (<HTMLOptionElement>subHeaderElem.querySelector(`.sort-${subHeaderData.sort}-${subHeaderData.direction}`)).selected = true;
     }
+    
     if (subHeaderData.searchData.length !== 0) {
       const contentSearchInput: string = subHeaderData.searchData.join(' ');
       (<HTMLInputElement>subHeaderElem.querySelector('.subheader__search')).value = contentSearchInput;
     }
+    
     const countItem = subHeaderElem.querySelector('.subheader__count_item');
     if (countItem) {
       countItem.textContent = `${length}`;
     }
+    
     const btnCopy = subHeaderElem.querySelector('.subheader__btn_copy');
     if (btnCopy) {
       btnCopy.addEventListener('click', () => {
@@ -28,6 +31,7 @@ export class Subheader {
         //document.execCommand('copy');
       });
     }
+    
     const btnReset = subHeaderElem.querySelector('.subheader__btn_reset');
     if (btnReset) {
       btnReset.addEventListener('click', () => {
@@ -41,6 +45,7 @@ export class Subheader {
     if (searchInput) {
       searchInput.addEventListener('input', () => console.log(searchInput.value));
     }
+    
     return subHeaderElem;
   }
 }

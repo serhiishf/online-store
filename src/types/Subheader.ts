@@ -1,8 +1,8 @@
-import { SortDirection } from './Filter'
+import { SortDirection, SortType } from './Filter';
 
 export interface SubHeaderData {
-  sort: 'price' | 'title' | 'default',
-  direction: SortDirection,
-  searchData: string[],
+  sort: 'default' | SortType;
+  direction: SortDirection;
+  searchData: string[];
   // viewType: string;
 }

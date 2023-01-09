@@ -24,7 +24,7 @@ export enum RangeType {
 }
 
 export enum SortType {
-    rating = 'rating',
+    stock = 'stock',
     title = 'title',
     price = 'price',
 }

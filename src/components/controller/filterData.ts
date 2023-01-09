@@ -98,7 +98,8 @@ export class FilterData {
     }
 
     sortData(goods: Product[], sortType: SortType, direction: SortDirection) {
-        return goods.sort((a, b) => {
+        const result = goods.map(elem => elem)
+        return result.sort((a, b) => {
             if (a[sortType] > b[sortType]) {
                 if (direction === SortDirection.up) {
                     return 1;

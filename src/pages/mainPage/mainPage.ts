@@ -10,17 +10,19 @@ import { FilterData } from '../../components/controller/filterData';
 import { Subheader } from '../../components/view/subheader/subheader';
 import { SubHeaderData } from '../../types/Subheader';
 import { SubHeaderFormData } from '../../components/controller/subHeaderFormData';
+import { MainPageEvent } from '../../components/controller/mainPageEvents';
 
 //test URL:    (later will be class to parse info from URL string)
 enum Url {
   base = 'https://dummyjson.com',
-  goods = '/products?limit=100',
+  goods = '/products?limit=10',
   categories = '/products/categories',
 }
 
 class MainPage extends TemplatePage {
   loader: Loader;
   view: Products;
+  mainEvent: MainPageEvent;
 
   static textObject = {
     mainThumb: 'main__thumb',
@@ -32,6 +34,7 @@ class MainPage extends TemplatePage {
     //test loader:
     this.loader = new Loader(Url);
     this.view = new Products();
+    this.mainEvent = new MainPageEvent();
   }
 
   async loadData() {
@@ -63,20 +66,19 @@ class MainPage extends TemplatePage {
     // filters
 
     const filtersContainer = this.createPageHTML(MainPage.textObject.filters);
+
+    this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     this.renderFilters(rawData, filtersContainer, [], () => {
-      const formData = new FormData().getFormData('filterkey');
-      this.formCallback(filtersContainer, formData);
-      const dataProduct: Product[] = new FilterData().facetedFilter(rawData, formData);
-      this.createProductsCards(dataProduct);
-      const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
-      if(parentNodeForSubHEader) {
-        this.renderSubHeader(parentNodeForSubHEader, mocDataForSubHeader, dataProduct.length)
-      }
+      this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer )
     });
     const products = await this.createProductsCards(rawData);
     
     //subheader
-    this.renderSubHeader(subHeadContainer, mocDataForSubHeader, dataProduct.length);
+    const subHeader = new Subheader().draw(mocDataForSubHeader, length, () => {
+      this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
+    })
+
+    subHeadContainer.append(subHeader);
 
     mainContainer.append(filtersContainer, products);
     thumb.append(subHeadContainer, mainContainer);
@@ -98,15 +100,16 @@ class MainPage extends TemplatePage {
     renderFiltersObj.drawAll(goods, mockFilterOrRange, checkedData);
   }
 
-  renderSubHeader(parentNode: HTMLElement, mocDataForSubHeader: SubHeaderData, length: number) {
+  renderSubHeader(parentNode: HTMLElement, mocDataForSubHeader: SubHeaderData, length: number, callback: Callback) {
     parentNode.innerHTML = '';
     const subHeader = new Subheader().draw(mocDataForSubHeader, length, () => {
-      const sortSearchFromData = new SubHeaderFormData().getFormData();
+      //callback()
+      //const sortSearchFromData = new SubHeaderFormData().getFormData();
     })
     parentNode.append(subHeader);
   }
 
-  formCallback(parentNode: HTMLElement, checkedData: FilterCollection[]) {
+  /* formCallback(parentNode: HTMLElement, checkedData: FilterCollection[]) {
     parentNode.innerHTML = '';
     const rawData = this.loader.rawData;
     this.renderFilters(rawData, parentNode, checkedData, () => {
@@ -118,10 +121,10 @@ class MainPage extends TemplatePage {
 
       const parentNodeForSubHEader = <HTMLElement>document.querySelector('.sub-header-container');
       if(parentNodeForSubHEader) {
-        this.renderSubHeader(parentNodeForSubHEader, searchData, dataProduct.length)
+        //this.renderSubHeader(parentNodeForSubHEader, searchData, dataProduct.length)
       }
     });
-  }
+  } */
 
 /*   searchCallback(parentNode: HTMLElement) {
     const checkedData = new FormData().getFormData('filterkey');
