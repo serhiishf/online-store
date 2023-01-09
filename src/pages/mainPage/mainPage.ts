@@ -15,7 +15,7 @@ import { MainPageEvent } from '../../components/controller/mainPageEvents';
 //test URL:    (later will be class to parse info from URL string)
 enum Url {
   base = 'https://dummyjson.com',
-  goods = '/products?limit=10',
+  goods = '/products?limit=30',
   categories = '/products/categories',
 }
 

@@ -13,7 +13,7 @@ import { SubHeaderFormData } from '../../components/controller/subHeaderFormData
 
 enum Url {
   base = 'https://dummyjson.com',
-  goods = '/products?limit=10',
+  goods = '/products?limit=30',
   categories = '/products/categories',
 }
 
@@ -51,7 +51,7 @@ export class MainPageEvent {
     const checkedFormData = this.formData.getFormData('filterkey');
     const searchFormData = this.subHeaderFormData.getFormData();
     const dataAfterFilter = this.filter.facetedFilter(rawData, checkedFormData);
-    const dataOnlyAfterSearch = this.filter.getSearchedData(dataAfterFilter, searchFormData.searchData);
+    const dataOnlyAfterSearch = this.filter.getSearchedData(rawData, searchFormData.searchData);
     let dataAfterSearch = dataAfterFilter;
     if (searchFormData.searchData.length !== 0) {
       dataAfterSearch = this.filter.getSearchedData(dataAfterFilter, searchFormData.searchData);
