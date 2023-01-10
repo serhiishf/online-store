@@ -322,13 +322,17 @@
         </p>
         <p class="cart__summary-desc cart__summary-desc--after-discount hidden">
           Total:
-          <span class="cart__summary-data cart__summary-data--price"></span>
+          <span class="cart__summary-data cart__summary-data--price-after-discount"></span>
         </p>
+        <!-- added discount list: -->
+        <ul class="cart__summary-discount-list"></ul>
 
-        <input class="cart__summary-input" type="text" placeholder="Enter promo code" />
+        <input class="cart__summary-input" type="search" placeholder="Enter promo code" />
         <p class="cart__summary-exmpl">Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
+        <!-- discount you cam add: -->
+        <div class="cart__summary-discount-to-add"></div>
 
-        <button class="cart__summary-btn" type="button">Buy now</button>
+        <button class="cart__summary-buy-btn" type="button">Buy now</button>
       </div>
     </template>
   </body>

@@ -30,7 +30,7 @@ class CartPage extends TemplatePage {
       //render bloc with total price
       const summaryView = new CartSummary(this.cart);
       const summary = summaryView.draw();
-      console.log(summary);
+
       thumb.append(products, summary);
     } else {
       const alternativeTxt = document.createElement('p');
