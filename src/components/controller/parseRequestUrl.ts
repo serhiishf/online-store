@@ -20,6 +20,5 @@ export const parseRequestUrl = (): UrlParams => {
             });
     }
     urlParams.page = window.location.hash.slice(1).toLowerCase() || '/';
-    console.log('parse url', urlParams)
     return urlParams;
 };

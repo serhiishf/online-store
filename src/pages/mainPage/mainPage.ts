@@ -57,6 +57,8 @@ class MainPage extends TemplatePage {
       searchData: [],
     };
 
+    let formData: FilterCollection[] = [];
+
     const urlParams = parseRequestUrl();
 
     if(urlParams.search !== undefined) {
@@ -64,7 +66,14 @@ class MainPage extends TemplatePage {
         const strKey = urlParams.search.search;
         if(typeof strKey === 'string'){
           mocDataForSubHeader = this.mainEvent.parseSearchData(strKey);
-          console.log(mocDataForSubHeader)
+        } 
+      }
+    }
+    if(urlParams.search !== undefined) {
+      if(urlParams.search.filter !== undefined) {
+        const strKey = urlParams.search.filter;
+        if(typeof strKey === 'string'){
+          formData = this.mainEvent.parseFilterData(strKey);
         } 
       }
     }
@@ -79,27 +88,24 @@ class MainPage extends TemplatePage {
     const mainContainer = this.createPageHTML('main-container');
 
     //data for render
-    const formData = new FormData().getFormData('filterkey');
+    
     const dataProduct = new FilterData().facetedFilter(rawData, formData);
-    console.log(mocDataForSubHeader.searchData)
     const dataAfterSearch = new FilterData().getSearchedData(dataProduct, mocDataForSubHeader.searchData);
+    const dataOnlyAfterSearch = new FilterData().getSearchedData(rawData, mocDataForSubHeader.searchData);
     let dataAfterSort = dataAfterSearch;
     if(mocDataForSubHeader.sort !== 'default') {
       dataAfterSort = new FilterData().sortData(dataAfterSearch, mocDataForSubHeader.sort, mocDataForSubHeader.direction )
-    }    
-    console.log(dataAfterSort)
-    // filters
+    }   
 
+    // render filters
     const filtersContainer = this.createPageHTML(MainPage.textObject.filters);
 
-    //this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
-    this.renderFilters(dataAfterSearch, filtersContainer, [], () => {
-      
+    this.renderFilters(dataOnlyAfterSearch, filtersContainer, formData, () => {
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer )
     });
     const products = await this.createProductsCards(dataAfterSort);
-    
-    //subheader
+    console.log(dataOnlyAfterSearch)
+    //render search
     const subHeader = new Subheader().draw(mocDataForSubHeader, dataAfterSearch.length, () => {
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     })

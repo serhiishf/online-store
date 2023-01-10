@@ -1,6 +1,7 @@
 import { SubHeaderData } from '../../../types/Subheader';
 import { Callback } from '../../../types/Callbacks';
 import App from '../../../pages/app/app';
+import { clearSearchParams } from '../../controller/clearSearchParams'
 
 export class Subheader {
   draw(subHeaderData: SubHeaderData, length: number, callback: Callback) {
@@ -35,7 +36,8 @@ export class Subheader {
     if (btnReset) {
       btnReset.addEventListener('click', () => {
         const baseUrl = window.location.origin + '/';
-        window.history.pushState('object or string', 'Title');
+        window.history.pushState('object or string', 'Title', baseUrl);
+        // const resetSearchParam = clearSearchParams(new URL(window.location.href));
         const app = new App();
         app.run();
       });
