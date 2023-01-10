@@ -4,14 +4,14 @@ import { parseRequestUrl } from '../../controller/parseRequestUrl';
 
 export class CartPageHeader {
   headerEl: HTMLElement;
-  cart: Cart | null;
+  cart: Cart;
   urlParams: UrlParams;
   lastPage: number;
 
-  constructor() {
+  constructor(storageCart: Cart) {
     this.headerEl = document.createElement('div');
     this.headerEl.classList.add('cart__header-thumb');
-    this.cart = CartController.getCart() ? JSON.parse(<string>CartController.getCart()) : null;
+    this.cart = storageCart;
     this.urlParams = parseRequestUrl();
     const lastPageMath = (): number => {
       const oneTypeProductCount: number = this.cart?.oneTypeProductCount || 1;
@@ -140,16 +140,16 @@ export class CartPageHeader {
     const pageNumEl = <HTMLElement>prodClone.querySelector('.cart__sub-page-count');
 
     //set limit actual value:
-    inputLimitEl.max = this.cart?.oneTypeProductCount.toString() || '2';
+    inputLimitEl.max = this.cart.oneTypeProductCount.toString();
 
     if (this.urlParams.search.limit) {
       inputLimitEl.value = this.urlParams.search.limit;
-    }
-    if (inputLimitEl.value === '2') {
+    } else {
+      inputLimitEl.value = '2';
       btnDecrLimitEl.disabled = true;
     }
 
-    if (Number(inputLimitEl.value) >= <number>this.cart?.oneTypeProductCount) {
+    if (Number(inputLimitEl.value) >= this.cart.oneTypeProductCount) {
       btnIncLimitEl.disabled = true;
     }
 

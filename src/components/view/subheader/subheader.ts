@@ -9,19 +9,21 @@ export class Subheader {
     const subHeaderElem: HTMLElement = <HTMLElement>templateElem.content.cloneNode(true);
     subHeaderElem.querySelector('.subheader__wrap')?.addEventListener('change', callback);
     if (subHeaderData.sort !== 'default') {
-      (<HTMLOptionElement>subHeaderElem.querySelector(`.sort-${subHeaderData.sort}-${subHeaderData.direction}`)).selected = true;
+      (<HTMLOptionElement>(
+        subHeaderElem.querySelector(`.sort-${subHeaderData.sort}-${subHeaderData.direction}`)
+      )).selected = true;
     }
-    
+
     if (subHeaderData.searchData.length !== 0) {
       const contentSearchInput: string = subHeaderData.searchData.join(' ');
       (<HTMLInputElement>subHeaderElem.querySelector('.subheader__search')).value = contentSearchInput;
     }
-    
+
     const countItem = subHeaderElem.querySelector('.subheader__count_item');
     if (countItem) {
       countItem.textContent = `${length}`;
     }
-    
+
     const btnCopy = subHeaderElem.querySelector('.subheader__btn_copy');
     if (btnCopy) {
       btnCopy.addEventListener('click', () => {
@@ -31,7 +33,7 @@ export class Subheader {
         //document.execCommand('copy');
       });
     }
-    
+
     const btnReset = subHeaderElem.querySelector('.subheader__btn_reset');
     if (btnReset) {
       btnReset.addEventListener('click', () => {
@@ -51,7 +53,7 @@ export class Subheader {
         }
       });
     }
-    
+
     return subHeaderElem;
   }
 }

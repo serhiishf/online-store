@@ -5,7 +5,7 @@ import { LoaderSingleProduct } from '../../controller/loaderSingleProduct';
 import { parseRequestUrl } from '../../controller/parseRequestUrl';
 import { CartPageHeader } from '../cartPageHeader';
 
-interface PagePageParams {
+interface PageParams {
   page: number;
   limit: number;
 }
@@ -23,7 +23,7 @@ export class ProductsInCart {
 
     this.listEl = document.createElement('ol');
     this.listEl.classList.add('cart__product-list');
-    this.headerEl = new CartPageHeader().draw();
+    this.headerEl = new CartPageHeader(storageCart).draw();
   }
 
   private async getProducts(): Promise<Product[] | undefined> {
@@ -113,11 +113,11 @@ export class ProductsInCart {
     decrBtnEl.addEventListener('click', removeProduct);
   }
 
-  private static showPageAndLimit(): PagePageParams {
+  private static showPageAndLimit(): PageParams {
     const URLparamsObj = parseRequestUrl();
 
-    const page: PagePageParams['page'] = Number(URLparamsObj.search.page) || 1; //page from query params or first page
-    const limit: PagePageParams['limit'] = Number(URLparamsObj.search.limit) || 2; //limit from query params or min 2 prod on page
+    const page: PageParams['page'] = Number(URLparamsObj.search.page) || 1; //page from query params or first page
+    const limit: PageParams['limit'] = Number(URLparamsObj.search.limit) || 2; //limit from query params or min 2 prod on page
 
     return {
       page,
@@ -148,7 +148,7 @@ export class ProductsInCart {
   }
 
   public async draw() {
-    //limitinput action
+    //limit input action
     const limitInputElem = <HTMLInputElement>this.headerEl.querySelector('#limit-prod-on-page');
     limitInputElem.addEventListener('change', ProductsInCart.onPaginationChange);
     //prev btn el action
