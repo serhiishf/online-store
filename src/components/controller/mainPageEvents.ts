@@ -127,12 +127,13 @@ export class MainPageEvent {
 
   parseSearchData(str: string) {
     console.log('parseSearchData')
-    const allKeys = str.split('&');
+    const allKeys = str.split('%26');
     const result: SubHeaderData = {
       sort: 'default',
       direction: SortDirection.up,
       searchData: [],
     };
+    console.log(allKeys)
     if (allKeys.length === 2 || allKeys.length === 3) {
       if (allKeys[0] === 'stock') {
         result.sort = SortType.stock;
@@ -146,7 +147,8 @@ export class MainPageEvent {
       }
     }
     if (allKeys.length === 3) {
-      const searchKeys = allKeys[2].split('|');
+        console.log('worksssasdas')
+      const searchKeys = allKeys[2].split('%7C');
       if (searchKeys.length !== 0) {
         result.searchData = searchKeys;
       }

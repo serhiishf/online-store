@@ -64,6 +64,7 @@ class MainPage extends TemplatePage {
         const strKey = urlParams.search.search;
         if(typeof strKey === 'string'){
           mocDataForSubHeader = this.mainEvent.parseSearchData(strKey);
+          console.log(mocDataForSubHeader)
         } 
       }
     }
@@ -80,23 +81,28 @@ class MainPage extends TemplatePage {
     //data for render
     const formData = new FormData().getFormData('filterkey');
     const dataProduct = new FilterData().facetedFilter(rawData, formData);
-    
-
+    console.log(mocDataForSubHeader.searchData)
+    const dataAfterSearch = new FilterData().getSearchedData(dataProduct, mocDataForSubHeader.searchData);
+    let dataAfterSort = dataAfterSearch;
+    if(mocDataForSubHeader.sort !== 'default') {
+      dataAfterSort = new FilterData().sortData(dataAfterSearch, mocDataForSubHeader.sort, mocDataForSubHeader.direction )
+    }    
+    console.log(dataAfterSort)
     // filters
 
     const filtersContainer = this.createPageHTML(MainPage.textObject.filters);
 
     //this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
-    this.renderFilters(rawData, filtersContainer, [], () => {
+    this.renderFilters(dataAfterSearch, filtersContainer, [], () => {
+      
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer )
     });
-    const products = await this.createProductsCards(rawData);
+    const products = await this.createProductsCards(dataAfterSort);
     
     //subheader
-    const subHeader = new Subheader().draw(mocDataForSubHeader, length, () => {
+    const subHeader = new Subheader().draw(mocDataForSubHeader, dataAfterSearch.length, () => {
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     })
-    this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     subHeadContainer.append(subHeader);
 
     mainContainer.append(filtersContainer, products);
