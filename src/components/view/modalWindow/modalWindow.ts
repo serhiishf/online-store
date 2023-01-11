@@ -47,6 +47,8 @@ export class ModalWindow {
     })
 
     //card expiration
+    const cardExp = <HTMLInputElement>modalWindow.querySelector('.credit-card__number');
+    
 
     //card cvv
     const cardCvv = <HTMLInputElement>modalWindow.querySelector('.credit-card__cvv');

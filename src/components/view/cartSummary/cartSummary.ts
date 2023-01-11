@@ -25,7 +25,6 @@ export class CartSummary {
       });
       totalCountEl.after(modalWindow);
     })
-    
 
     totalCountEl.textContent = this.cart.totalCount.toString();
     totalPriceEl.textContent = this.cart.totalPrice.toString();
