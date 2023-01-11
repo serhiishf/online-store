@@ -1,3 +1,4 @@
+import { ModalWindow } from '../modalWindow/modalWindow'
 import { Cart } from '../../../types';
 
 export class CartSummary {
@@ -17,6 +18,14 @@ export class CartSummary {
     const prodClone = <HTMLElement>template.content.cloneNode(true);
     const totalCountEl = <HTMLElement>prodClone.querySelector('.cart__summary-data--products');
     const totalPriceEl = <HTMLElement>prodClone.querySelector('.cart__summary-data--price');
+    const btnBuy = <HTMLElement>prodClone.querySelector('.cart__summary-btn');
+    btnBuy.addEventListener('click', () => {
+      const modalWindow = new ModalWindow().draw(() => {
+        console.log('open modal window')
+      });
+      totalCountEl.after(modalWindow);
+    })
+    
 
     totalCountEl.textContent = this.cart.totalCount.toString();
     totalPriceEl.textContent = this.cart.totalPrice.toString();
