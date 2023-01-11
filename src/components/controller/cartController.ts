@@ -14,6 +14,7 @@ export class CartController {
       ],
       discount: 0,
       totalPriceAfterDiscount: null,
+      activeDiscountCodes: [],
     };
   }
 
@@ -21,26 +22,48 @@ export class CartController {
     return window.localStorage.getItem('cart');
   }
 
-  static setDiscount(discount: number) {
+  static getTotalPriceAfterDiscount(): number | null {
+    const cart: string | null = CartController.getCart();
+    if (cart) {
+      const cartParsed: Cart = JSON.parse(cart);
+      return cartParsed.totalPriceAfterDiscount;
+    } else {
+      return null;
+    }
+  }
+
+  static setDiscount(codeName: string, discount: number) {
     //params discount in %!!!
     const cart: string | null = CartController.getCart();
     if (cart) {
       const cartParsed: Cart = JSON.parse(cart);
-      //todo:better math foo
-      cartParsed.discount = cartParsed.discount + Math.ceil((discount / 100) * cartParsed.totalPrice);
-      cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
+
+      const discountObj = { [codeName]: discount };
+      const isDiscountActive = cartParsed.activeDiscountCodes.find((el) => el[codeName]);
+
+      if (!isDiscountActive) {
+        cartParsed.activeDiscountCodes = [...cartParsed.activeDiscountCodes, discountObj];
+
+        cartParsed.discount = cartParsed.discount + Math.ceil((discount / 100) * cartParsed.totalPrice);
+        cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
+      }
+
       window.localStorage.setItem('cart', JSON.stringify(cartParsed));
     }
   }
 
-  static removeDiscount(discount: number) {
+  static removeDiscount(codeName: string, discount: number) {
     //params discount in %!!!
     const cart: string | null = CartController.getCart();
     if (cart) {
       const cartParsed: Cart = JSON.parse(cart);
-      //todo:better math foo
-      cartParsed.discount = cartParsed.discount - Math.ceil((discount / 100) * cartParsed.totalPrice);
-      cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
+      const isDiscountActive = cartParsed.activeDiscountCodes.findIndex((el) => el[codeName]);
+
+      if (isDiscountActive >= 0) {
+        cartParsed.activeDiscountCodes.splice(isDiscountActive, 1);
+        cartParsed.discount = cartParsed.discount - Math.ceil((discount / 100) * cartParsed.totalPrice);
+        cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
+      }
       window.localStorage.setItem('cart', JSON.stringify(cartParsed));
     }
   }
