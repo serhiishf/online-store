@@ -87,6 +87,18 @@ export class CartController {
       const cartParsed: Cart = JSON.parse(cart);
       cartParsed.totalCount += quantity;
       cartParsed.totalPrice += price * quantity;
+
+      if (cartParsed.activeDiscountCodes.length > 0) {
+        cartParsed.discount = 0;
+
+        cartParsed.activeDiscountCodes.forEach((el) => {
+          const discount = Object.values(el)[0];
+          console.log(discount);
+          cartParsed.discount = cartParsed.discount + Math.ceil((discount / 100) * cartParsed.totalPrice);
+        });
+        cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
+      }
+
       const productPos: number = CartController.findProductPos(id);
       if (productPos >= 0) {
         cartParsed.products[productPos].count += quantity;
@@ -105,6 +117,7 @@ export class CartController {
     const cart: string | null = CartController.getCart();
     if (cart) {
       const cartParsed: Cart = JSON.parse(cart);
+
       const productPos: number = CartController.findProductPos(id);
       if (productPos >= 0) {
         cartParsed.totalCount -= quantity;
@@ -115,6 +128,17 @@ export class CartController {
         } else if (prodCount === 1) {
           cartParsed.products.splice(productPos, 1);
           cartParsed.oneTypeProductCount -= 1;
+        }
+
+        if (cartParsed.activeDiscountCodes.length > 0) {
+          cartParsed.discount = 0;
+
+          cartParsed.activeDiscountCodes.forEach((el) => {
+            const discount = Object.values(el)[0];
+            cartParsed.discount = cartParsed.discount + Math.ceil((discount / 100) * cartParsed.totalPrice);
+          });
+
+          cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
         }
       } else {
         console.log("You didn't add anything in Cart yet");
@@ -136,6 +160,17 @@ export class CartController {
         cartParsed.oneTypeProductCount -= 1;
         cartParsed.totalPrice -= price * prodCount;
         cartParsed.products.splice(productPos, 1);
+
+        if (cartParsed.activeDiscountCodes.length > 0) {
+          cartParsed.discount = 0;
+
+          cartParsed.activeDiscountCodes.forEach((el) => {
+            const discount = Object.values(el)[0];
+            cartParsed.discount = cartParsed.discount + Math.ceil((discount / 100) * cartParsed.totalPrice);
+          });
+
+          cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
+        }
       } else {
         console.log("You didn't add anything in Cart yet");
       }
