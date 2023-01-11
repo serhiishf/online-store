@@ -24,14 +24,10 @@ class CartPage extends TemplatePage {
     const thumb = this.createPageHTML('cart__thumb');
 
     if (this.cart && this.cart.totalCount > 0) {
-      //render products in cart
       const view = new ProductsInCart(this.cart);
       const products = await view.draw();
-      //render bloc with total price
-      const summaryView = new CartSummary(this.cart);
-      const summary = summaryView.draw();
 
-      thumb.append(products, summary);
+      thumb.append(products);
     } else {
       const alternativeTxt = document.createElement('p');
       alternativeTxt.classList.add('alternative-txt');

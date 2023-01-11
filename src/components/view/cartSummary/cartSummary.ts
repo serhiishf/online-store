@@ -170,7 +170,7 @@ export class CartSummary {
     }
 
     discountInputEl.addEventListener('input', this.onInputAction);
-
+    this.thumb.innerHTML = '';
     fragment.append(prodClone);
     this.thumb.append(fragment);
     return this.thumb;
