@@ -1,0 +1,64 @@
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &__backgorund {
+        position: relative;
+        background: rgba(0, 0, 0, 0.5);
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+    }
+
+    &__container {
+        max-width: 1024px;
+    }
+
+    &__title {
+        font-size: 1.2rem;
+    }
+
+    &__person-data-wrap {
+    }
+
+    &__input {
+
+    }
+
+    &__name {
+    }
+
+    &__phone {
+    }
+
+    &__email {
+    }
+
+    &__credit-card {
+    }
+
+    &__submit-wrap {
+    }
+
+    &__btn {
+    }
+
+    &__message {
+    }
+}
+.credit-card {
+
+    &__number {
+    }
+
+    &__exp {
+    }
+
+    &__cvv {
+    }
+}
+
+.input {
+
+}
