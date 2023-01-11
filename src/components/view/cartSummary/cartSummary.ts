@@ -52,7 +52,7 @@ export class CartSummary {
     const discountListEl = <HTMLUListElement>document.querySelector('.cart__summary-discount-list');
     const totalAfterPriceThumbEl = <HTMLElement>document.querySelector('.cart__summary-desc--after');
     const totalAfterPriceEl = <HTMLElement>document.querySelector('.cart__summary-data--price-after');
-    const totalPriceEl = <HTMLElement>document.querySelector('.cart__summary-desc--before');
+    const totalPriceThumbEl = <HTMLElement>document.querySelector('.cart__summary-desc--before');
 
     const targetElBtn = <HTMLElement>e.target;
     const discountName = <'RS' | 'EPM'>targetElBtn.id; //discount name: RS or EPM
@@ -81,7 +81,7 @@ export class CartSummary {
       totalAfterPriceThumbEl.classList.remove('hidden');
 
       totalAfterPriceEl.textContent = (<number>CartController.getTotalPriceAfterDiscount()).toString();
-      totalPriceEl.classList.add('cross-out');
+      totalPriceThumbEl.classList.add('cross-out');
       //add listener on new btn
       const newCreatedEl = document.querySelector(`.cart__summary-discount-item.${discountName}`);
       if (newCreatedEl) {
