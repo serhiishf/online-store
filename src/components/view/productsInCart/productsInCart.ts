@@ -4,6 +4,7 @@ import { HeaderController } from '../../controller/headerController';
 import { LoaderSingleProduct } from '../../controller/loaderSingleProduct';
 import { parseRequestUrl } from '../../controller/parseRequestUrl';
 import { CartPageHeader } from '../cartPageHeader';
+import { CartSummary } from '../cartSummary';
 
 interface PageParams {
   page: number;
@@ -15,6 +16,7 @@ export class ProductsInCart {
   protected listEl: HTMLUListElement;
   thumb: HTMLElement;
   headerEl: HTMLElement;
+  summaryEl: HTMLElement;
 
   constructor(storageCart: Cart) {
     this.items = storageCart.products;
@@ -24,6 +26,7 @@ export class ProductsInCart {
     this.listEl = document.createElement('ol');
     this.listEl.classList.add('cart__product-list');
     this.headerEl = new CartPageHeader(storageCart).draw();
+    this.summaryEl = new CartSummary(storageCart).draw();
   }
 
   private async getProducts(): Promise<Product[] | undefined> {
@@ -199,7 +202,8 @@ export class ProductsInCart {
       this.listEl.innerHTML = '';
       this.listEl.append(fragment);
     }
-    this.thumb.append(this.headerEl, this.listEl);
+
+    this.thumb.append(this.headerEl, this.listEl, this.summaryEl);
     return this.thumb;
   }
 }
