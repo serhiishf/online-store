@@ -1,5 +1,6 @@
 import { Cart, Discount } from '../../../types';
 import { CartController } from '../../controller/cartController';
+import { ModalWindow } from '../modalWindow/modalWindow';
 
 export class CartSummary {
   cart: Cart;
@@ -137,6 +138,14 @@ export class CartSummary {
 
     const totalPriceThumbEl = <HTMLElement>prodClone.querySelector('.cart__summary-desc--before');
     const totalPriceEl = <HTMLElement>prodClone.querySelector('.cart__summary-data--price');
+    const btnBuy = <HTMLElement>prodClone.querySelector('.cart__summary-buy-btn');
+
+    btnBuy.addEventListener('click', () => {
+      const modalWindow = new ModalWindow().draw(() => {
+        console.log('open modal window');
+      });
+      totalCountEl.after(modalWindow);
+    });
 
     const discountInputEl = <HTMLInputElement>prodClone.querySelector('.cart__summary-input');
 

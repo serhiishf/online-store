@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
     <title>Online store</title>
   </head>
 
@@ -35,34 +36,59 @@
         </div>
       </div>
     </header>
-    <!--     <div class="main__subheader subheader">
-      <div class="subheader__wrap">
-        <div class="subheader__buttons-wrap">
-          <div class="subheader__btn btn">Reset Filters</div>
-          <div class="subheader__btn btn">Copy Link</div>
-        </div>
-        <div class="subheader__sort-wrap">
-          <select name="sort-select" id="sort-select" class="subheader__sort sort-select">
-            <option value="sort-title" data-sort-direction="up" class="sort-select__option" disabled="" selected="">Sort options:</option>
-            <option value="price" data-sort-direction="up" class="sort-select__option">Price Up</option>
-            <option value="price" data-sort-direction="down" class="sort-select__option">Price Down</option>
-            <option value="title" data-sort-direction="up" class="sort-select__option">Name Up</option>
-            <option value="title" data-sort-direction=down" class="sort-select__option">Name Down</option>
-          </select>
-        </div>
-        <div class="subheader__search-wrap">
-          <div class="subheader__count">
-            <span class="subheader__count_text">Found: </span>
-            <span class="subheader__count_item">25</span>
-          </div>
-          <input type="text" class="subheader__search" placeholder="Search product">
-        </div>
-        <div class="subheader__view-wrap"></div>
-      </div>
-    </div> -->
-    <main id="app"></main>
 
+    <main id="app"></main>
+ 
     <footer></footer>
+    <template id="modal">
+      <div class="modal">
+        <div class="modal__backgorund">
+          <form class="modal__form">
+            <div class="modal__header">
+              <div class="modal__close-btn">Close</div>
+            </div>
+            <div class="modal__title">Checkout page</div>
+            <div class="modal__person-data-wrap">
+              <div class="modal__input-wrap">
+                <input type="text" class="modal__name modal__input input" required pattern="[a-z]{4,8}" placeholder="First and Last name"/>
+                <div class="modal__input-description modal__input-description_name">Enter your First-name and Last-name</div>
+              </div>
+              <div class="modal__input-wrap">
+                <input type="text" class="modal__phone modal__input input" required placeholder="Phone number" pattern=".{10,18}"/>
+                <div class="modal__input-description modal__input-description_phone">Enter your phone number</div>
+              </div>
+              <div class="modal__input-wrap">
+                <input type="email" class="modal__email modal__input input" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                <div class="modal__input-description modal__input-description_email">Enter your email</div>
+              </div>
+            </div>
+            <div class="modal__credit-card credit-card">
+              <div class="modal__input-wrap">
+                <input type="text" class="credit-card__number modal__input input" required placeholder="Card number" pattern=".{16,16}"/>
+                <div class="modal__input-description modal__input-description_number">Enter credit card number</div>
+              </div>
+              <div class="modal__input-wrap">
+                <input type="text" class="credit-card__exp modal__input input" required placeholder="Expiration"/>
+                <div class="modal__input-description modal__input-description_exp">Enter valid cart data expiration </div>
+              </div>
+              <div class="modal__css-logo-wrap">
+                <div class="modal__input-wrap modal__input-wrap_cvv-logo">
+                  <input type="text" class="credit-card__cvv modal__input input" required placeholder="cvv" pattern=".{3,3}"/>
+                  <div class="modal__input-description modal__input-description_cvv">Enter cvv</div>
+                </div>
+                <img src="/assets/img/visa.png" alt="visa" class="credit-card__logo credit-card__logo_disabled credit-card__logo_visa">
+                <img src="/assets/img/mastercard.png" alt="mastercard" class="credit-card__logo credit-card__logo_disabled credit-card__logo_mastercard">
+              </div>
+            </div>
+            <div class="modal__submit-wrap">
+                       
+              <div class="modal__message modal__message_disabled">Error! Fill information correct!</div>
+              <div class="modal__btn">Confirm</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </template>
     <template id="subheader-main">
       <div class="subheader">
         <form class="subheader__wrap">
