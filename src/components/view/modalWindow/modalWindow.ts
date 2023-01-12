@@ -189,7 +189,7 @@ export class ModalWindow {
       }
   }
 
-  if(permition === false) {
+  if(permition === true) {
     personWrap.remove();
     creditWrap.remove();
     btnConfirm.remove();
