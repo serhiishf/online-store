@@ -5,11 +5,25 @@ import { ModalWindow } from '../modalWindow/modalWindow';
 export class CartSummary {
   cart: Cart;
   thumb: HTMLElement;
+  openModal: boolean;
 
   constructor(cartStorage: Cart) {
     this.cart = cartStorage;
     this.thumb = document.createElement('div');
     this.thumb.classList.add('cart__summary');
+
+    this.openModal = this.isForceBuy();
+  }
+
+  private isForceBuy() {
+    const pathname = window.localStorage.getItem('pageUrl');
+
+    if (pathname) {
+      const url: string = JSON.parse(pathname);
+      window.localStorage.removeItem('pageUrl');
+      return url.includes('#/product');
+    }
+    return false;
   }
 
   private onInputAction() {
@@ -138,15 +152,17 @@ export class CartSummary {
 
     const totalPriceThumbEl = <HTMLElement>prodClone.querySelector('.cart__summary-desc--before');
     const totalPriceEl = <HTMLElement>prodClone.querySelector('.cart__summary-data--price');
-    const btnBuy = <HTMLElement>prodClone.querySelector('.cart__summary-buy-btn');
+    const btnBuy = <HTMLButtonElement>prodClone.querySelector('.cart__summary-buy-btn');
 
     btnBuy.addEventListener('click', () => {
       const modalWindow = new ModalWindow().draw(() => {
-        console.log('open modal window');
+        // console.log('open modal window');
       });
       totalCountEl.after(modalWindow);
     });
-
+    if (this.openModal) {
+      btnBuy.click();
+    }
     const discountInputEl = <HTMLInputElement>prodClone.querySelector('.cart__summary-input');
 
     const totalAfterThumbEl = <HTMLElement>prodClone.querySelector('.cart__summary-desc--after');
