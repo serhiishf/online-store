@@ -48,6 +48,7 @@
               <div class="modal__close-btn">Close</div>
             </div>
             <div class="modal__title">Checkout page</div>
+            <div class="modal__confirmation-alert">Order is confirmation! Congratulations</div>
             <div class="modal__person-data-wrap">
               <div class="modal__input-wrap">
                 <input type="text" class="modal__name modal__input input" required placeholder="First and Last name" pattern="([a-zA-Zа-яА-Я0-9_]{3,}\s[a-zA-Zа-яА-Я0-9_]{3,})(?=.*[a-zA-Zа-яА-Я0-9_]).*$"/>
@@ -65,10 +66,10 @@
               </div>
               <div class="modal__input-wrap">
                 <input type="text" class="modal__address modal__input input" required pattern="([a-zA-Zа-яА-Я0-9_]{5,}\s[a-zA-Zа-яА-Я0-9_]{5,}\s[a-zA-Zа-яА-Я0-9_]{5,})(?=.*[a-zA-Zа-яА-Я0-9_]).*$" placeholder="Address"/>
-                <div class="modal__input-description modal__input-description_name">Enter your addres</div>
+                <div class="modal__input-description modal__input-description_address">Enter your addres</div>
               </div>
               <div class="modal__input-wrap">
-                <input type="email" class="modal__email modal__input input" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                <input type="email" class="modal__email modal__input input" required placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"/>
                 <div class="modal__input-description modal__input-description_email">Enter your email</div>
               </div>
             </div>
@@ -114,7 +115,7 @@
             </div>
             <div class="modal__submit-wrap">
               <div class="modal__message modal__message_disabled">Error! Fill information correct!</div>
-              <div class="modal__btn">Confirm</div>
+              <div class="modal__btn modal__btn_confirm">Confirm</div>
             </div>
           </form>
         </div>

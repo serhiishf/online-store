@@ -35,6 +35,12 @@
     justify-content: end;
     align-items: flex-end;
   }
+  &__confirmation-alert{
+    display: none;
+    &_active{
+        display: block;
+    }
+  }
 
   &__close-btn {
     cursor: pointer;
@@ -139,6 +145,7 @@
     border-radius: 5px;
     text-align: center;
     transition: all ease-in 0.4s;
+
     &:hover {
       background: #c3ad1f;
       transition: all ease-in 0.4s;
