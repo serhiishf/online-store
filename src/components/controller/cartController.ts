@@ -1,21 +1,18 @@
 import { Cart } from '../../types';
 
 export class CartController {
-  static createCart(id: number, price: number): Cart {
-    return {
-      totalCount: 1,
-      oneTypeProductCount: 1,
-      totalPrice: price,
-      products: [
-        {
-          id,
-          count: 1,
-        },
-      ],
+  static createCart(): Cart {
+    const newCart = {
+      totalCount: 0,
+      oneTypeProductCount: 0,
+      totalPrice: 0,
+      products: [],
       discount: 0,
       totalPriceAfterDiscount: null,
       activeDiscountCodes: [],
     };
+    window.localStorage.setItem('cart', JSON.stringify(newCart));
+    return newCart;
   }
 
   static getCart(): string | null {
@@ -107,8 +104,8 @@ export class CartController {
       }
       window.localStorage.setItem('cart', JSON.stringify(cartParsed));
     } else {
-      const newCart = CartController.createCart(id, price);
-      window.localStorage.setItem('cart', JSON.stringify(newCart));
+      CartController.createCart();
+      CartController.addProduct(id, price);
     }
   }
 

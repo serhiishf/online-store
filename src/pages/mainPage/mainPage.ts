@@ -5,11 +5,11 @@ import { RenderFilters } from '../../components/controller/renderAllFilters';
 import { Callback } from '../../types/Callbacks';
 import { FilterCollection, FiltersType, FilterOrRange, SortDirection } from '../../types/Filter';
 import { Product } from '../../types/Product';
-import { FormData } from '../../components/controller/formData';
+// import { FormData } from '../../components/controller/formData';
 import { FilterData } from '../../components/controller/filterData';
 import { Subheader } from '../../components/view/subheader/subheader';
 import { SubHeaderData } from '../../types/Subheader';
-import { SubHeaderFormData } from '../../components/controller/subHeaderFormData';
+// import { SubHeaderFormData } from '../../components/controller/subHeaderFormData';
 import { MainPageEvent } from '../../components/controller/mainPageEvents';
 import { parseRequestUrl } from '../../components/controller/parseRequestUrl';
 
@@ -49,9 +49,8 @@ class MainPage extends TemplatePage {
     await this.loadData();
     const rawData = this.loader.rawData;
 
-    
     //parse url
-    let mocDataForSubHeader:SubHeaderData = {
+    let mocDataForSubHeader: SubHeaderData = {
       sort: 'default',
       direction: SortDirection.up,
       searchData: [],
@@ -61,24 +60,23 @@ class MainPage extends TemplatePage {
 
     const urlParams = parseRequestUrl();
 
-    if(urlParams.search !== undefined) {
-      if(urlParams.search.search !== undefined) {
+    if (urlParams.search !== undefined) {
+      if (urlParams.search.search !== undefined) {
         const strKey = urlParams.search.search;
-        if(typeof strKey === 'string'){
+        if (typeof strKey === 'string') {
           mocDataForSubHeader = this.mainEvent.parseSearchData(strKey);
-        } 
+        }
       }
     }
-    if(urlParams.search !== undefined) {
-      if(urlParams.search.filter !== undefined) {
+    if (urlParams.search !== undefined) {
+      if (urlParams.search.filter !== undefined) {
         const strKey = urlParams.search.filter;
-        if(typeof strKey === 'string'){
+        if (typeof strKey === 'string') {
           formData = this.mainEvent.parseFilterData(strKey);
-        } 
+        }
       }
     }
 
-    
     //this.mainEvent
 
     //const rawData = rawDataMoc;
@@ -88,27 +86,31 @@ class MainPage extends TemplatePage {
     const mainContainer = this.createPageHTML('main-container');
 
     //data for render
-    
+
     const dataProduct = new FilterData().facetedFilter(rawData, formData);
     const dataAfterSearch = new FilterData().getSearchedData(dataProduct, mocDataForSubHeader.searchData);
     const dataOnlyAfterSearch = new FilterData().getSearchedData(rawData, mocDataForSubHeader.searchData);
     let dataAfterSort = dataAfterSearch;
-    if(mocDataForSubHeader.sort !== 'default') {
-      dataAfterSort = new FilterData().sortData(dataAfterSearch, mocDataForSubHeader.sort, mocDataForSubHeader.direction )
-    }   
+    if (mocDataForSubHeader.sort !== 'default') {
+      dataAfterSort = new FilterData().sortData(
+        dataAfterSearch,
+        mocDataForSubHeader.sort,
+        mocDataForSubHeader.direction
+      );
+    }
 
     // render filters
     const filtersContainer = this.createPageHTML(MainPage.textObject.filters);
 
     this.renderFilters(dataOnlyAfterSearch, filtersContainer, formData, () => {
-      this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer )
+      this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
     });
     const products = await this.createProductsCards(dataAfterSort);
-    console.log(dataOnlyAfterSearch)
+    // console.log(dataOnlyAfterSearch)
     //render search
     const subHeader = new Subheader().draw(mocDataForSubHeader, dataAfterSearch.length, () => {
       this.mainEvent.handlerEvent(filtersContainer, subHeadContainer, mainContainer);
-    })
+    });
     subHeadContainer.append(subHeader);
 
     mainContainer.append(filtersContainer, products);
@@ -136,10 +138,9 @@ class MainPage extends TemplatePage {
     const subHeader = new Subheader().draw(mocDataForSubHeader, length, () => {
       //callback()
       //const sortSearchFromData = new SubHeaderFormData().getFormData();
-    })
+    });
     parentNode.append(subHeader);
   }
-
 }
 
 export default MainPage;
