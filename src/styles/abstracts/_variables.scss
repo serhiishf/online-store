@@ -1,0 +1,12 @@
+$text-main-color: #000;
+$text-second-color: #5d5c5c;
+$border-color: #cfcfcf;
+$white-color: #fff;
+$active-color: #f1d627;
+$active-color-darker: #ffc117;
+
+$box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+$box-shadow-active: rgba(241, 214, 39, 0.6) 0px 1px 4px;
+$transition-dur: 300ms;
+$transition-foo: cubic-bezier(0.4, 0, 0.2, 1);
+$transition: $transition-dur $transition-foo;

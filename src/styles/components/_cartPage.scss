@@ -1,0 +1,34 @@
+.cart {
+  padding: 45px 0;
+  &__thumb {
+    @extend %main-container;
+  }
+
+  &__sub-thumb {
+    display: grid;
+    grid-template-areas:
+      'a c'
+      'b c';
+    gap: 20px;
+  }
+
+  &__product-list {
+    grid-area: b;
+    height: 100%;
+  }
+
+  &__header-thumb {
+    grid-area: a;
+  }
+  &__summary {
+    grid-area: c;
+  }
+}
+
+.alternative-txt {
+  font-size: 2rem;
+  font-weight: 600;
+  padding-top: 250px;
+  letter-spacing: 0.1em;
+  color: $text-second-color;
+}

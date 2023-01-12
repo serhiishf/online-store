@@ -1,0 +1,87 @@
+.header {
+    color: $text-second-color;
+    &__container {
+        @extend %main-container;
+    }
+    &__top,
+    &__bottom,
+    &__link-thumb {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+    &__top {
+        height: 50px;
+        border-bottom: 1px solid $border-color;
+    }
+    &__bottom {
+        height: 60px;
+    }
+    &__logo,
+    &__price-box {
+        font-size: 1.5rem;
+    }
+    &__logo,
+    &__price {
+        font-weight: 700;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        &::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+
+    &__link--phone {
+        &::before {
+            background-image: url('../assets/icons/phone.svg');
+        }
+    }
+    &__link--mail {
+        &::before {
+            background-image: url('../assets/icons/email.svg');
+        }
+    }
+    &__link--location {
+        &::before {
+            background-image: url('../assets/icons/location.svg');
+        }
+    }
+    &__link--sign-in {
+        @extend %btn;
+        &::before {
+            background-image: url('../assets/icons/sign-in.svg');
+        }
+    }
+
+    &__cart {
+        position: relative;
+    }
+    &__cart-image {
+        width: 60px;
+    }
+    &__cart-count {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        z-index: 1;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3rem;
+        font-weight: 700;
+        background-color: $active-color;
+        border-radius: 50%;
+    }
+}

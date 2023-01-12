@@ -1,0 +1,133 @@
+.cart__summary {
+  margin-top: 100px;
+  padding: 20px 15px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: solid 1px $border-color;
+  border-radius: 7px;
+
+  &-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+
+    text-align: center;
+    color: $text-second-color;
+    margin-bottom: 1rem;
+  }
+
+  &-inf-thumb {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+    // position: relative;
+  }
+
+  &-desc-thumb {
+    // position: absolute;
+    // top: -80px;
+  }
+
+  &-desc {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    color: $text-second-color;
+  }
+  &-desc > span {
+    color: $text-main-color;
+    font-weight: 800;
+  }
+
+  &-discount-title {
+    font-size: 1.3rem;
+    font-weight: 200;
+    font-style: italic;
+    color: $active-color;
+  }
+
+  &-discount-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &-discount-to-add,
+  &-discount-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  &-input {
+    width: 100%;
+    height: 32px;
+    font-size: 1.1rem;
+    border: 2px solid $border-color;
+    border-radius: 5px;
+    padding: 0 10px;
+    &:focus {
+      border: 2px solid $active-color;
+      outline: none;
+    }
+  }
+
+  &-exmpl {
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: 300;
+    color: $text-second-color;
+  }
+
+  &-buy-btn {
+    margin: 0 auto;
+
+    @extend %btn;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+    // color: $text-second-color;
+    color: #fff;
+    background: $active-color;
+    box-shadow: $box-shadow-active;
+    width: 100%;
+    max-width: 200px;
+    height: 50px;
+    border-radius: 30px;
+    transition: all $transition;
+
+    &:hover,
+    &:focus {
+      background-color: $active-color-darker;
+    }
+  }
+
+  .cross-out {
+    text-decoration: line-through;
+  }
+}
+
+.cart__discount-add-btn,
+.cart__discount-remove-btn {
+  @extend %btn;
+
+  width: 60px;
+  height: 40px;
+  border: solid 1px $border-color;
+  border-radius: 5px;
+  color: $text-second-color;
+  font-size: 1rem;
+  font-weight: 800;
+  transition: all $transition;
+  &:hover,
+  &:focus {
+    background-color: $border-color;
+  }
+}
