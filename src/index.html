@@ -50,12 +50,16 @@
             <div class="modal__title">Checkout page</div>
             <div class="modal__person-data-wrap">
               <div class="modal__input-wrap">
-                <input type="text" class="modal__name modal__input input" required pattern="[a-z]{4,8}" placeholder="First and Last name"/>
+                <input type="text" class="modal__name modal__input input" required placeholder="First and Last name" pattern="([a-zA-Zа-яА-Я0-9_]{3,}\s[a-zA-Zа-яА-Я0-9_]{3,})(?=.*[a-zA-Zа-яА-Я0-9_]).*$"/>
                 <div class="modal__input-description modal__input-description_name">Enter your First-name and Last-name</div>
               </div>
               <div class="modal__input-wrap">
                 <input type="text" class="modal__phone modal__input input" required placeholder="Phone number" pattern=".{10,18}"/>
                 <div class="modal__input-description modal__input-description_phone">Enter your phone number</div>
+              </div>
+              <div class="modal__input-wrap">
+                <input type="text" class="modal__address modal__input input" required pattern="([a-zA-Zа-яА-Я0-9_]{5,}\s[a-zA-Zа-яА-Я0-9_]{5,}\s[a-zA-Zа-яА-Я0-9_]{5,})(?=.*[a-zA-Zа-яА-Я0-9_]).*$" placeholder="Address"/>
+                <div class="modal__input-description modal__input-description_name">Enter your addres</div>
               </div>
               <div class="modal__input-wrap">
                 <input type="email" class="modal__email modal__input input" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
