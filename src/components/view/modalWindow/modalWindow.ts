@@ -47,7 +47,37 @@ export class ModalWindow {
     })
 
     //card expiration
-    const cardExp = <HTMLInputElement>modalWindow.querySelector('.credit-card__number');
+    const cardExp = <HTMLInputElement>modalWindow.querySelector('.credit-card__exp');
+    cardExp.addEventListener('input', () => {
+      const value = cardExp.value;
+      const regExpD = /[0-9]/;
+/*       const regExpFirstPart = /^(?:[0-1][1-2])\//;
+      if(value === regExpFirstPart) {
+
+      } */
+      //cardExp.value = value.replace(/\D/g, '');
+      if (cardExp.value[0] !== '0' && cardExp.value[0] !== '1') {
+        cardExp.value = '';
+      } else if(cardExp.value[0] === '1') {
+        if(cardExp.value[1] !== '1' && cardExp.value[1] !== '2' ) {
+          cardExp.value = cardExp.value.slice(0, 1);
+        }
+      }
+      if(cardExp.value.length === 2) {
+        cardExp.value = cardExp.value + '/';
+      }
+      if(!regExpD.test(cardExp.value[3])) {
+        cardExp.value = cardExp.value.slice(0, 3)
+      }
+      if(!regExpD.test(cardExp.value[4])) {
+        console.log('error')
+        cardExp.value = cardExp.value.slice(0, 4)
+      }
+      if(cardExp.value.length > 5) {
+        cardExp.value = cardExp.value.slice(0, 5);
+      }
+      
+    })
     
 
     //card cvv
