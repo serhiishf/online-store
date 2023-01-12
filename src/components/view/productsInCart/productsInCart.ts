@@ -1,5 +1,6 @@
 import { Cart, Product, ProductInCart as IProductInCart } from '../../../types';
 import { CartController } from '../../controller/cartController';
+import { CartSummaryController } from '../../controller/cartSummaryController';
 import { HeaderController } from '../../controller/headerController';
 import { LoaderSingleProduct } from '../../controller/loaderSingleProduct';
 import { parseRequestUrl } from '../../controller/parseRequestUrl';
@@ -25,6 +26,7 @@ export class ProductsInCart {
 
     this.listEl = document.createElement('ol');
     this.listEl.classList.add('cart__product-list');
+
     this.headerEl = new CartPageHeader(storageCart).draw();
     this.summaryEl = new CartSummary(storageCart).draw();
   }
@@ -58,6 +60,7 @@ export class ProductsInCart {
       incrBtnEl.disabled = false;
       CartController.removeOneProductOneType(prodId, prodPrice, prodQuantity);
       HeaderController.changeViewOnCartAction();
+      CartSummaryController.updateComponentOnAction();
 
       countEl.textContent = `${Number(<string>countEl.textContent) - prodQuantity}`;
       priceEl.textContent = `${Number(<string>priceEl.textContent) - prodPrice * prodQuantity}`;
@@ -103,6 +106,7 @@ export class ProductsInCart {
       const prodQuantity = 1;
       CartController.addProduct(prodId, prodPrice, prodQuantity);
       HeaderController.changeViewOnCartAction();
+      CartSummaryController.updateComponentOnAction();
 
       countEl.textContent = `${Number(<string>countEl.textContent) + prodQuantity}`;
       priceEl.textContent = `${Number(<string>priceEl.textContent) + prodPrice * prodQuantity}`;

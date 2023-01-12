@@ -93,7 +93,6 @@ export class CartController {
 
         cartParsed.activeDiscountCodes.forEach((el) => {
           const discount = Object.values(el)[0];
-          console.log(discount);
           cartParsed.discount = cartParsed.discount + Math.ceil((discount / 100) * cartParsed.totalPrice);
         });
         cartParsed.totalPriceAfterDiscount = cartParsed.totalPrice - cartParsed.discount;
