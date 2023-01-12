@@ -5,7 +5,7 @@ import TemplatePage from '../templatePage';
 
 class ProductPage extends TemplatePage {
   productObj!: ProductType;
-  view: Product;
+  //   view: Product;
   productId: string | null;
 
   static textObject = {
@@ -15,7 +15,7 @@ class ProductPage extends TemplatePage {
   constructor(pageName: string, productId: string | undefined) {
     super(pageName);
     this.productId = productId || null;
-    this.view = new Product();
+    // this.view = new Product(this.productObj);
   }
 
   private async fetchProduct() {
@@ -29,8 +29,11 @@ class ProductPage extends TemplatePage {
   public async render(): Promise<HTMLElement> {
     await this.fetchProduct();
     const thumb = this.createPageHTML(ProductPage.textObject.prodThumb);
-    const contentHTML = this.view.draw(this.productObj);
-    thumb.append(contentHTML);
+    if (this.productObj) {
+      const contentHTML = new Product(this.productObj).draw();
+      thumb.append(contentHTML);
+    }
+
     this.container.append(thumb);
     return this.container;
   }
