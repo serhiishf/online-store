@@ -52,7 +52,7 @@ export class CartSummary {
     const discountListEl = <HTMLUListElement>document.querySelector('.cart__summary-discount-list');
     const totalAfterPriceThumbEl = <HTMLElement>document.querySelector('.cart__summary-desc--after');
     const totalAfterPriceEl = <HTMLElement>document.querySelector('.cart__summary-data--price-after');
-    const totalPriceEl = <HTMLElement>document.querySelector('.cart__summary-desc--before');
+    const totalPriceThumbEl = <HTMLElement>document.querySelector('.cart__summary-desc--before');
 
     const targetElBtn = <HTMLElement>e.target;
     const discountName = <'RS' | 'EPM'>targetElBtn.id; //discount name: RS or EPM
@@ -63,6 +63,7 @@ export class CartSummary {
     if (cartStorage.activeDiscountCodes.length === 0) {
       discountListEl.insertAdjacentHTML('beforebegin', `<h3 class="cart__summary-discount-title">Applied codes</h3>`);
     }
+
     if (!isDiscountActive) {
       //add to Storage:
       CartController.setDiscount(discountName, Discount[discountName]);
@@ -79,9 +80,8 @@ export class CartSummary {
       );
 
       totalAfterPriceThumbEl.classList.remove('hidden');
-
-      totalAfterPriceEl.textContent = (<number>CartController.getTotalPriceAfterDiscount()).toString();
-      totalPriceEl.classList.add('cross-out');
+      totalAfterPriceEl.textContent = `${<number>CartController.getTotalPriceAfterDiscount()} $`;
+      totalPriceThumbEl.classList.add('cross-out');
       //add listener on new btn
       const newCreatedEl = document.querySelector(`.cart__summary-discount-item.${discountName}`);
       if (newCreatedEl) {
@@ -154,12 +154,13 @@ export class CartSummary {
     const discountListEl = <HTMLUListElement>prodClone.querySelector('.cart__summary-discount-list');
 
     totalCountEl.textContent = this.cart.totalCount.toString();
-    totalPriceEl.textContent = this.cart.totalPrice.toString();
+    totalPriceEl.textContent = `${this.cart.totalPrice} $`;
 
     if (this.cart.activeDiscountCodes.length > 0) {
+      discountListEl.insertAdjacentHTML('beforebegin', `<h3 class="cart__summary-discount-title">Applied codes</h3>`);
       totalPriceThumbEl.classList.add('cross-out');
       totalAfterThumbEl.classList.remove('hidden');
-      totalAfterPriceEl.textContent = this.cart.totalPriceAfterDiscount?.toString() || '';
+      totalAfterPriceEl.textContent = `${this.cart.totalPriceAfterDiscount} $`;
 
       this.cart.activeDiscountCodes.forEach((el) => {
         const discountName = <'RS' | 'EPM'>Object.keys(el)[0];

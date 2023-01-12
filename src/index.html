@@ -38,7 +38,7 @@
     </header>
 
     <main id="app"></main>
- 
+
     <footer></footer>
     <template id="modal">
       <div class="modal">
@@ -50,38 +50,79 @@
             <div class="modal__title">Checkout page</div>
             <div class="modal__person-data-wrap">
               <div class="modal__input-wrap">
-                <input type="text" class="modal__name modal__input input" required pattern="[a-z]{4,8}" placeholder="First and Last name"/>
-                <div class="modal__input-description modal__input-description_name">Enter your First-name and Last-name</div>
+                <input
+                  type="text"
+                  class="modal__name modal__input input"
+                  required
+                  pattern="[a-z]{4,8}"
+                  placeholder="First and Last name"
+                />
+                <div class="modal__input-description modal__input-description_name">
+                  Enter your First-name and Last-name
+                </div>
               </div>
               <div class="modal__input-wrap">
-                <input type="text" class="modal__phone modal__input input" required placeholder="Phone number" pattern=".{10,18}"/>
+                <input
+                  type="text"
+                  class="modal__phone modal__input input"
+                  required
+                  placeholder="Phone number"
+                  pattern=".{10,18}"
+                />
                 <div class="modal__input-description modal__input-description_phone">Enter your phone number</div>
               </div>
               <div class="modal__input-wrap">
-                <input type="email" class="modal__email modal__input input" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                <input
+                  type="email"
+                  class="modal__email modal__input input"
+                  required
+                  placeholder="Email"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                />
                 <div class="modal__input-description modal__input-description_email">Enter your email</div>
               </div>
             </div>
             <div class="modal__credit-card credit-card">
               <div class="modal__input-wrap">
-                <input type="text" class="credit-card__number modal__input input" required placeholder="Card number" pattern=".{16,16}"/>
+                <input
+                  type="text"
+                  class="credit-card__number modal__input input"
+                  required
+                  placeholder="Card number"
+                  pattern=".{16,16}"
+                />
                 <div class="modal__input-description modal__input-description_number">Enter credit card number</div>
               </div>
               <div class="modal__input-wrap">
-                <input type="text" class="credit-card__exp modal__input input" required placeholder="Expiration"/>
-                <div class="modal__input-description modal__input-description_exp">Enter valid cart data expiration </div>
+                <input type="text" class="credit-card__exp modal__input input" required placeholder="Expiration" />
+                <div class="modal__input-description modal__input-description_exp">
+                  Enter valid cart data expiration
+                </div>
               </div>
               <div class="modal__css-logo-wrap">
                 <div class="modal__input-wrap modal__input-wrap_cvv-logo">
-                  <input type="text" class="credit-card__cvv modal__input input" required placeholder="cvv" pattern=".{3,3}"/>
+                  <input
+                    type="text"
+                    class="credit-card__cvv modal__input input"
+                    required
+                    placeholder="cvv"
+                    pattern=".{3,3}"
+                  />
                   <div class="modal__input-description modal__input-description_cvv">Enter cvv</div>
                 </div>
-                <img src="/assets/img/visa.png" alt="visa" class="credit-card__logo credit-card__logo_disabled credit-card__logo_visa">
-                <img src="/assets/img/mastercard.png" alt="mastercard" class="credit-card__logo credit-card__logo_disabled credit-card__logo_mastercard">
+                <img
+                  src="/assets/img/visa.png"
+                  alt="visa"
+                  class="credit-card__logo credit-card__logo_disabled credit-card__logo_visa"
+                />
+                <img
+                  src="/assets/img/mastercard.png"
+                  alt="mastercard"
+                  class="credit-card__logo credit-card__logo_disabled credit-card__logo_mastercard"
+                />
               </div>
             </div>
             <div class="modal__submit-wrap">
-                       
               <div class="modal__message modal__message_disabled">Error! Fill information correct!</div>
               <div class="modal__btn">Confirm</div>
             </div>
@@ -338,28 +379,32 @@
     <template id="cart-summary">
       <h2 class="cart__summary-title">Summary</h2>
       <div class="cart__summary-inf-thumb">
-        <p class="cart__summary-desc">
-          Products:
-          <span class="cart__summary-data cart__summary-data--products"></span>
-        </p>
-        <p class="cart__summary-desc cart__summary-desc--before">
-          Total:
-          <span class="cart__summary-data cart__summary-data--price"></span>
-        </p>
-        <p class="cart__summary-desc cart__summary-desc--after hidden">
-          Total:
-          <span class="cart__summary-data cart__summary-data--price-after"></span>
-        </p>
+        <div class="cart__summary-desc-thumb">
+          <p class="cart__summary-desc">
+            Products:
+            <span class="cart__summary-data cart__summary-data--products"></span>
+          </p>
+          <p class="cart__summary-desc cart__summary-desc--before">
+            Total:
+            <span class="cart__summary-data cart__summary-data--price"></span>
+          </p>
+          <p class="cart__summary-desc cart__summary-desc--after hidden">
+            Total:
+            <span class="cart__summary-data cart__summary-data--price-after"></span>
+          </p>
+        </div>
+
         <!-- added discount list: -->
-        <ul class="cart__summary-discount-list"></ul>
+        <div>
+          <ul class="cart__summary-discount-list"></ul>
+        </div>
 
         <input class="cart__summary-input" type="search" placeholder="Enter promo code" />
         <p class="cart__summary-exmpl">Promo for test: 'RS' - 10%, 'EPM' - 20%</p>
         <!-- discount you cam add: -->
         <div class="cart__summary-discount-to-add"></div>
-
-        <button class="cart__summary-buy-btn" type="button">Buy now</button>
       </div>
+      <button class="cart__summary-buy-btn" type="button">Buy now</button>
     </template>
   </body>
 </html>
